@@ -1,0 +1,112 @@
+import { useState } from "react";
+
+export default function ContactPage() {
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userMessage, setUserMessage] = useState("");
+  const contact = [
+    {
+      label: "Address:",
+      details: "60-49 Road 11378 New York",
+      icon: (
+        <i class="fa-solid fa-location-dot text-PrimaryBlack/50 text-2xl"></i>
+      ),
+    },
+    {
+      label: "Phone:",
+      details: "+65 11.188.888",
+      icon: (
+        <i class="fa-solid fa-mobile-screen-button text-PrimaryBlack/50 text-2xl"></i>
+      ),
+    },
+    {
+      label: "Email:",
+      details: "hellocolorlib@gmail.com",
+      icon: (
+        <i class="fa-regular fa-envelope text-PrimaryBlack/50 text-2xl"></i>
+      ),
+    },
+  ];
+  return (
+    <main className="p-28">
+      <div className="w-full h-[560px]">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.35430854732!2d-74.13901858248282!3d41.02750616470831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sng!4v1696677207394!5m2!1sen!2sng"
+          width="100%"
+          height="560"
+          style={{ border: "none" }}
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div className="pt-12 w-full flex justify-between">
+        <div className="w-[46%]">
+          <p className="font-bold text-2xl text-PrimaryBlack pb-5">
+            Contact Us
+          </p>
+          <p className="text-base text-PrimaryBlack/80 pb-5">
+            Contrary to popular belief, Lorem Ipsum is simply random text. It
+            has roots in a piece of classical Latin literature from 45 BC, maki
+            years old.
+          </p>
+          <div className="flex w-full flex-col gap-4">
+            {contact.map((data) => {
+              return (
+                <div
+                  key={data.label}
+                  className="bg-white w-full h-20 rounded-lg shadow-2xl px-12 flex gap-12 items-center"
+                >
+                  {data.icon}
+                  <div className="flex flex-col">
+                    <p className="text-base text-PrimaryBlack/60 font-medium">
+                      {data.label}
+                    </p>
+                    <p className="text-[17px] text-PrimaryBlack font-medium">
+                      {data.details}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="w-[46%]">
+          <p className="font-bold text-2xl text-PrimaryBlack pb-5">
+            Leave A Comment
+          </p>
+          <p className="text-base text-PrimaryBlack/80 pb-5">
+            Our staff will call back later and answer your questions.
+          </p>
+          <div className="w-full flex justify-between pb-5">
+            <input
+              type="text"
+              value={userName}
+              placeholder="Your name"
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-[47%] py-3 border outline-none rounded pl-4 text-PrimaryBlack/70 text-[15px]"
+            />
+            <input
+              type="email"
+              value={userEmail}
+              placeholder="Your email"
+              onChange={(e) => setUserEmail(e.target.value)}
+              className="w-[47%] py-3 border outline-none pl-4 rounded text-PrimaryBlack/70 text-[15px]"
+            />
+          </div>
+          <textarea
+            name="message"
+            className="outline-none border h-40 rounded text-PrimaryBlack/70 text-[15px] px-4 py-3 w-full"
+            cols="30"
+            rows="10"
+          ></textarea>
+          <div className="pt-5">
+            <button className="bg-PrimaryOrange text-white text-[15px] font-bold border-npne px-6 py-2.5">
+              SEND MESSAGE
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
