@@ -10,7 +10,7 @@ export default function LanguageDropdownComponent({ clicked }) {
       style={{
         opacity: opacity,
       }}
-      className="absolute w-full duration-700 left-0 top-10 bg-white border px-2.5 py-1"
+      className="absolute w-full duration-700 left-0 top-10 bg-white border px-2.5 py-1 max-[900px]:w-[150px] max-[900px]:left-[calc(100%-150px)]"
     >
       <div
         onClick={() => clicked("English")}

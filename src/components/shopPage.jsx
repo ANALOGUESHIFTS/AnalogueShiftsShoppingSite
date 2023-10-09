@@ -137,8 +137,8 @@ export default function ShopPage() {
   }, []);
 
   return (
-    <main className="w-full p-28 flex">
-      <div className="w-[25%] flex flex-col">
+    <main className="w-full p-28 flex max-[1000px]:px-12 max-[800px]:px-8 max-[900px]:py-20 max-[900px]:flex-col max-[900px]:gap-6">
+      <div className="w-[25%] flex flex-col max-[900px]:w-full">
         <div className="flex flex-col pb-8">
           <p className="text-PrimaryBlack text-2xl font-bold pb-5">
             Categories
@@ -300,21 +300,21 @@ export default function ShopPage() {
           </div>
         </div>
       </div>
-      <div className="w-[75%]">
-        <div className="w-full flex justify-between items-center pb-5">
-          <div className="flex gap-3">
+      <div className="w-[75%] max-[900px]:w-full">
+        <div className="w-full flex justify-between items-center pb-5 max-[900px]:flex-col max-[900px]:gap-3">
+          <div className="flex max-[900px]:w-full gap-3 max-[900px]:gap-[5%]">
             <select
               value={sortingType}
               onChange={(e) => setSortingType(e.target.value)}
               name="Sorting"
-              className="outline-none border py-2.5 px-4 w-52 text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
+              className="outline-none border py-2.5 px-4 w-52 max-[900px]:w-[45%] text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
             >
               <option value="Default Sorting">Default Sorting</option>
             </select>
             <select
               value={showValue}
               onChange={(e) => setShowValue(e.target.value)}
-              className="outline-none border py-2.5 px-4 w-52 text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
+              className="outline-none border py-2.5 px-4 w-52 max-[900px]:w-[45%] text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
             >
               {optionsList.map((num) => {
                 return (
@@ -325,17 +325,20 @@ export default function ShopPage() {
               })}
             </select>
           </div>
-          <p className="text-base text-PrimaryBlack/70 font-semibold">
+          <p className="text-base text-PrimaryBlack/70 font-semibold max-[900px]:w-full">
             Show {showValue} Of {products.length} Product
           </p>
         </div>
         <div className="w-full flex flex-wrap gap-x-[2%] gap-y-4">
           {products.slice(0, showValue).map((data) => {
             return (
-              <div className="w-[31.3%] flex flex-col" key={data.img}>
+              <div
+                className="w-[31.3%] flex flex-col max-[900px]:w-full "
+                key={data.img}
+              >
                 <div
                   style={{ backgroundImage: `url(${data.img})` }}
-                  className="productImageBox w-full h-80 bg-cover bg-no-repeat overflow-hidden relative"
+                  className="productImageBox w-full h-80 max-[900px]:h-96 bg-cover bg-no-repeat overflow-hidden relative"
                 >
                   <button className="favouriteButton border-none duration-300 -translate-y-14 absolute top-5 right-5 bg-transparent text-PrimaryBlack">
                     <i className="fa-regular fa-heart text-lg"></i>

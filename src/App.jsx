@@ -63,7 +63,10 @@ function App() {
             <Route path="/shopping-cart" element={<ShoppingCart />} />
           </Routes>
           <footer className="w-full">
-            <div className="h-28 px-28 bg-[#303030] grid grid-cols-5 items-center">
+            <div
+              id="hideScrollBar"
+              className="h-28 px-28 bg-[#303030] grid grid-cols-5 items-center max-[800px]:px-5 max-[1000px]:px-12 max-[900px]:flex max-[900px]:w-full max-[900px]:gap-4 max-[900px]:overflow-x-scroll"
+            >
               {logos.map((logo) => {
                 return (
                   <img
@@ -74,7 +77,7 @@ function App() {
                 );
               })}
             </div>
-            <div className="bg-PrimaryBlack border-b border-solid border-white/50 p-28 w-full grid grid-cols-10">
+            <div className="bg-PrimaryBlack border-b border-solid border-white/50 p-28 w-full grid grid-cols-10 max-[1000px]:px-12 max-[800px]:px-5 max-[800px]:py-20 max-[900px]:flex max-[900px]:flex-col max-[900px]:gap-5">
               <div className="col-span-3 flex flex-col">
                 <Link to="/">
                   <img src="/src/assets/images/footer-logo.png" alt="" />

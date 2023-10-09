@@ -74,14 +74,14 @@ export default function HomeSectionTwo() {
   };
 
   return (
-    <div className="w-full px-28 py-14">
-      <div className="w-full flex justify-between pb-14">
+    <div className="w-full px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5">
+      <div className="w-full flex justify-between pb-14 max-[900px]:flex-col max-[900px]:justify-center max-[900px]:gap-5">
         {collections.map((data) => {
           return (
             <div
               style={{ backgroundImage: `url(${data.image})` }}
               key={data.title}
-              className="bg-no-repeat bg-cover w-[31%] h-52 flex items-center justify-center relative collectionBox"
+              className="bg-no-repeat bg-cover max-[900px]:w-full w-[31%] h-52 flex items-center justify-center relative collectionBox"
             >
               <p className="bg-white px-6 py-2.5 font-bold text-xl text-PrimaryBlack">
                 {data.title}
@@ -90,12 +90,12 @@ export default function HomeSectionTwo() {
           );
         })}
       </div>
-      <div className="h-[620px] flex gap-[3%]">
+      <div className="h-[620px] flex gap-[3%] max-[900px]:h-auto max-[900px]:flex-col">
         <div
           style={{
             backgroundImage: "url(src/assets/images/women-large.jpg.webp)",
           }}
-          className="h-full w-[26%] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
+          className="h-full w-[26%] max-[900px]:w-full max-[900px]:h-[620px] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
         >
           <p className="text-white font-extrabold text-[50px]">Women's</p>
           <Link
@@ -105,7 +105,7 @@ export default function HomeSectionTwo() {
             Discover More
           </Link>
         </div>
-        <div className="w-[71%] h-full flex flex-col justify-center">
+        <div className="w-[71%] h-full flex flex-col justify-center max-[900px]:w-full max-[900px]:py-3">
           <div className="flex justify-center gap-5">
             {categories.map((category) => {
               return (

@@ -10,17 +10,17 @@ export default function HeaderComponent() {
   const [numberOfFavourites, setNumberOfFavourites] = useState(1);
   const [numberOfCart, setNumberOfCart] = useState(3);
   return (
-    <div className="w-full px-28 py-12 flex justify-between items-center">
+    <div className="w-full px-28 py-12 flex justify-between max-[1000px]:justify-around max-[900px]:gap-4 max-[900px]:py-2 max-[900px]:flex-col items-center max-[1000px]:px-12 max-[800px]:px-3">
       {/* LOGO */}
       <img src="/src/assets/images/dummy-logo.png" alt="" />
 
-      <div className="h-14 border flex items-center">
-        <div className="h-6 border-r px-4">
+      <div className="h-14 max-[900px]:w-[80%] border flex items-center">
+        <div className="h-6 border-r max-[900px]:hidden px-4">
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             name="Categories"
-            className="text-PrimaryBlack w-40 cursor-pointer outline-none"
+            className="text-PrimaryBlack w-40 cursor-pointer outline-none max-[1000px]:w-32"
           >
             {categories.map((value) => (
               <option key={value} value={value}>
@@ -33,14 +33,14 @@ export default function HeaderComponent() {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="What do you need?"
-          className="outline-none pl-4 text-PrimaryBlack/50 w-96"
+          className="outline-none pl-4 text-PrimaryBlack/50 w-96 max-[1000px]:w-44 max-[900px]:w-[75%]"
           type="text"
         />
-        <div className="h-14 w-14 flex justify-center items-center bg-PrimaryOrange">
+        <div className="h-14 w-14 flex justify-center items-center bg-PrimaryOrange max-[900px]:w-[25%]">
           <i class="fa-solid fa-magnifying-glass text-white"></i>
         </div>
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center max-[900px]:w-[80%]">
         <a href="">
           <div className="relative pt-1 pr-2">
             <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">

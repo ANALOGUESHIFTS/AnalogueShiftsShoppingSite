@@ -45,7 +45,7 @@ export default function BlogSection() {
     },
   ];
   return (
-    <div className="px-28 py-14">
+    <div className="px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5">
       <div className="w-full flex pb-8 justify-center">
         <p
           id="dealOfTheWeekTitle"
@@ -54,10 +54,13 @@ export default function BlogSection() {
           From The Blog
         </p>
       </div>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between max-[900px]:flex-col max-[900px]:gap-4">
         {blogs.map((data) => {
           return (
-            <div key={data.title} className="w-[31.5%] h-auto flex flex-col">
+            <div
+              key={data.title}
+              className="w-[31.5%] h-auto flex flex-col max-[900px]:w-full"
+            >
               <img
                 className="object-cover w-full h-60"
                 src={data.image}
@@ -90,11 +93,11 @@ export default function BlogSection() {
         })}
       </div>
       <div className="pt-14 w-full">
-        <div className="w-full border-y border-l grid grid-cols-3 h-28">
+        <div className="w-full border-y border-l grid grid-cols-3 h-28 max-[900px]:border max-[900px]:flex max-[900px]:flex-col max-[900px]:h-auto max-[900px]:py-5 max-[900px]:gap-8">
           {perks.map((data) => {
             return (
               <div
-                className="col-span-1 h-full flex justify-center items-center gap-4 border-r"
+                className="col-span-1 h-full flex justify-center items-center gap-4 border-r max-[900px]:w-full max-[900px]:border-r-none max-[900px]:justify-start max-[900px]:px-[15%]"
                 key={data.title}
               >
                 <img src={data.icon} alt="" />

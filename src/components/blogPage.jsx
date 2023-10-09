@@ -65,11 +65,11 @@ export default function BlogPage() {
   };
 
   return (
-    <main className="w-full p-28 flex">
-      <div className="w-[25%] flex flex-col">
+    <main className="w-full p-28 flex max-[1000px]:px-12 max-[900px]:py-20 max-[800px]:px-5 max-[900px]:flex-col max-[900px]:gap-6">
+      <div className="w-[25%] flex flex-col max-[900px]:w-full">
         <div className="flex flex-col pb-8">
           <p className="text-PrimaryBlack text-2xl font-bold pb-5">Search</p>
-          <div className="w-[90%] flex h-11">
+          <div className="w-[90%] max-[900px]:w-full flex h-11">
             <input
               type="search"
               placeholder="Search..."
@@ -102,7 +102,7 @@ export default function BlogPage() {
           <p className="text-PrimaryBlack text-2xl font-bold pb-5">
             Recent Post
           </p>
-          <div className="w-[90%] flex flex-col gap-4">
+          <div className="w-[90%] max-[900px]:w-full flex flex-col gap-4">
             {blogs.slice(0, 4).map((data) => {
               return (
                 <Link key={data.title} to="" className="w-full flex gap-4 h-20">
@@ -152,11 +152,14 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
-      <div className="w-[75%]">
+      <div className="w-[75%] max-[900px]:w-full">
         <div className="w-full flex flex-wrap gap-x-[4%] gap-y-4">
           {blogs.slice(0, showValue).map((data) => {
             return (
-              <div className="w-[48%] flex flex-col" key={data.img}>
+              <div
+                className="w-[48%] flex flex-col max-[900px]:w-full"
+                key={data.img}
+              >
                 <div
                   style={{ backgroundImage: `url(${data.img})` }}
                   className=" w-full h-72 bg-cover bg-no-repeat overflow-hidden relative"

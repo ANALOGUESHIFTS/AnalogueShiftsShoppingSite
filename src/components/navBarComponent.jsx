@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function NavBarComponent() {
-  const [navbarHeight, setNavbarHeight] = useState("112px");
+  const [navbarHeight, setNavbarHeight] = useState("0px");
   const [selectedDepartment, setSelectedDepartment] =
     useState("All Department");
   const [departments, setDepartments] = useState([
@@ -19,14 +19,11 @@ export default function NavBarComponent() {
   const pathname = useLocation().pathname;
 
   const toggleHeight = () => {
-    setNavbarHeight((prev) => (prev === "112px" ? "auto" : "112px"));
+    setNavbarHeight((prev) => (prev === "0px" ? "auto" : "0px"));
   };
   return (
-    <div
-      className="w-full bg-PrimaryBlack duration-500 px-28 flex flex-col"
-      style={{ height: navbarHeight }}
-    >
-      <nav className="h-14 w-full grid grid-cols-8">
+    <div className="w-full h-auto bg-PrimaryBlack duration-500 px-28 flex flex-col max-[1000px]:px-12 max-[900px]:px-4">
+      <nav className="h-14 w-full grid grid-cols-8 max-[900px]:hidden">
         <div
           id="departmentsBox"
           className="col-span-2 relative flex justify-between items-center px-4 bg-[#3b3b3b] cursor-pointer"
@@ -153,7 +150,7 @@ export default function NavBarComponent() {
           </ul>
         </Link>
       </nav>
-      <div className="w-full overflow-hidden h-auto pb-2 min-h-[56px] bg-[#4c4c4c]">
+      <div className="w-full overflow-hidden h-auto min-h-[56px] pb-0 bg-[#4c4c4c]">
         <div className="w-full h-14 flex items-center px-3 justify-end">
           <button
             className="bg-PrimaryBlack border-none rounded px-4 py-2 flex items-center gap-2 text-white font-semibold text-[15px]"
@@ -162,7 +159,7 @@ export default function NavBarComponent() {
             MENU <i className="fa-solid fa-bars"></i>
           </button>
         </div>
-        <div className="px-[5%] flex flex-col h-auto">
+        <div style={{ height: navbarHeight }} className="px-[5%] flex flex-col">
           <Link
             to="/"
             className="h-8 flex items-center rounded px-3 text-white text-[15px] hover:bg-white/50 hover:text-PrimaryBlack"
@@ -246,23 +243,23 @@ export default function NavBarComponent() {
             </p>
             <ul
               id="mobilePages"
-              className=" w-full h-0 overflow-hidden pl-5 pt-2 flex flex-col"
+              className=" w-full h-0 overflow-hidden pl-5 pt-2 pb-2 flex flex-col"
             >
               {[
-                "Blog Details",
-                "Shopping Cart",
-                "Checkout",
-                "Faq",
-                "Register",
-                "Login",
+                { name: "Blog Details", path: "/blog-details" },
+                { name: "Shopping Cart", path: "/shopping-cart" },
+                { name: "Checkout", path: "/checkout" },
+                { name: "Faq", path: "/faq" },
+                { name: "Register", path: "/register" },
+                { name: "Login", path: "/login" },
               ].map((data) => {
                 return (
-                  <li key={data} className="">
+                  <li key={data.name} className="">
                     <Link
-                      to=""
+                      to={data.path}
                       className="h-8 flex items-center rounded px-3 text-white text-[15px] hover:bg-white/50 hover:text-PrimaryBlack"
                     >
-                      {data}
+                      {data.name}
                     </Link>
                   </li>
                 );

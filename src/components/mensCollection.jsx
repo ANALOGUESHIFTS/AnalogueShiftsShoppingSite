@@ -50,9 +50,9 @@ export default function MensCollection() {
     }
   };
   return (
-    <div className="w-full px-28 py-14">
-      <div className="h-[620px] flex gap-[3%]">
-        <div className="w-[71%] h-full flex flex-col justify-center">
+    <div className="w-full px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5">
+      <div className="h-[620px] flex gap-[3%] max-[900px]:h-auto max-[900px]:flex-col">
+        <div className="w-[71%] h-full flex flex-col justify-center max-[900px]:w-full max-[900px]:py-3">
           <div className="flex justify-center gap-5">
             {categories.map((category) => {
               return (
@@ -154,7 +154,7 @@ export default function MensCollection() {
           style={{
             backgroundImage: "url(src/assets/images/man-large.jpg.webp)",
           }}
-          className="h-full w-[26%] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
+          className="h-full w-[26%] max-[900px]:w-full max-[900px]:h-[620px] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
         >
           <p className="text-white font-extrabold text-[50px]">Men's</p>
           <Link

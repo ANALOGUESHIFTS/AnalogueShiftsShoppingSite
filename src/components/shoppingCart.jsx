@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ShoppingCart() {
   const [cartProducts, setCartProducts] = useState([
@@ -24,6 +24,7 @@ export default function ShoppingCart() {
       quantity: 1,
     },
   ]);
+  const [total, setTotal] = useState(0);
 
   const handleQuantityChange = (id, newQuantity) => {
     setCartProducts(
@@ -41,81 +42,134 @@ export default function ShoppingCart() {
     setCartProducts(cartProducts.filter((data) => data.id !== id));
   };
 
-  return (
-    <main className="p-28">
-      <div className="w-full border pb-8">
-        <div className="w-full border-b grid grid-cols-6 h-14 items-center px-6 mb-6 gap-8">
-          <p className="col-span-1 text-center text-PrimaryBlack font-bold text-base">
-            IMAGE
-          </p>
-          <p className="col-span-2 text-PrimaryBlack font-bold text-base">
-            PRODUCT NAME
-          </p>
-          <p className="col-span-1 text-PrimaryBlack font-bold text-base">
-            PRICE
-          </p>
-          <p className="col-span-1 text-PrimaryBlack font-bold text-base">
-            QUANTITY
-          </p>
-          <p className="col-span-1 text-PrimaryBlack font-bold text-base">
-            TOTAL
-          </p>
-        </div>
+  useEffect(() => {
+    setTotal(0);
+    cartProducts.forEach((data) => {
+      setTotal((prev) => (prev += data.price * data.quantity));
+    });
+  }, [cartProducts]);
 
-        <div className="w-full flex flex-col gap-6">
-          {cartProducts.map((data) => {
-            return (
-              <div
-                key={data.id}
-                className="w-full grid grid-cols-6 items-center px-6 gap-8 h-40"
-              >
+  return (
+    <main className="p-28 max-[800px]:px-5 max-[1000px]:px-12 max-[900px]:py-20">
+      <div className="w-full overflow-x-auto ">
+        <div className="w-full border pb-8 max-[900px]:w-[700px]">
+          <div className="w-full border-b grid grid-cols-6 h-14 items-center px-6 mb-6 gap-8">
+            <p className="col-span-1 text-center text-PrimaryBlack font-bold text-xs">
+              IMAGE
+            </p>
+            <p className="col-span-2 text-PrimaryBlack font-bold text-xs">
+              PRODUCT NAME
+            </p>
+            <p className="col-span-1 text-PrimaryBlack font-bold text-xs">
+              PRICE
+            </p>
+            <p className="col-span-1 text-PrimaryBlack font-bold text-xs">
+              QUANTITY
+            </p>
+            <p className="col-span-1 text-PrimaryBlack font-bold text-xs">
+              TOTAL
+            </p>
+          </div>
+
+          <div className="w-full flex flex-col gap-6">
+            {cartProducts.map((data) => {
+              return (
                 <div
-                  style={{ backgroundImage: `url(${data.image})` }}
-                  className="h-full col-span-1 bg-cover bg-center"
-                ></div>
-                <p className="col-span-2 text-PrimaryBlack text-[17px]">
-                  {data.name}
-                </p>
-                <p className="col-span-1 text-PrimaryOrange font-bold text-base">
-                  ${data.price}
-                </p>
-                <div className="col-span-1">
-                  <div className="flex h-9 w-auto border-2 border-solid border-PrimaryBlack/20">
-                    <button
-                      onClick={() =>
-                        handleQuantityChange(data.id, data.quantity - 1)
-                      }
-                      className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center"
-                    >
-                      -
-                    </button>
-                    <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold">
-                      {data.quantity}
+                  key={data.id}
+                  className="w-full grid grid-cols-6 items-center px-6 gap-8 h-40 max-[900px]:h-20"
+                >
+                  <div
+                    style={{ backgroundImage: `url(${data.image})` }}
+                    className="h-full col-span-1 bg-cover bg-center"
+                  ></div>
+                  <p className="col-span-2 text-PrimaryBlack text-[17px]">
+                    {data.name}
+                  </p>
+                  <p className="col-span-1 text-PrimaryOrange font-bold text-base">
+                    ${data.price}
+                  </p>
+                  <div className="col-span-1">
+                    <div className="flex h-9 w-auto border-2 border-solid border-PrimaryBlack/20 max-[900px]:grid max-[900px]:grid-cols-3">
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(data.id, data.quantity - 1)
+                        }
+                        className="border-none max-[900px]:col-span-1 bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl max-[900px]:px-0 max-[900px]:justify-center"
+                      >
+                        -
+                      </button>
+                      <p className="px-5 h-full max-[900px]:col-span-1 flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm max-[900px]:px-0 max-[900px]:justify-center">
+                        {data.quantity}
+                      </p>
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(data.id, data.quantity + 1)
+                        }
+                        className="border-none bg-transparent max-[900px]:col-span-1 text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl max-[900px]:px-0 max-[900px]:justify-center"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-span-1 flex justify-between items-center">
+                    <p className="col-span-2 text-PrimaryOrange font-bold text-base">
+                      ${data.price * data.quantity}
                     </p>
                     <button
-                      onClick={() =>
-                        handleQuantityChange(data.id, data.quantity + 1)
-                      }
-                      className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center"
+                      onClick={() => removeItem(data.id)}
+                      className="border-none bg-transparent text-PrimaryBlack/90 text-lg font-thin"
                     >
-                      +
+                      <i className="fa-solid fa-xmark"></i>
                     </button>
                   </div>
                 </div>
-                <div className="col-span-1 flex justify-between items-center">
-                  <p className="col-span-2 text-PrimaryOrange font-bold text-base">
-                    ${data.price * data.quantity}
-                  </p>
-                  <button
-                    onClick={() => removeItem(data.id)}
-                    className="border-none bg-transparent text-PrimaryBlack/90 text-lg font-thin"
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      <div className="w-full mt-7 flex justify-between max-[900px]:flex-col">
+        <div className="w-[330px] flex flex-col max-[900px]:w-full">
+          <div className="flex justify-between w-full">
+            <button className="w-[57%] h-12 flex justify-center items-center border-2 border-solid border-black/10 text-sm text-PrimaryBlack/30 font-bold">
+              CONTINUE SHOPPING
+            </button>
+            <button className="w-[40%] h-12 flex justify-center items-center border-solid border-black/10 text-sm text-PrimaryBlack font-bold bg-black/10 border-2">
+              UPDATE CART
+            </button>
+          </div>
+          <p className="pt-8 font-bold text-PrimaryBlack text-base pb-3">
+            DISCOUNT CODES
+          </p>
+          <div className="w-full h-12 border flex">
+            <input
+              type="text"
+              className="w-[80%] outline-none pl-5"
+              placeholder="Enter your codes"
+            />
+            <button className="w-[20%] h-12 flex justify-center items-center text-sm text-PrimaryBlack font-bold border-none">
+              APPLY
+            </button>
+          </div>
+        </div>
+        <div className="w-[330px] max-[900px]:w-full bg-black/10  grid grid-rows-3">
+          <div className="row-span-1 border-x-2 border-t-2 border-solid border-black/10 w-full px-5 pt-3">
+            <div className="w-full h-full flex justify-between border-b border-solid border-white">
+              <p className="text-PrimaryBlack text-base font-medium">
+                Subtotal
+              </p>
+              <p className="text-base font-bold text-PrimaryBlack">${total}</p>
+            </div>
+          </div>
+          <div className="row-span-1 w-full border-x-2 border-solid border-black/10 px-5 pt-3">
+            <div className="w-full h-full flex justify-between border-b border-solid">
+              <p className="text-base font-bold text-PrimaryBlack">TOTAL</p>
+              <p className="text-base font-bold text-PrimaryOrange">${total}</p>
+            </div>
+          </div>
+          <button className="row-span-1 w-full flex justify-center items-center bg-PrimaryBlack text-base font-bold text-white">
+            PROCEED TO CHECK OUT
+          </button>
         </div>
       </div>
     </main>
