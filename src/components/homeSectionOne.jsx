@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 
 export default function HomeSectionOne() {
   const [backgroundImage, setBackgroundImage] = useState(
-    "src/assets/images/hero-1.jpg.webp"
+    "/images/hero-1.jpg.webp"
   );
 
   const handleResize = () => {
     if (window.innerWidth <= 900) {
       setBackgroundImage("");
     } else {
-      setBackgroundImage("src/assets/images/hero-1.jpg.webp");
+      setBackgroundImage("/images/hero-1.jpg.webp");
     }
   };
 

@@ -7,26 +7,26 @@ export default function MensCollection() {
 
   const products = [
     {
-      img: "src/src/assets/images/man-1.jpg",
+      img: "images/man-1.jpg",
       category: "COAT",
       name: "Pure Pineapple",
       priceBefore: "$35.00",
       priceAfter: "$14.00",
     },
     {
-      img: "src/src/assets/images/man-2.jpg",
+      img: "images/man-2.jpg",
       category: "SHOES",
       name: "Pure Coat",
       priceAfter: "$25.00",
     },
     {
-      img: "src/src/assets/images/man-3.jpg",
+      img: "images/man-3.jpg",
       category: "CLOTHES",
       name: "Pure Coat",
       priceAfter: "$40.00",
     },
     {
-      img: "src/src/assets/images/man-4.jpg",
+      img: "images/man-4.jpg",
       category: "SHOES",
       name: "Pure Coat",
       priceAfter: "$25.00",
@@ -152,7 +152,7 @@ export default function MensCollection() {
 
         <div
           style={{
-            backgroundImage: "url(src/src/assets/images/man-large.jpg.webp)",
+            backgroundImage: "url(images/man-large.jpg.webp)",
           }}
           className="h-full w-[26%] max-[900px]:w-full max-[900px]:h-[620px] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
         >

@@ -43,8 +43,8 @@ export default function TopbarComponent() {
             <img
               src={
                 languageSelected === "English"
-                  ? "src/assets/images/usa-flag.webp"
-                  : "src/assets/images/germany-flag.webp"
+                  ? "/images/usa-flag.webp"
+                  : "/images/germany-flag.webp"
               }
               alt=""
             />

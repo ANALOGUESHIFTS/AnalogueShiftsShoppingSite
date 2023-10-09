@@ -12,7 +12,7 @@ export default function HeaderComponent() {
   return (
     <div className="w-full px-28 py-12 flex justify-between max-[1000px]:justify-around max-[900px]:gap-4 max-[900px]:py-2 max-[900px]:flex-col items-center max-[1000px]:px-12 max-[800px]:px-3">
       {/* LOGO */}
-      <img src="src/assets/images/dummy-logo.png" alt="" />
+      <img src="/images/dummy-logo.png" alt="" />
 
       <div className="h-14 max-[900px]:w-[80%] border flex items-center">
         <div className="h-6 border-r max-[900px]:hidden px-4">
