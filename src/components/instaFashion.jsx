@@ -4,27 +4,27 @@ export default function InstaFashion() {
   const instaCollection = [
     {
       collectionId: "insta-collection-01",
-      img: "src/assets/images/insta-1.jpg.webp",
+      img: "src/src/assets/images/insta-1.jpg.webp",
     },
     {
       collectionId: "insta-collection-02",
-      img: "src/assets/images/insta-2.jpg.webp",
+      img: "src/src/assets/images/insta-2.jpg.webp",
     },
     {
       collectionId: "insta-collection-03",
-      img: "src/assets/images/insta-3.jpg.webp",
+      img: "src/src/assets/images/insta-3.jpg.webp",
     },
     {
       collectionId: "insta-collection-04",
-      img: "src/assets/images/insta-4.jpg.webp",
+      img: "src/src/assets/images/insta-4.jpg.webp",
     },
     {
       collectionId: "insta-collection-05",
-      img: "src/assets/images/insta-5.jpg.webp",
+      img: "src/src/assets/images/insta-5.jpg.webp",
     },
     {
       collectionId: "insta-collection-06",
-      img: "src/assets/images/insta-6.jpg.webp",
+      img: "src/src/assets/images/insta-6.jpg.webp",
     },
   ];
   return (

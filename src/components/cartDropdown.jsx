@@ -3,12 +3,12 @@ import { useState } from "react";
 export default function CartDropdown() {
   const [carts, setCarts] = useState([
     {
-      image: "/src/assets/images/select-product-1.jpg.webp",
+      image: "src/assets/images/select-product-1.jpg.webp",
       amount: "$60.00 x 1",
       name: "Kabino Bedside Table",
     },
     {
-      image: "/src/assets/images/select-product-2.jpg.webp",
+      image: "src/assets/images/select-product-2.jpg.webp",
       amount: "$60.00 x 1",
       name: "Kabino Bedside Table",
     },

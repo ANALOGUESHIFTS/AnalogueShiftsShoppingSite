@@ -16,14 +16,14 @@ export default function LanguageDropdownComponent({ clicked }) {
         onClick={() => clicked("English")}
         className="flex items-center gap-2 cursor-pointer"
       >
-        <img src="/src/assets/images/usa-flag.webp" alt="" />
+        <img src="src/assets/images/usa-flag.webp" alt="" />
         <p className="text-PrimaryBlack text-sm">English</p>
       </div>
       <div
         onClick={() => clicked("German")}
         className="flex items-center gap-2 cursor-pointer"
       >
-        <img src="/src/assets/images/germany-flag.webp" alt="" />
+        <img src="src/assets/images/germany-flag.webp" alt="" />
         <p className="text-PrimaryBlack text-sm">German</p>
       </div>
     </div>

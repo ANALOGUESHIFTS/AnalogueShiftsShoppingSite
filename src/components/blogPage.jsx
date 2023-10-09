@@ -3,37 +3,37 @@ import { Link } from "react-router-dom";
 
 const blogs = [
   {
-    img: "/src/assets/images/blog-1.jpg.webp",
+    img: "src/assets/images/blog-1.jpg.webp",
     title: "The Personality Trait That Makes People Happier",
     category: "TRAVEL",
     date: "May 19, 2019",
   },
   {
-    img: "/src/assets/images/blog-2.jpg.webp",
+    img: "src/assets/images/blog-2.jpg.webp",
     title: "This was one of our first days in Hawaii last week.",
     category: "FASHION",
     date: "May 19, 2019",
   },
   {
-    img: "/src/assets/images/blog-3.jpg.webp",
+    img: "src/assets/images/blog-3.jpg.webp",
     title: "Last week I had my first work trip of the year to Sonoma Valley",
     category: "TRAVEL",
     date: "May 19, 2019",
   },
   {
-    img: "/src/assets/images/blog-4.jpg.webp",
+    img: "src/assets/images/blog-4.jpg.webp",
     title: "Happppppy New Year! I know I am a little late on this post",
     category: "FASHION",
     date: "May 19, 2019",
   },
   {
-    img: "/src/assets/images/blog-5.jpg.webp",
+    img: "src/assets/images/blog-5.jpg.webp",
     title: "Absolue collection. The Lancome team has been one…",
     category: "MODEL",
     date: "May 19, 2019",
   },
   {
-    img: "/src/assets/images/blog-6.jpg.webp",
+    img: "src/assets/images/blog-6.jpg.webp",
     title: "Writing has always been kind of therapeutic for me",
     category: "FASHION",
     date: "May 19, 2019",

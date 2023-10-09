@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function BlogSection() {
   const blogs = [
     {
-      image: "/src/assets/images/latest-1.jpg",
+      image: "src/assets/images/latest-1.jpg",
       date: "May 4,2023",
       comments: "5",
       title: "The Best Street Style From London Fashion Week",
@@ -11,7 +11,7 @@ export default function BlogSection() {
         "Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat",
     },
     {
-      image: "/src/assets/images/latest-2.jpg",
+      image: "src/assets/images/latest-2.jpg",
       date: "May 4,2023",
       comments: "5",
       title: "Vogue's Ultimate Guide To Autumn/Winter 2023 Shoes",
@@ -19,7 +19,7 @@ export default function BlogSection() {
         "Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat",
     },
     {
-      image: "/src/assets/images/latest-3.jpg",
+      image: "src/assets/images/latest-3.jpg",
       date: "May 4,2023",
       comments: "5",
       title: "How To Brighten Your Wardrobe With A Dash Of Lime",
@@ -29,17 +29,17 @@ export default function BlogSection() {
   ];
   const perks = [
     {
-      icon: "src/assets/images/icon-1.png",
+      icon: "src/src/assets/images/icon-1.png",
       title: "FREE SHIPPING",
       description: "For all order over 99$",
     },
     {
-      icon: "src/assets/images/icon-2.png",
+      icon: "src/src/assets/images/icon-2.png",
       title: "DELIVERY ON TIME",
       description: "If good have prolems",
     },
     {
-      icon: "src/assets/images/icon-1.png",
+      icon: "src/src/assets/images/icon-1.png",
       title: "SECURE PAYMENT",
       description: "100% secure payment",
     },

@@ -25,7 +25,7 @@ export default function DealOfTheWeek() {
   return (
     <div className="w-full px-12 py-14 max-[1000px]:px-0 max-[900px]:pt-0 max-[900px]:py-10">
       <div
-        style={{ backgroundImage: "url(/src/assets/images/time-bg.jpg.webp)" }}
+        style={{ backgroundImage: "url(src/assets/images/time-bg.jpg.webp)" }}
         className="h-[550px] bg-cover bg-center max-[900px]:h-auto max-[900px]:px-[10%] max-[900px]:py-12 w-full flex flex-col justify-center pl-32 max-[900px]:pl-0 max-[900px]:items-center"
       >
         <div className="w-[420px] flex flex-col justify-center items-center">

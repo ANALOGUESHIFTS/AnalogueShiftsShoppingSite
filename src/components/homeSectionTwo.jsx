@@ -11,47 +11,47 @@ export default function HomeSectionTwo() {
   const collections = [
     {
       title: "Men's",
-      image: "/src/assets/images/banner-1.jpg",
+      image: "src/assets/images/banner-1.jpg",
     },
     {
       title: "Women's",
-      image: "/src/assets/images/banner-2.jpg",
+      image: "src/assets/images/banner-2.jpg",
     },
     {
       title: "Kid's",
-      image: "/src/assets/images/banner-3.jpg",
+      image: "src/assets/images/banner-3.jpg",
     },
   ];
 
   const products = [
     {
-      img: "src/assets/images/women-2.jpg.webp",
+      img: "src/src/assets/images/women-2.jpg.webp",
       category: "SHOES",
       name: "Pure Coat",
       priceAfter: "$25.00",
     },
 
     {
-      img: "src/assets/images/women-1.jpg.webp",
+      img: "src/src/assets/images/women-1.jpg.webp",
       category: "COAT",
       name: "Pure Pineapple",
       priceBefore: "$35.00",
       priceAfter: "$14.00",
     },
     {
-      img: "src/assets/images/women-2.jpg.webp",
+      img: "src/src/assets/images/women-2.jpg.webp",
       category: "SHOES",
       name: "Pure Coat",
       priceAfter: "$25.00",
     },
     {
-      img: "src/assets/images/women-3.jpg.webp",
+      img: "src/src/assets/images/women-3.jpg.webp",
       category: "CLOTHES",
       name: "Pure Coat",
       priceAfter: "$40.00",
     },
     {
-      img: "src/assets/images/women-4.jpg.webp",
+      img: "src/src/assets/images/women-4.jpg.webp",
       category: "SHOES",
       name: "Pure Coat",
       priceAfter: "$25.00",
@@ -93,7 +93,7 @@ export default function HomeSectionTwo() {
       <div className="h-[620px] flex gap-[3%] max-[900px]:h-auto max-[900px]:flex-col">
         <div
           style={{
-            backgroundImage: "url(src/assets/images/women-large.jpg.webp)",
+            backgroundImage: "url(src/src/assets/images/women-large.jpg.webp)",
           }}
           className="h-full w-[26%] max-[900px]:w-full max-[900px]:h-[620px] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
         >

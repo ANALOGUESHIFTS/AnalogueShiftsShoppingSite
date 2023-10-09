@@ -23,11 +23,11 @@ function App() {
 
   //Logos
   const logos = [
-    "src/assets/images/logo-1.png",
-    "src/assets/images/logo-2.png",
-    "src/assets/images/logo-3.png",
-    "src/assets/images/logo-4.png",
-    "src/assets/images/logo-5.png",
+    "src/src/assets/images/logo-1.png",
+    "src/src/assets/images/logo-2.png",
+    "src/src/assets/images/logo-3.png",
+    "src/src/assets/images/logo-4.png",
+    "src/src/assets/images/logo-5.png",
   ];
 
   //Social Icons
@@ -80,7 +80,7 @@ function App() {
             <div className="bg-PrimaryBlack border-b border-solid border-white/50 p-28 w-full grid grid-cols-10 max-[1000px]:px-12 max-[800px]:px-5 max-[800px]:py-20 max-[900px]:flex max-[900px]:flex-col max-[900px]:gap-5">
               <div className="col-span-3 flex flex-col">
                 <Link to="/">
-                  <img src="/src/assets/images/footer-logo.png" alt="" />
+                  <img src="src/assets/images/footer-logo.png" alt="" />
                 </Link>
                 <div className="flex flex-col w-full pt-7 gap-2">
                   <p className="text-white/70 text-base ">
