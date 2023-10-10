@@ -16,6 +16,7 @@ import ShopPage from "./components/shopPage";
 import BlogPage from "./components/blogPage";
 import ContactPage from "./components/contactPage";
 import ShoppingCart from "./components/shoppingCart";
+import ProductDetails from "./components/productDetails";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -23,11 +24,11 @@ function App() {
 
   //Logos
   const logos = [
-    "images/logo-1.png",
-    "images/logo-2.png",
-    "images/logo-3.png",
-    "images/logo-4.png",
-    "images/logo-5.png",
+    "/images/logo-1.png",
+    "/images/logo-2.png",
+    "/images/logo-3.png",
+    "/images/logo-4.png",
+    "/images/logo-5.png",
   ];
 
   //Social Icons
@@ -61,6 +62,7 @@ function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/shopping-cart" element={<ShoppingCart />} />
+            <Route path="/product-details/:id" element={<ProductDetails />} />
           </Routes>
           <footer className="w-full">
             <div

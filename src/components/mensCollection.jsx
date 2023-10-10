@@ -1,37 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { menProducts } from "./products";
 
 export default function MensCollection() {
   const [selectedCategory, setSelectedCategory] = useState("Clothings");
   const [sliderPosition, setSliderPosition] = useState(0);
 
-  const products = [
-    {
-      img: "images/man-1.jpg",
-      category: "COAT",
-      name: "Pure Pineapple",
-      priceBefore: "$35.00",
-      priceAfter: "$14.00",
-    },
-    {
-      img: "images/man-2.jpg",
-      category: "SHOES",
-      name: "Pure Coat",
-      priceAfter: "$25.00",
-    },
-    {
-      img: "images/man-3.jpg",
-      category: "CLOTHES",
-      name: "Pure Coat",
-      priceAfter: "$40.00",
-    },
-    {
-      img: "images/man-4.jpg",
-      category: "SHOES",
-      name: "Pure Coat",
-      priceAfter: "$25.00",
-    },
-  ];
+  const products = menProducts;
 
   const maximumWidth = 100000000000;
 
@@ -100,7 +75,11 @@ export default function MensCollection() {
               >
                 {products.map((data) => {
                   return (
-                    <div className="w-[235px] flex flex-col" key={data.img}>
+                    <Link
+                      to={`/product-details/${data.id}`}
+                      className="w-[235px] flex flex-col"
+                      key={data.img}
+                    >
                       <div
                         style={{ backgroundImage: `url(${data.img})` }}
                         className="productImageBox w-full h-80 bg-cover bg-no-repeat overflow-hidden relative"
@@ -112,12 +91,14 @@ export default function MensCollection() {
                           <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
                             <i className="fa-solid fa-bag-shopping"></i>
                           </button>
+
                           <button className="h-full w-[56%] bg-white flex justify-center items-center text-PrimaryBlack">
                             <i className="fa-solid fa-plus text-xs"></i>&nbsp;
                             <p className="font-bold text-PrimaryBlack text-sm">
                               Quick View
                             </p>
                           </button>
+
                           <button className="h-full w-[20%] bg-white flex justify-center items-center text-PrimaryBlack">
                             <i className="fa-solid fa-shuffle"></i>
                           </button>
@@ -131,18 +112,18 @@ export default function MensCollection() {
                           {data.name}
                         </p>
                         <p className="text-xl text-PrimaryOrange font-bold flex items-center">
-                          {data.priceAfter}&nbsp;
+                          ${data.priceAfter}&nbsp;
                           {data.priceBefore && (
                             <p
                               className="text-base text-PrimaryBlack/50 font-normal relative"
                               id="priceBefore"
                             >
-                              {data.priceBefore}
+                              ${data.priceBefore}
                             </p>
                           )}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>

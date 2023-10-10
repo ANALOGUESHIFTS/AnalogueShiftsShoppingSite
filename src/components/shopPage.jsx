@@ -1,93 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { menProducts, femaleProducts } from "./products";
 
-const products = [
-  {
-    img: "images/man-1.jpg",
-    category: "COAT",
-    name: "Pure Pineapple",
-    priceBefore: "$35.00",
-    priceAfter: "$14.00",
-  },
-  {
-    img: "images/man-2.jpg",
-    category: "SHOES",
-    name: "Pure Coat",
-    priceAfter: "$25.00",
-    priceBefore: "$38.00",
-  },
-  {
-    img: "images/man-3.jpg",
-    category: "CLOTHES",
-    name: "Pure Coat",
-    priceAfter: "$40.00",
-    priceBefore: "$65.00",
-  },
-  {
-    img: "images/man-4.jpg",
-    category: "SHOES",
-    name: "Pure Coat",
-    priceAfter: "$25.00",
-    priceBefore: "$77.00",
-  },
-  {
-    img: "images/women-2.jpg.webp",
-    category: "SHOES",
-    name: "Pure Coat",
-    priceAfter: "$25.00",
-    priceBefore: "$300.00",
-  },
-
-  {
-    img: "images/women-1.jpg.webp",
-    category: "COAT",
-    name: "Pure Pineapple",
-    priceBefore: "$35.00",
-    priceBefore: "$35.00",
-  },
-  {
-    img: "images/women-2.jpg.webp",
-    category: "SHOES",
-    name: "Pure Coat",
-    priceAfter: "$25.00",
-    priceBefore: "$40.00",
-  },
-  {
-    img: "images/women-3.jpg.webp",
-    category: "CLOTHES",
-    name: "Pure Coat",
-    priceAfter: "$40.00",
-    priceBefore: "$55.00",
-  },
-  {
-    img: "images/women-4.jpg.webp",
-    category: "SHOES",
-    name: "Pure Coat",
-    priceAfter: "$25.00",
-    priceBefore: "$35.00",
-  },
-  {
-    img: "images/women-2.jpg.webp",
-    category: "SHOES",
-    name: "Pure Coat",
-    priceAfter: "$25.00",
-    priceBefore: "$40.00",
-  },
-  {
-    img: "images/women-3.jpg.webp",
-    category: "CLOTHES",
-    name: "Pure Coat",
-    priceAfter: "$40.00",
-    priceBefore: "$55.00",
-  },
-  {
-    img: "images/women-4.jpg.webp",
-    category: "SHOES",
-    name: "Pure Coat",
-    priceAfter: "$25.00",
-    priceBefore: "$35.00",
-  },
-];
+const products = [...menProducts, ...femaleProducts];
 
 export default function ShopPage() {
   const [calvinKlein, setCalvinKlein] = useState(false);
@@ -332,7 +247,8 @@ export default function ShopPage() {
         <div className="w-full flex flex-wrap gap-x-[2%] gap-y-4">
           {products.slice(0, showValue).map((data) => {
             return (
-              <div
+              <Link
+                to={`/product-details/${data.id}`}
                 className="w-[31.3%] flex flex-col max-[900px]:w-full "
                 key={data.img}
               >
@@ -366,18 +282,18 @@ export default function ShopPage() {
                     {data.name}
                   </p>
                   <p className="text-xl text-PrimaryOrange font-bold flex items-center">
-                    {data.priceAfter}&nbsp;
+                    ${data.priceAfter}&nbsp;
                     {data.priceBefore && (
                       <p
                         className="text-base text-PrimaryBlack/50 font-normal relative"
                         id="priceBefore"
                       >
-                        {data.priceBefore}
+                        ${data.priceBefore}
                       </p>
                     )}
                   </p>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
