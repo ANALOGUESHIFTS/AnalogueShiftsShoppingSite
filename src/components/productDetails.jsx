@@ -90,7 +90,7 @@ export default function ProductDetails() {
           </p>
           <div className="flex w-auto pb-4">
             <button
-              onClick={() => setQuantity((prev) => (prev -= 1))}
+              onClick={() => setQuantity((prev) => Math.max((prev -= 1), 0))}
               className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
             >
               -
