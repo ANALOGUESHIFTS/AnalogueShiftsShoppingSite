@@ -45,7 +45,7 @@ export default function CheckOutPage() {
       <div className="pt-5 w-full grid grid-cols-8 gap-24 max-[900px]:flex max-[900px]:flex-col">
         <div className="col-span-5 flex flex-col gap-5 max-[900px]:w-full">
           <div className="w-full rounded h-28 flex flex-col">
-            <div className="w-full h-10 py-3 flex justify-between items-center flex-wrap">
+            <div className="w-full h-auto py-3 flex justify-between items-center flex-wrap">
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 rounded-[50%] bg-green-500 flex justify-center items-center">
                   <i className="fa-solid fa-check text-white text-xs"></i>
@@ -64,7 +64,7 @@ export default function CheckOutPage() {
             </div>
           </div>
           <div className="w-full rounded h-auto flex flex-col pb-3">
-            <div className="w-full h-10 py-3 flex justify-between items-center flex-wrap">
+            <div className="w-full h-auto py-3 flex justify-between items-center flex-wrap">
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 rounded-[50%] bg-green-500 flex justify-center items-center">
                   <i className="fa-solid fa-check text-white text-xs"></i>
@@ -108,7 +108,7 @@ export default function CheckOutPage() {
             )}
           </div>
           <div className="w-full rounded h-auto flex flex-col pb-3">
-            <div className="w-full h-10 py-3 flex justify-between items-center">
+            <div className="w-full h-auto flex-wrap py-3 flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 rounded-[50%] bg-green-500 flex justify-center items-center">
                   <i className="fa-solid fa-check text-white text-xs"></i>

@@ -15,7 +15,7 @@ export default function CartDropdown() {
   ]);
 
   return (
-    <div className=" bg-white p-5 z-50 shadow-2xl w-80 absolute animate-fadeIn top-[80px] max-[900px]:-left-4 -right-4 h-96 flex flex-col gap-4">
+    <div className=" bg-white p-5 z-50 shadow-2xl w-80 absolute animate-fadeIn top-[80px] max-[900px]:-left-8 -right-4 h-96 flex flex-col gap-4">
       {carts.map((data) => {
         return (
           <div key={data.image} className="flex justify-between items-center">
