@@ -18,6 +18,7 @@ import ContactPage from "./components/contactPage";
 import ShoppingCart from "./components/shoppingCart";
 import ProductDetails from "./components/productDetails";
 import CheckOutPage from "./components/checkoutPage";
+import RegisterPage from "./components/registerPage";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -65,6 +66,7 @@ function App() {
             <Route path="/shopping-cart" element={<ShoppingCart />} />
             <Route path="/product-details/:id" element={<ProductDetails />} />
             <Route path="/checkout" element={<CheckOutPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
           <footer className="w-full">
             <div
