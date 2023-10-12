@@ -22,14 +22,14 @@ export default function LoginPage() {
           type="email"
           value={Email}
           onChange={(e) => SetEmail(e.target.value)}
-          className="w-full mb-4 outline-1 outline-PrimaryOrange py-2 text-PrimaryBlack/80 text-xs font-semibold border px-3"
+          className="w-full mb-4 outline-1 outline-PrimaryOrange py-3 text-PrimaryBlack/80 text-xs font-semibold border px-3"
         />
         <p className="text-PrimaryBlack text-xs font-bold pb-2">Password</p>
         <input
           type="password"
           value={Password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-4 outline-1 outline-PrimaryOrange py-2 text-PrimaryBlack/80 text-xs font-semibold border px-3"
+          className="w-full mb-4 outline-1 outline-PrimaryOrange py-3 text-PrimaryBlack/80 text-xs font-semibold border px-3"
         />
         <div className="pb-4 flex w-full justify-center gap-4 items-center max-[500px]:flex-col">
           <button className="w-52 max-[500px]:w-full hover:bg-PrimaryOrange/70 h-10 rounded-full bg-PrimaryOrange flex justify-center items-center">
