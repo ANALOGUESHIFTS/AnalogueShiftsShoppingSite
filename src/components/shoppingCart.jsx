@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function ShoppingCart() {
   const [cartProducts, setCartProducts] = useState([
@@ -131,9 +132,12 @@ export default function ShoppingCart() {
       <div className="w-full mt-7 flex justify-between max-[900px]:flex-col">
         <div className="w-[330px] flex flex-col max-[900px]:w-full">
           <div className="flex justify-between w-full">
-            <button className="w-[57%] h-12 flex justify-center items-center border-2 border-solid border-black/10 text-sm text-PrimaryBlack/30 font-bold">
+            <Link
+              to="/shop"
+              className="w-[57%] h-12 flex justify-center items-center border-2 border-solid border-black/10 text-sm text-PrimaryBlack/30 font-bold"
+            >
               CONTINUE SHOPPING
-            </button>
+            </Link>
             <button className="w-[40%] h-12 flex justify-center items-center border-solid border-black/10 text-sm text-PrimaryBlack font-bold bg-black/10 border-2">
               UPDATE CART
             </button>
@@ -167,9 +171,12 @@ export default function ShoppingCart() {
               <p className="text-base font-bold text-PrimaryOrange">${total}</p>
             </div>
           </div>
-          <button className="row-span-1 w-full flex justify-center items-center bg-PrimaryBlack text-base font-bold text-white">
+          <Link
+            to="/checkout"
+            className="row-span-1 w-full flex justify-center items-center bg-PrimaryBlack text-base font-bold text-white"
+          >
             PROCEED TO CHECK OUT
-          </button>
+          </Link>
         </div>
       </div>
     </main>

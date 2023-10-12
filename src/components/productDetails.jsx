@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { menProducts, femaleProducts } from "./products";
 
 import { Splide, SplideSlide } from "@splidejs/react-splide";
@@ -12,9 +12,18 @@ export default function ProductDetails() {
   const { id } = useParams();
   const products = [...menProducts, ...femaleProducts];
   const item = products.filter((data) => data.id === id);
+  const containerRef = useRef();
+
+  useEffect(() => {
+    containerRef.current.scrollTop = 0;
+    containerRef.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   return (
-    <main className="p-28 max-[1000px]:px-12 max-[800px]:p-5">
+    <main
+      ref={containerRef}
+      className="p-28 max-[1000px]:px-12 max-[800px]:p-5"
+    >
       <div className="w-full flex gap-20 flex-wrap">
         <Splide
           aria-label="Product Images"
