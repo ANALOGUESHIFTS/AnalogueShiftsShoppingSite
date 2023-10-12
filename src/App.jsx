@@ -19,6 +19,7 @@ import ShoppingCart from "./components/shoppingCart";
 import ProductDetails from "./components/productDetails";
 import CheckOutPage from "./components/checkoutPage";
 import RegisterPage from "./components/registerPage";
+import LoginPage from "./components/login";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -67,6 +68,7 @@ function App() {
             <Route path="/product-details/:id" element={<ProductDetails />} />
             <Route path="/checkout" element={<CheckOutPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
           <footer className="w-full">
             <div

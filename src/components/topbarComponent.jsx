@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import LanguageDropdownComponent from "./languageDropdownComponent";
+import { Link } from "react-router-dom";
 
 export default function TopbarComponent() {
   const [languageSelected, setLanguageSelected] = useState("English");
@@ -62,13 +63,13 @@ export default function TopbarComponent() {
           )}
         </div>
       </div>
-      <a
-        href=""
+      <Link
+        to="/login"
         className="w-1/12 max-[900px]:w-[20%] h-14 flex justify-end items-center gap-2 max-[900px]:justify-center"
       >
         <i class="fa-solid fa-user text-PrimaryBlack text-xs"></i>
         <p className="text-PrimaryBlack text-sm">Login</p>
-      </a>
+      </Link>
     </div>
   );
 }
