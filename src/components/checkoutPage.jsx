@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function CheckOutPage() {
   const [cartProducts, setCartProducts] = useState([
@@ -33,14 +33,22 @@ export default function CheckOutPage() {
   );
   const [couponCode, setCouponCode] = useState("");
 
+  const containerRef = useRef();
+
   useEffect(() => {
     setTotal(0);
     cartProducts.forEach((data) => {
       setTotal((prev) => (prev += data.price));
     });
+    containerRef.current.scrollTop = 0;
+    containerRef.current.scrollIntoView({ behavior: "smooth" });
   }, []);
+
   return (
-    <main className="px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5">
+    <main
+      ref={containerRef}
+      className="px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5"
+    >
       <p className="font-bold text-xl text-PrimaryBlack">Place your order</p>
       <div className="pt-5 w-full grid grid-cols-8 gap-24 max-[900px]:flex max-[900px]:flex-col">
         <div className="col-span-5 flex flex-col gap-5 max-[900px]:w-full">

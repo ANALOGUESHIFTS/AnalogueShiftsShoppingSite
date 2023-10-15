@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function ContactPage() {
   const [userName, setUserName] = useState("");
@@ -27,8 +27,18 @@ export default function ContactPage() {
       ),
     },
   ];
+
+  const containerRef = useRef();
+
+  useEffect(() => {
+    containerRef.current.scrollTop = 0;
+    containerRef.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
   return (
-    <main className="p-28">
+    <main
+      ref={containerRef}
+      className="p-28 max-[1000px]:px-12 max-[800px]:p-5"
+    >
       <div className="w-full h-[560px]">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.35430854732!2d-74.13901858248282!3d41.02750616470831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sng!4v1696677207394!5m2!1sen!2sng"
@@ -40,8 +50,8 @@ export default function ContactPage() {
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-      <div className="pt-12 w-full flex justify-between">
-        <div className="w-[46%]">
+      <div className="pt-12 w-full flex justify-between max-[800px]:flex-col max-[800px]:gap-5">
+        <div className="w-[46%] max-[800px]:w-full">
           <p className="font-bold text-2xl text-PrimaryBlack pb-5">
             Contact Us
           </p>
@@ -71,30 +81,32 @@ export default function ContactPage() {
             })}
           </div>
         </div>
-        <div className="w-[46%]">
+        <div className="w-[46%] max-[800px]:w-full">
           <p className="font-bold text-2xl text-PrimaryBlack pb-5">
             Leave A Comment
           </p>
           <p className="text-base text-PrimaryBlack/80 pb-5">
             Our staff will call back later and answer your questions.
           </p>
-          <div className="w-full flex justify-between pb-5">
+          <div className="w-full flex justify-between pb-5 max-[800px]:flex-col max-[800px]:gap-5">
             <input
               type="text"
               value={userName}
               placeholder="Your name"
               onChange={(e) => setUserName(e.target.value)}
-              className="w-[47%] py-3 border outline-none rounded pl-4 text-PrimaryBlack/70 text-[15px]"
+              className="w-[47%] max-[800px]:w-full py-3 border outline-none rounded pl-4 text-PrimaryBlack/70 text-[15px]"
             />
             <input
               type="email"
               value={userEmail}
               placeholder="Your email"
               onChange={(e) => setUserEmail(e.target.value)}
-              className="w-[47%] py-3 border outline-none pl-4 rounded text-PrimaryBlack/70 text-[15px]"
+              className="w-[47%] max-[800px]:w-full py-3 border outline-none pl-4 rounded text-PrimaryBlack/70 text-[15px]"
             />
           </div>
           <textarea
+            value={userMessage}
+            onChange={(e) => setUserMessage(e.target.value)}
             name="message"
             className="outline-none border h-40 rounded text-PrimaryBlack/70 text-[15px] px-4 py-3 w-full"
             cols="30"

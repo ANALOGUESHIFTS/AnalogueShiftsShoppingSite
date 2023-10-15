@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { menProducts, femaleProducts } from "./products";
 
@@ -51,8 +51,18 @@ export default function ShopPage() {
     }
   }, []);
 
+  const containerRef = useRef();
+
+  useEffect(() => {
+    containerRef.current.scrollTop = 0;
+    containerRef.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
-    <main className="w-full p-28 flex max-[1000px]:px-12 max-[800px]:px-8 max-[900px]:py-20 max-[900px]:flex-col max-[900px]:gap-6">
+    <main
+      ref={containerRef}
+      className="w-full p-28 flex max-[1000px]:px-12 max-[800px]:px-8 max-[900px]:py-20 max-[900px]:flex-col max-[900px]:gap-6"
+    >
       <div className="w-[25%] flex flex-col max-[900px]:w-full">
         <div className="flex flex-col pb-8">
           <p className="text-PrimaryBlack text-2xl font-bold pb-5">

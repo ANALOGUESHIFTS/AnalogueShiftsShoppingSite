@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function LoginPage() {
   const [Email, SetEmail] = useState("");
   const [Password, setPassword] = useState("");
+
+  const containerRef = useRef();
+
+  useEffect(() => {
+    containerRef.current.scrollTop = 0;
+    containerRef.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
   return (
     <main
+      ref={containerRef}
       style={{ backgroundImage: `url(/images/hero-2.jpg.webp)` }}
       className="w-full h-[700px] bg-cover bg-center max-[500px]:bg-left flex items-center px-28 max-[800px]:px-5"
     >

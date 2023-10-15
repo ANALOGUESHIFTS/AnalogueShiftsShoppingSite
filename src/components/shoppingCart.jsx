@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function ShoppingCart() {
@@ -50,8 +50,18 @@ export default function ShoppingCart() {
     });
   }, [cartProducts]);
 
+  const containerRef = useRef();
+
+  useEffect(() => {
+    containerRef.current.scrollTop = 0;
+    containerRef.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
-    <main className="p-28 max-[800px]:px-5 max-[1000px]:px-12 max-[900px]:py-20">
+    <main
+      ref={containerRef}
+      className="p-28 max-[800px]:px-5 max-[1000px]:px-12 max-[900px]:py-20"
+    >
       <div className="w-full overflow-x-auto ">
         <div className="w-full border pb-8 max-[900px]:w-[700px]">
           <div className="w-full border-b grid grid-cols-6 h-14 items-center px-6 mb-6 gap-8">

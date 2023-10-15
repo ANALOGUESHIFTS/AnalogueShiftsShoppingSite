@@ -131,7 +131,7 @@ export default function NavBarComponent() {
           <p className="text-white font-semibold text-[15px]">PAGES</p>
           <ul className="bg-PrimaryBlack flex min-w-['auto'] w-[150%] py-4 px-8 shadow-2xl absolute top-14 right-0 flex-col gap-4">
             {[
-              { name: "Blog Details", path: "/blog-details" },
+              { name: "Blog Details", path: "/blog-details/1" },
               { name: "Shopping Cart", path: "/shopping-cart" },
               { name: "Checkout", path: "/checkout" },
               { name: "Faq", path: "/faq" },
@@ -246,7 +246,7 @@ export default function NavBarComponent() {
               className=" w-full h-0 overflow-hidden pl-5 pt-2 pb-2 flex flex-col"
             >
               {[
-                { name: "Blog Details", path: "/blog-details" },
+                { name: "Blog Details", path: "/blog-details/1" },
                 { name: "Shopping Cart", path: "/shopping-cart" },
                 { name: "Checkout", path: "/checkout" },
                 { name: "Faq", path: "/faq" },

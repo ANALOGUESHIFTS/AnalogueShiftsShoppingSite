@@ -1,45 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const blogs = [
   {
+    id: 1,
     img: "/images/blog-1.jpg.webp",
     title: "The Personality Trait That Makes People Happier",
     category: "TRAVEL",
     date: "May 19, 2019",
   },
   {
+    id: 2,
     img: "/images/blog-2.jpg.webp",
     title: "This was one of our first days in Hawaii last week.",
     category: "FASHION",
     date: "May 19, 2019",
   },
   {
+    id: 3,
     img: "/images/blog-3.jpg.webp",
     title: "Last week I had my first work trip of the year to Sonoma Valley",
     category: "TRAVEL",
     date: "May 19, 2019",
   },
   {
+    id: 4,
     img: "/images/blog-4.jpg.webp",
     title: "Happppppy New Year! I know I am a little late on this post",
     category: "FASHION",
     date: "May 19, 2019",
   },
   {
+    id: 5,
     img: "/images/blog-5.jpg.webp",
     title: "Absolue collection. The Lancome team has been one…",
     category: "MODEL",
     date: "May 19, 2019",
   },
   {
+    id: 6,
     img: "/images/blog-6.jpg.webp",
     title: "Writing has always been kind of therapeutic for me",
     category: "FASHION",
     date: "May 19, 2019",
   },
 ];
-
 export default function BlogPage() {
   const [amountToDisplay, setAmountToDisplay] = useState(
     blogs.length <= 6 ? blogs.length : 6
@@ -64,8 +69,18 @@ export default function BlogPage() {
     }
   };
 
+  const containerRef = useRef();
+
+  useEffect(() => {
+    containerRef.current.scrollTop = 0;
+    containerRef.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
-    <main className="w-full p-28 flex max-[1000px]:px-12 max-[900px]:py-20 max-[800px]:px-5 max-[900px]:flex-col max-[900px]:gap-6">
+    <main
+      ref={containerRef}
+      className="w-full p-28 flex max-[1000px]:px-12 max-[900px]:py-20 max-[800px]:px-5 max-[900px]:flex-col max-[900px]:gap-6"
+    >
       <div className="w-[25%] flex flex-col max-[900px]:w-full">
         <div className="flex flex-col pb-8">
           <p className="text-PrimaryBlack text-2xl font-bold pb-5">Search</p>
@@ -105,7 +120,11 @@ export default function BlogPage() {
           <div className="w-[90%] max-[900px]:w-full flex flex-col gap-4">
             {blogs.slice(0, 4).map((data) => {
               return (
-                <Link key={data.title} to="" className="w-full flex gap-4 h-20">
+                <Link
+                  key={data.title}
+                  to={`/blog-details/${data.id}`}
+                  className="w-full flex gap-4 h-20"
+                >
                   <div
                     style={{ backgroundImage: `url(${data.img})` }}
                     className="h-full w-[30%] bg-center bg-cover"
@@ -165,7 +184,7 @@ export default function BlogPage() {
                   className=" w-full h-72 bg-cover bg-no-repeat overflow-hidden relative"
                 ></div>
                 <Link
-                  to=""
+                  to={`/blog-details/${data.id}`}
                   className="w-full pt-6 flex flex-col items-center gap-2"
                 >
                   <p className="text-2xl text-PrimaryBlack/90 font-bold pb-1">

@@ -20,6 +20,8 @@ import ProductDetails from "./components/productDetails";
 import CheckOutPage from "./components/checkoutPage";
 import RegisterPage from "./components/registerPage";
 import LoginPage from "./components/login";
+import FaqPage from "./components/faq";
+import BlogDetailsPage from "./components/blogDetailsPage";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -69,6 +71,8 @@ function App() {
             <Route path="/checkout" element={<CheckOutPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/blog-details/:id" element={<BlogDetailsPage />} />
           </Routes>
           <footer className="w-full">
             <div
