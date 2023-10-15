@@ -63,7 +63,7 @@ export default function BlogDetailsPage() {
       <p className="w-full text-center font-bold text-4xl text-PrimaryBlack">
         {data.title}
       </p>
-      <div className="w-full flex justify-center gap-8 items-center py-6">
+      <div className="w-full flex justify-center gap-8 items-center py-6 max-[800px]:flex-col">
         <div className="border-b w-32"></div>
         <div className=" flex gap-1">
           <p className="text-PrimaryOrange text-base font-bold">
