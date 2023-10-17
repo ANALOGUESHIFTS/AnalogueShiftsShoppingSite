@@ -6,21 +6,21 @@ export default function FaqPage() {
   const faqs = [
     {
       id: 1,
-      title: "Is There Anything I Should Bring?",
+      title: "DO I NEED TO CREATE AN OZINNA.COM ACCOUNT?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "You can browse our website and add items to your basket without creating an account, but to make any purchases you need to create an account by providing an email address and creating a password. Once you’ve created an account, shopping with us will be so much more convenient.",
     },
     {
       id: 2,
       title: "Where Can I Find Market Research Reports?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Once you have successfully submitted your order, you will receive an automated email confirming your order details. Your order will then be processed by our warehouse team and you’ll receive a dispatch confirmation email when your order is dispatched for delivery.",
     },
     {
       id: 3,
-      title: "Where Can I Find The Wall Street Journal?",
+      title: "WHAT SHOULD I DO IF MY ORDER ISN’T DELIVERED?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "If your order has not been delivered within the timescales for your area, please contact us. Remember to include your order number within your message as this will help us speed up the search for your order. In the unlikely event that we’re unable to locate your parcel, we will send you a ‘Missing Parcel Claim Form’ to sign and return, which will act as a declaration of your claim. Upon receipt of your declaration, we will investigate the claim and advise you of the outcome within 4 working days. If appropriate, a refund will be issued to the credit/debit card used for your purchase AS SOON AS POSSIBLE.",
     },
   ];
 
@@ -39,7 +39,7 @@ export default function FaqPage() {
         return (
           <div
             style={{
-              height: `${openedFaq === data.id ? "150px" : "48px"}`,
+              height: `${openedFaq === data.id ? "auto" : "48px"}`,
             }}
             key={data.id}
             className="duration-300 w-full flex flex-col overflow-y-hidden gap-5"

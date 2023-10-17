@@ -90,9 +90,13 @@ function App() {
               })}
             </div>
             <div className="bg-PrimaryBlack border-b border-solid border-white/50 p-28 w-full grid grid-cols-10 max-[1000px]:px-12 max-[800px]:px-5 max-[800px]:py-20 max-[900px]:flex max-[900px]:flex-col max-[900px]:gap-5">
-              <div className="col-span-3 flex flex-col">
+              <div className="col-span-3 flex flex-col -translate-y-10">
                 <Link to="/">
-                  <img src="/images/footer-logo.png" alt="" />
+                  <img
+                    src="/images/cinnamon-logo.png"
+                    className=" h-20 scale-150"
+                    alt=""
+                  />
                 </Link>
                 <div className="flex flex-col w-full pt-7 gap-2">
                   <p className="text-white/70 text-base ">
@@ -102,7 +106,7 @@ function App() {
                     Phone: +65 11.188.888
                   </p>
                   <p className="text-white/70 text-base ">
-                    Email: hello.colorlib@gmail.com
+                    Email: fashion@gmail.com
                   </p>
                 </div>
                 <div className="pt-6 flex gap-2">

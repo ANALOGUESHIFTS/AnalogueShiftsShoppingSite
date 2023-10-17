@@ -38,7 +38,7 @@ export default function InstaFashion() {
           >
             <div className="w-full bg-black/30 h-full flex flex-col justify-center items-center opacity-0 duration-300">
               <i class="fa-brands fa-instagram text-white text-4xl"></i>
-              <Link to="#" className="pt-3">
+              <Link to="/shop" className="pt-3">
                 <p className="text-white text-lg">fashion_Collection</p>
               </Link>
             </div>

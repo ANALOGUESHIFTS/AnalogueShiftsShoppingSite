@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function HomeSectionOne() {
   const [backgroundImage, setBackgroundImage] = useState(
@@ -40,12 +41,15 @@ export default function HomeSectionOne() {
           Black friday
         </p>
         <p className="text-[15px] pb-8 font-medium text-PrimaryBlack/70 leading-6">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque
-          deserunt eaque, illum vero ratione praesentium obcaecati officiis.
+          Get the Best Deals & Offers on Electronics Products from Cinnamon
+          Black Friday ✨ Black Friday 2023
         </p>
-        <button className="text-white bg-PrimaryOrange py-2 px-5 w-40">
+        <Link
+          to="/shop"
+          className="text-white bg-PrimaryOrange py-2 px-5 w-40 flex justify-center items-center text-sm"
+        >
           SHOP NOW
-        </button>
+        </Link>
       </div>
     </div>
   );

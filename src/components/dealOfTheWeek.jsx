@@ -36,13 +36,13 @@ export default function DealOfTheWeek() {
             Deal Of The Week
           </p>
           <p className="text-center text-PrimaryBlack/70 text-base pb-5 font-medium">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            ipsum dolor sit amet, consectetur adipisicing elit
+            You can now enjoy our mouthwatering offers & deals on Fashionon a
+            weekly basis
           </p>
           <div className="flex items-end pb-6">
             <p className="font-bold text-PrimaryOrange text-2xl">$35.00</p>
             <p className="text-PrimaryBlack/80 text-base font-medium pb-1">
-              &nbsp;/ HanBag
+              &nbsp;/ HandBag
             </p>
           </div>
           <div className="w-full flex justify-between pb-6">

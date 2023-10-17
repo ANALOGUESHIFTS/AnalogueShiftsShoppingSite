@@ -12,44 +12,56 @@ export default function BlogDetailsPage() {
     {
       id: 1,
       img: "/images/blog-1.jpg.webp",
-      title: "The Personality Trait That Makes People Happier",
+      title: "Cinnamon In the look by Marie Claire",
       category: "TRAVEL",
-      date: "May 19, 2019",
+      date: "May 19, 2023",
+      description:
+        "Cinnamon, a trailblazing entrepreneur, has journeyed from Lagos to the global fashion capitals, establishing herself as a beacon of innovation and style. As the founder of Cinnamon19fashion.com and the creative force behind TSC Agency Nigeria, Cinnamon’s multifaceted talent is phenomenal. In this episode of The Look, she takes us on her sustainable styling journey. Her passion for self-expression and style, ignited by her mother’s glamorous fashion choices, gained momentum when she moved to Paris at 16. Yet, Ozinna’s influence extends beyond her impeccable style. She has a remarkable talent for curating outfits, empowering women, inspiring confidence, and promoting African fashion. Her journey as a fashion curator and entrepreneur began unexpectedly in 2014 with strangers approached her at an NYSC camp to praise her fashion choices.",
     },
     {
       id: 2,
       img: "/images/blog-2.jpg.webp",
-      title: "This was one of our first days in Hawaii last week.",
+      title: "REVOLUTIONISING NIGERIA’S FASHION E-COMMERCE BY THISDAY STYLE",
       category: "FASHION",
-      date: "May 19, 2019",
+      date: "May 19, 2023",
+      description:
+        "In recent years, Nigeria has witnessed a significant shift in fashion consumer behaviour as more and more Nigerians embrace the idea of making purchases online. Driven by convenience, availability, and a desire for unique fashion pieces, this trend was further accelerated by the COVID-19 pandemic and its accompanying lockdowns and restrictions on movement. Amidst this, a brand that’s slowly gaining traction as a leader in this space is Cinnamon19fashion.com, a virtual concept store that offers new and exciting ways to experience the best Nigerian fashion from the comfort of your home. Founded in 2016, Cinnamon19fashion.com has quickly gained popularity among fashion enthusiasts, providing a curated selection of the best affordable collections from Nigerian designers. The brainchild of Cinnamon, a well-known fashion influencer and brand curator, this online retail platform combines her innate fashion insight with a deep passion for self-expression. Cinnamon, who inherited her impeccable sense of style from her socialite mother, Nkiru Anumudu, has now become a style icon in her own right....",
     },
     {
       id: 3,
       img: "/images/blog-3.jpg.webp",
-      title: "Last week I had my first work trip of the year to Sonoma Valley",
+      title: "Style Star Edit: Zina X Maju",
       category: "TRAVEL",
       date: "May 19, 2019",
+      description:
+        "Hey Hey! So I hinted about a collaboration a few weeks ago and I am so happy to share with everyone that @ShopMaju has started a Style Star Edit designing clothes inspired by a personality’s style and I’m very honored to be the first #MajuStyleStar As you all know, my style Is filled with lots of bright colors and prints. Every outfit In this edit Is available to shop immediately on www.shopmaju.com I hope you like them as much as I do.",
     },
     {
       id: 4,
       img: "/images/blog-4.jpg.webp",
-      title: "Happppppy New Year! I know I am a little late on this post",
+      title: "The cover August 2022: Cinnamon",
       category: "FASHION",
-      date: "May 19, 2019",
+      date: "August 22, 2022",
+      description:
+        "We’re stepping into August with the promise of an exciting month filled with fashionable days, perfectly-tailored moments and brightness that can never be dimmed. Speaking of these promises, our coverstar, Cinnamon, is the poster child for fashionable, perfectly-tailored, bright style. In this edition of The Cover, we get into her life as a fashion entrepreneur, the selling point of shopping from African brands and uncover more about her personal style.",
     },
     {
       id: 5,
       img: "/images/blog-5.jpg.webp",
-      title: "Absolue collection. The Lancome team has been one…",
+      title: "Quarantine Fashion",
       category: "MODEL",
-      date: "May 19, 2019",
+      date: "May 19, 2020",
+      description:
+        "Stay home, stay comfy but stay cute. These style stars might have been indoors but they certainly weren’t letting their style slack, from cool sweat pants to comfy T-shirts, gowns and shorts. Here are our some of our favourite quarantine fashion.",
     },
     {
       id: 6,
       img: "/images/blog-6.jpg.webp",
-      title: "Writing has always been kind of therapeutic for me",
+      title: "Closet covet: Kelly Rowland",
       category: "FASHION",
-      date: "May 19, 2019",
+      date: "May 19, 2020",
+      description:
+        "Kelly is doing an amazing job advocating for the end of systematic racism and black violence and we’re here for it. In addition to her brilliant mind and chart-topping music of course, we also find her fashion style captivating and definitely covet it. Here are some of our top picks from Kelly’s closet.",
     },
   ];
 
@@ -73,20 +85,8 @@ export default function BlogDetailsPage() {
         </div>
         <div className="border-b w-32"></div>
       </div>
-      <div
-        style={{ backgroundImage: `url(${data.img})` }}
-        className="w-full h-[500px] bg-no-repeat bg-cover bg-center"
-      ></div>
       <p className="w-full py-6 text-PrimaryBlack/70 font-medium text-lg">
-        <span className="text-PrimaryBlack font-bold text-4xl">P</span>sum dolor
-        sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate.
+        {data.description}
       </p>
       <p className="pb-5 mb-6 pl-4 w-full border-l-4 border-PrimaryOrange border-solid text-PrimaryBlack font-bold text-xl">
         “ Technology is nothing. What's important is that you have a faith in
@@ -108,16 +108,6 @@ export default function BlogDetailsPage() {
           className="w-[32%] h-60 bg-cover bg-center max-[800px]:w-full"
         ></div>
       </div>
-      <p className="w-full pb-7 text-PrimaryBlack/70 font-medium text-lg">
-        sum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate.
-      </p>
       <div className="w-full h-44 flex justify-between items-center border-t max-[800px]:flex-col">
         <Link
           to={`/blog-details/${Math.max(1, parseInt(id) - 1)}`}

@@ -66,7 +66,7 @@ export default function HomeSectionTwo() {
         >
           <p className="text-white font-extrabold text-[50px]">Women's</p>
           <Link
-            to=""
+            to="/shop"
             className="text-white pb-1.5 text-lg font-semibold border-b-2 border-white border-solid"
           >
             Discover More

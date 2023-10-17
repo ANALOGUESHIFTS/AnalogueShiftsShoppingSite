@@ -6,25 +6,22 @@ export default function BlogSection() {
       image: "/images/latest-1.jpg",
       date: "May 4,2023",
       comments: "5",
-      title: "The Best Street Style From London Fashion Week",
-      details:
-        "Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat",
+      title: "Cinnamon In The Look By Marie Claire",
+      details: "Cinnamon In The Look By Marie Claire",
     },
     {
       image: "/images/latest-2.jpg",
       date: "May 4,2023",
       comments: "5",
-      title: "Vogue's Ultimate Guide To Autumn/Winter 2023 Shoes",
-      details:
-        "Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat",
+      title: "Revolutionising Nigeria's Fashion E-commerce by thisday style",
+      details: "Revolutionising Nigeria's Fashion E-commerce by thisday style",
     },
     {
       image: "/images/latest-3.jpg",
       date: "May 4,2023",
       comments: "5",
-      title: "How To Brighten Your Wardrobe With A Dash Of Lime",
-      details:
-        "Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat",
+      title: "Outfit of the day: Sister of the groom!",
+      details: "Outfit of the day: Sister of the groom!",
     },
   ];
   const perks = [
@@ -80,7 +77,7 @@ export default function BlogSection() {
                   </p>
                 </div>
               </div>
-              <Link>
+              <Link to="/blog">
                 <p className="pt-3 text-PrimaryBlack text-[22px] font-bold w-[80%]">
                   {data.title}
                 </p>
