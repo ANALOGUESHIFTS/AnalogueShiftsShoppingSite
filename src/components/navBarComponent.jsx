@@ -44,7 +44,7 @@ export default function NavBarComponent() {
                   key={data}
                   className="text-PrimaryBlack hover:text-PrimaryOrange text-[15px] font-semibold"
                 >
-                  <Link to="">{data}</Link>
+                  <Link to="/shop">{data}</Link>
                 </li>
               );
             })}
@@ -89,7 +89,7 @@ export default function NavBarComponent() {
                   key={data}
                   className="text-white font-semibold hover:text-PrimaryOrange text-[15px]"
                 >
-                  <Link to="">{data}</Link>
+                  <Link to="/shop">{data}</Link>
                 </li>
               );
             })}

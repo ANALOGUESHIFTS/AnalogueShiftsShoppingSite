@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function DealOfTheWeek() {
   const [secondsRemaining, setSecondsRemaining] = useState(30 * 24 * 60 * 60);
@@ -90,9 +91,12 @@ export default function DealOfTheWeek() {
             </div>
           </div>
           <div className="flex justify-center pt-5">
-            <button className="text-white bg-PrimaryOrange py-2 px-5 w-38">
+            <Link
+              to="/shop"
+              className="text-white bg-PrimaryOrange py-2 px-5 w-40 flex justify-center items-center text-sm"
+            >
               SHOP NOW
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -116,7 +116,7 @@ export default function BlogDetailsPage() {
           <i class="fa-solid fa-arrow-left text-PrimaryBlack/70 text-xl"></i>
           <div
             style={{ backgroundImage: `url(${previousPost.img})` }}
-            className="h-20 w-20 rounded-full bg-cover bg-center"
+            className="h-16 w-16 rounded-full bg-cover bg-center"
           ></div>
           <div className="flex flex-col gap-2">
             <p className="text-sm text-PrimaryBlack/70 font-semibold">
@@ -145,7 +145,7 @@ export default function BlogDetailsPage() {
           </div>
           <div
             style={{ backgroundImage: `url(${nextPost.img})` }}
-            className="h-20 w-20 rounded-full bg-cover bg-center"
+            className="h-16 w-16 rounded-full bg-cover bg-center"
           ></div>
           <i class="fa-solid fa-arrow-right text-PrimaryBlack/70 text-xl"></i>
         </Link>

@@ -55,7 +55,7 @@ export default function RegisterPage() {
             </p>
           </button>
           <p className="text-PrimaryBlack/70 text-xs font-semibold">OR</p>
-          <button className="w-52 max-[500px]:w-full hover:bg-white h-10 rounded-full bg-white/40 border flex gap-2 justify-center items-center">
+          <button className="w-52 max-[500px]:w-full hover:bg-white h-10 rounded-full flex gap-2 justify-center items-center">
             <img src="/images/google-logo.png" className="w-5" alt="" />
             <p className="text-xs tracking-wide text-PrimaryBlack/80 font-bold">
               Sign up with Google

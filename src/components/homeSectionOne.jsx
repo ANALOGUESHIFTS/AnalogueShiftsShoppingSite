@@ -23,12 +23,14 @@ export default function HomeSectionOne() {
       style={{ backgroundImage: `url(${backgroundImage})` }}
       className="h-[725px] flex items-center max-[900px]:justify-center relative w-full bg-no-repeat bg-center max-[900px]:h-[500px]"
     >
-      <button className="border-none bg-transparent absolute top-[calc(50%-30px)] left-12 max-[900px]:left-4">
+      {/*
+       <button className="border-none bg-transparent absolute top-[calc(50%-30px)] left-12 max-[900px]:left-4">
         <i className="fa-solid fa-angle-left text-PrimaryBlack/60 text-3xl hover:text-PrimaryOrange"></i>
       </button>
       <button className="border-none bg-transparent absolute top-[calc(50%-30px)] right-12 max-[900px]:right-4">
         <i className="fa-solid fa-angle-right text-PrimaryBlack/60 text-3xl hover:text-PrimaryOrange"></i>
       </button>
+       */}
       <div className="bg-PrimaryOrange max-[900px]:hidden absolute top-28 left-[50%] w-40 h-40 rounded-[50%] p-1.5">
         <div className="w-full h-full border-2 border-dashed border-white rounded-[50%] flex flex-col items-center justify-center gap-1.5">
           <p className="text-3xl font-bold text-white">SALE</p>

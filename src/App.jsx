@@ -22,6 +22,7 @@ import RegisterPage from "./components/registerPage";
 import LoginPage from "./components/login";
 import FaqPage from "./components/faq";
 import BlogDetailsPage from "./components/blogDetailsPage";
+import AboutPage from "./components/aboutPage";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -73,6 +74,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/blog-details/:id" element={<BlogDetailsPage />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
           <footer className="w-full">
             <div
@@ -124,16 +126,16 @@ function App() {
               <div className="col-span-2 flex flex-col">
                 <p className="text-white font-bold text-base">Information</p>
                 <div className="flex flex-col w-full pt-7 gap-2">
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link to="/about" className="text-white/70 text-base ">
                     About Us
                   </Link>
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link to="/checkout" className="text-white/70 text-base ">
                     Checkout
                   </Link>
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link to="/contact" className="text-white/70 text-base ">
                     Contact
                   </Link>
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link to="/" className="text-white/70 text-base ">
                     Services
                   </Link>
                 </div>
@@ -141,16 +143,19 @@ function App() {
               <div className="col-span-2 flex flex-col">
                 <p className="text-white font-bold text-base">My Account</p>
                 <div className="flex flex-col w-full pt-7 gap-2">
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link to="/profile" className="text-white/70 text-base ">
                     My Account
                   </Link>
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link to="/contact" className="text-white/70 text-base ">
                     Contact
                   </Link>
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link
+                    to="/shopping-cart"
+                    className="text-white/70 text-base "
+                  >
                     Shopping Cart
                   </Link>
-                  <Link to="" className="text-white/70 text-base ">
+                  <Link to="/shop" className="text-white/70 text-base ">
                     Shop
                   </Link>
                 </div>
