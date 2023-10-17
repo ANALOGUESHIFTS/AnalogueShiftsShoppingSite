@@ -6,7 +6,7 @@ export default function FaqPage() {
   const faqs = [
     {
       id: 1,
-      title: "DO I NEED TO CREATE AN OZINNA.COM ACCOUNT?",
+      title: "Do I need to create a cinnamon account?",
       answer:
         "You can browse our website and add items to your basket without creating an account, but to make any purchases you need to create an account by providing an email address and creating a password. Once you’ve created an account, shopping with us will be so much more convenient.",
     },
@@ -18,7 +18,7 @@ export default function FaqPage() {
     },
     {
       id: 3,
-      title: "WHAT SHOULD I DO IF MY ORDER ISN’T DELIVERED?",
+      title: "What shoud I do if my order isn't delivered",
       answer:
         "If your order has not been delivered within the timescales for your area, please contact us. Remember to include your order number within your message as this will help us speed up the search for your order. In the unlikely event that we’re unable to locate your parcel, we will send you a ‘Missing Parcel Claim Form’ to sign and return, which will act as a declaration of your claim. Upon receipt of your declaration, we will investigate the claim and advise you of the outcome within 4 working days. If appropriate, a refund will be issued to the credit/debit card used for your purchase AS SOON AS POSSIBLE.",
     },
