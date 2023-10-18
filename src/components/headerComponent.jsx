@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CartDropdown from "./cartDropdown";
+import { Link } from "react-router-dom";
 
 export default function HeaderComponent() {
   const [CartDropdownDisplay, setCartDropdownDisplay] = useState(false);
@@ -52,7 +53,8 @@ export default function HeaderComponent() {
             <i class="fa-regular fa-heart text-PrimaryBlack/80 text-xl"></i>
           </div>
         </a>
-        <div
+        <Link
+          to="/shopping-cart"
           href=""
           className="relative cursor-pointer pl-4 h-[80px] flex items-center"
           onMouseEnter={() => setCartDropdownDisplay(true)}
@@ -69,7 +71,7 @@ export default function HeaderComponent() {
             </div>
             <i class="fa-solid fa-bag-shopping text-PrimaryBlack/80 text-xl"></i>
           </div>
-        </div>
+        </Link>
         <p className="pl-4 text-PrimaryBlack font-medium text-lg pt-2">
           $150.00
         </p>

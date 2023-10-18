@@ -120,34 +120,16 @@ export default function NavBarComponent() {
           <p className="text-white font-semibold text-[15px]">CONTACT</p>
         </Link>
         <Link
-          id="collection"
-          to="#"
-          data="PAGES"
+          to="/faq"
+          data="FAQ"
           style={{
-            backgroundColor: `${pathname === "#" ? "#e7ab3c" : "transparent"}`,
+            backgroundColor: `${
+              pathname === "/faq" ? "#e7ab3c" : "transparent"
+            }`,
           }}
           className="navLink relative col-span-1 flex h-14 justify-center items-center border-r border-solid border-[#3b3b3b]"
         >
-          <p className="text-white font-semibold text-[15px]">PAGES</p>
-          <ul className="bg-PrimaryBlack flex min-w-['auto'] w-[150%] py-4 px-8 shadow-2xl absolute top-14 right-0 flex-col gap-4">
-            {[
-              { name: "Blog Details", path: "/blog-details/1" },
-              { name: "Shopping Cart", path: "/shopping-cart" },
-              { name: "Checkout", path: "/checkout" },
-              { name: "Faq", path: "/faq" },
-              { name: "Register", path: "/register" },
-              { name: "Login", path: "/login" },
-            ].map((data) => {
-              return (
-                <li
-                  key={data.name}
-                  className="text-white font-semibold hover:text-PrimaryOrange text-[15px]"
-                >
-                  <Link to={data.path}>{data.name}</Link>
-                </li>
-              );
-            })}
-          </ul>
+          <p className="text-white font-semibold text-[15px]">FAQ</p>
         </Link>
       </nav>
       <div className="w-full overflow-hidden h-auto min-h-[56px] pb-0 bg-[#4c4c4c]">
@@ -223,48 +205,11 @@ export default function NavBarComponent() {
           >
             Contact
           </Link>
-          <Link to="#" className="h-auto  flex flex-col">
-            <p
-              onClick={() => {
-                let elem = document.getElementById("mobilePages");
-                let caret = document.getElementById("pagesCaret");
-                if (elem.style.height !== "auto") {
-                  elem.style.height = "auto";
-                  caret.style.transform = "rotate(90deg)";
-                } else {
-                  elem.style.height = "0px";
-                  caret.style.transform = "rotate(0deg)";
-                }
-              }}
-              className="flex h-8 items-center  rounded px-3 text-white text-[15px] hover:bg-white/50 hover:text-PrimaryBlack"
-            >
-              Pages &nbsp;{" "}
-              <i class="fa-solid fa-caret-right" id="pagesCaret"></i>
-            </p>
-            <ul
-              id="mobilePages"
-              className=" w-full h-0 overflow-hidden pl-5 pt-2 pb-2 flex flex-col"
-            >
-              {[
-                { name: "Blog Details", path: "/blog-details/1" },
-                { name: "Shopping Cart", path: "/shopping-cart" },
-                { name: "Checkout", path: "/checkout" },
-                { name: "Faq", path: "/faq" },
-                { name: "Register", path: "/register" },
-                { name: "Login", path: "/login" },
-              ].map((data) => {
-                return (
-                  <li key={data.name} className="">
-                    <Link
-                      to={data.path}
-                      className="h-8 flex items-center rounded px-3 text-white text-[15px] hover:bg-white/50 hover:text-PrimaryBlack"
-                    >
-                      {data.name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+          <Link
+            to="/faq"
+            className="h-8 flex items-center rounded px-3 text-white text-[15px] hover:bg-white/50 hover:text-PrimaryBlack mb-3"
+          >
+            Faq
           </Link>
         </div>
       </div>
