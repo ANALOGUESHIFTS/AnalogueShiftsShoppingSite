@@ -64,14 +64,14 @@ export default function ContactPage() {
               return (
                 <div
                   key={data.label}
-                  className="bg-white w-full h-auto py-3 rounded-lg shadow-2xl px-12 flex gap-12 items-center"
+                  className="bg-white w-full h-auto py-3 rounded-lg shadow-2xl px-12 flex gap-12 items-center max-[800px]:px-3"
                 >
                   {data.icon}
                   <div className="flex flex-col">
                     <p className="text-base text-PrimaryBlack/60 font-medium">
                       {data.label}
                     </p>
-                    <p className="text-base text-PrimaryBlack font-medium">
+                    <p className="text-base text-PrimaryBlack font-medium w-full">
                       {data.details}
                     </p>
                   </div>
