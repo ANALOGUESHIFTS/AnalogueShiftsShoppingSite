@@ -21,7 +21,7 @@ export default function AboutPage() {
         experience the best in fashion from West Africa and across the globe.
         With focus on style, identity and authenticity; we delight in
         spotlighting the evolution, inspiration, and outcomes within the
-        Nigerian fashion industry. We seek toinspire all who take pride in
+        Nigerian fashion industry. We seek to inspire all who take pride in
         indigenous creativity, and offer convenience for shopping through our
         curation of the very best collections from Africa. We work as a team
         that is socially empowered and with the goal to make even more

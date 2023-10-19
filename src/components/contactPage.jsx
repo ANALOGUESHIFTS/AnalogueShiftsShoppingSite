@@ -7,21 +7,22 @@ export default function ContactPage() {
   const contact = [
     {
       label: "Address:",
-      details: "60-49 Road 11378 New York",
+      details:
+        "SF1 kadun city plaza, before kastina round about, opposite studio 24, kaduna Nigeria",
       icon: (
         <i class="fa-solid fa-location-dot text-PrimaryBlack/50 text-2xl"></i>
       ),
     },
     {
       label: "Phone:",
-      details: "+65 11.188.888",
+      details: "+2348031376569",
       icon: (
         <i class="fa-solid fa-mobile-screen-button text-PrimaryBlack/50 text-2xl"></i>
       ),
     },
     {
       label: "Email:",
-      details: "hellocolorlib@gmail.com",
+      details: "cinnamon19fashion@gmail.com",
       icon: (
         <i class="fa-regular fa-envelope text-PrimaryBlack/50 text-2xl"></i>
       ),
@@ -56,23 +57,21 @@ export default function ContactPage() {
             Contact Us
           </p>
           <p className="text-base text-PrimaryBlack/80 pb-5">
-            Contrary to popular belief, Lorem Ipsum is simply random text. It
-            has roots in a piece of classical Latin literature from 45 BC, maki
-            years old.
+            You can reach us with the following details below.
           </p>
           <div className="flex w-full flex-col gap-4">
             {contact.map((data) => {
               return (
                 <div
                   key={data.label}
-                  className="bg-white w-full h-20 rounded-lg shadow-2xl px-12 flex gap-12 items-center"
+                  className="bg-white w-full h-auto py-3 rounded-lg shadow-2xl px-12 flex gap-12 items-center"
                 >
                   {data.icon}
                   <div className="flex flex-col">
                     <p className="text-base text-PrimaryBlack/60 font-medium">
                       {data.label}
                     </p>
-                    <p className="text-[17px] text-PrimaryBlack font-medium">
+                    <p className="text-base text-PrimaryBlack font-medium">
                       {data.details}
                     </p>
                   </div>

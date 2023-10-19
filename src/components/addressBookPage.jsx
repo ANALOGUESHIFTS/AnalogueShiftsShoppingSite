@@ -72,7 +72,7 @@ export default function AddressBookPage() {
           </Link>
           <Link
             to=""
-            className="px-5 py-3 flex items-center gap-4 bg-transparent absolute bottom-0 left-0  w-full"
+            className="px-5 py-3 flex items-center gap-4 bg-transparent hover:bg-black/10  w-full"
           >
             <i className="fa-solid fa-right-from-bracket text-red-500 text-xs"></i>
             <p className="text-red-500 font-bold text-sm">Log Out</p>

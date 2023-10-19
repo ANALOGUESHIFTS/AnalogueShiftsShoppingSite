@@ -43,8 +43,8 @@ export default function HomeSectionOne() {
           Black friday
         </p>
         <p className="text-[15px] pb-8 font-medium text-PrimaryBlack/70 leading-6">
-          Get the Best Deals & Offers on Electronics Products from Cinnamon
-          Black Friday ✨ Black Friday 2023
+          Get the Best Deals & Offers on Fashion from Cinnamon Black Friday ✨
+          Black Friday 2023
         </p>
         <Link
           to="/shop"

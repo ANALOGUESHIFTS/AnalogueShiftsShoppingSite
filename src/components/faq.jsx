@@ -8,11 +8,11 @@ export default function FaqPage() {
       id: 1,
       title: "Do I need to create a cinnamon account?",
       answer:
-        "You can browse our website and add items to your basket without creating an account, but to make any purchases you need to create an account by providing an email address and creating a password. Once you’ve created an account, shopping with us will be so much more convenient.",
+        "You can browse our website and add items to your basket without creating an account, but to make any purchases you need to create an account by providing an email address and creating a password. Creating an account with us makes your shopping process more convenient.",
     },
     {
       id: 2,
-      title: "Where Can I Find Market Research Reports?",
+      title: "Where can I get my order reports?",
       answer:
         "Once you have successfully submitted your order, you will receive an automated email confirming your order details. Your order will then be processed by our warehouse team and you’ll receive a dispatch confirmation email when your order is dispatched for delivery.",
     },

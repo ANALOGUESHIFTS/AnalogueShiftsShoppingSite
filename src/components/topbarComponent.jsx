@@ -14,12 +14,12 @@ export default function TopbarComponent() {
       <div className="w-11/12 h-14  grid grid-cols-7 max-[900px]:w-[80%]">
         <div className="col-span-2 border-r h-full flex items-center gap-2.5 max-[900px]:hidden">
           <i class="fa-solid fa-envelope text-PrimaryBlack "></i>
-          <p className="text-PrimaryBlack">fashion@gmail.com</p>
+          <p className="text-PrimaryBlack">cinnamon19fashion@gmail.com</p>
         </div>
         <div className="col-span-4 border-r flex justify-between w-full items-center px-6 max-[900px]:hidden">
           <div className="flex gap-2.5 items-center ">
             <i class="fa-solid fa-phone text-PrimaryBlack text-xs"></i>
-            <p className="text-PrimaryBlack">+65 11.188.888</p>
+            <p className="text-PrimaryBlack">+2348031376569</p>
           </div>
           <div className="flex gap-4 items-center">
             <a href="">

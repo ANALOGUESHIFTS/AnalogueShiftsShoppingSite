@@ -44,11 +44,14 @@ export default function Footer() {
             />
           </Link>
           <div className="flex flex-col w-full pt-7 gap-2">
-            <p className="text-white/70 text-base ">
-              Address: 60-49 Road 11378 New York
+            <p className="text-white/70 text-base pr-2 ">
+              Address: SF1 kadun city plaza, before kastina round about,
+              opposite studio 24, kaduna Nigeria
             </p>
-            <p className="text-white/70 text-base ">Phone: +65 11.188.888</p>
-            <p className="text-white/70 text-base ">Email: fashion@gmail.com</p>
+            <p className="text-white/70 text-base ">Phone: +2348031376569</p>
+            <p className="text-white/70 text-base ">
+              Email: cinnamon19fashion@gmail.com
+            </p>
           </div>
           <div className="pt-6 flex gap-2">
             {socialIcons.map((icon) => {
