@@ -43,7 +43,7 @@ export default function ProfilePage() {
         >
           <i className="fa-solid fa-book-open text-PrimaryBlack text-xs"></i>
           <p className="text-PrimaryBlack font-semibold text-sm">
-            {t("Addresss Book")}
+            {t("Address Book")}
           </p>
         </Link>
         <Link

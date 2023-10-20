@@ -12,7 +12,7 @@
    "Women's": "Damen",
    "Kid's": "Kinder",
    "Deal Of The Week": "Angebot der Woche",
-   "You can now enjoy our mouthwatering offers & deals on Fashion a weekly basis": "Sie können jetzt wöchentlich unsere köstlichen Angebote und Deals zum Thema Mode genießen",
+   "You can now enjoy our mouthwatering offers & deals on Fashion on a weekly basis": "Sie können jetzt wöchentlich unsere köstlichen Angebote und Deals zum Thema Mode genießen",
    "Discover More": "Mehr erfahren",
    "Cinnamon In The Look By Marie Claire": "Zimt im Look von Marie Claire",
    "Revolutionising Nigeria's Fashion E-commerce by thisday style": "Revolutionierung des nigerianischen Mode-E-Commerce durch den heutigen Stil",
@@ -87,7 +87,6 @@
 "Apply": "Anwenden",
 "CONFIRM ORDER": "BESTELLUNG BESTÄTIGEN",
 "My Cinnamon Account": "Mein Cinnamon-Konto",
-"Addresss Book": "Adressbuch",
 "Log Out": "Ausloggen",
 "Account Overview": "Kontoübersicht",
 "Account Details": "Kontodetails",
@@ -98,5 +97,6 @@
 "CONTINUE SHOPPING": "MIT DEM EINKAUFEN FORTFAHREN",
 "UPDATE CART": "WARENKORB AKTUALISIEREN",
 "IMAGE": "BILD",
-"PRODUCT NAME": "PRODUKTNAME"
+"PRODUCT NAME": "PRODUKTNAME",
+"Address Book": "Adressbuch"
 }

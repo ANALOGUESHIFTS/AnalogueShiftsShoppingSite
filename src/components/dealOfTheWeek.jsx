@@ -27,12 +27,12 @@ export default function DealOfTheWeek() {
   const seconds = secondsRemaining % 60;
 
   return (
-    <div className="w-full px-12 py-14 max-[1000px]:px-0 max-[900px]:pt-0 max-[900px]:py-10">
+    <div className="w-full px-12 py-14 max-[1000px]:px-0 max-[900px]:pt-0 max-[900px]:py-10 max-[500px]:flex max-[500px]:justify-center">
       <div
         style={{ backgroundImage: "url(/images/time-bg.jpg.webp)" }}
-        className="h-[550px] bg-cover bg-center max-[900px]:h-auto max-[900px]:px-[10%] max-[900px]:py-12 w-full flex flex-col justify-center pl-32 max-[900px]:pl-0 max-[900px]:items-center"
+        className="h-[550px] bg-cover bg-center max-[900px]:h-auto  w-full flex flex-col justify-center pl-32 max-[900px]:px-0 max-[900px]:items-center"
       >
-        <div className="w-[420px] flex flex-col justify-center items-center max-w-full">
+        <div className="w-[420px] flex flex-col justify-center items-center max-w-full max-[500px]:w-[90%]">
           <p
             id="dealOfTheWeekTitle"
             className="text-PrimaryBlack/90 text-4xl font-bold relative w-fit pb-11"
@@ -41,7 +41,7 @@ export default function DealOfTheWeek() {
           </p>
           <p className="text-center text-PrimaryBlack/70 text-base pb-5 font-medium">
             {t(
-              "You can now enjoy our mouthwatering offers & deals on Fashion a weekly basis"
+              "You can now enjoy our mouthwatering offers & deals on Fashion on a weekly basis"
             )}
           </p>
           <div className="flex items-end pb-6">

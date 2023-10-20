@@ -44,7 +44,7 @@ export default function FaqPage() {
         return (
           <div
             style={{
-              height: `${openedFaq === data.id ? "auto" : "48px"}`,
+              height: `${openedFaq === data.id ? "auto" : "55px"}`,
             }}
             key={data.id}
             className="duration-300 w-full flex flex-col overflow-y-hidden gap-5"
