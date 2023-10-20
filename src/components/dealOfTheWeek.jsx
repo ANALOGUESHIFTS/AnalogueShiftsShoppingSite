@@ -99,7 +99,7 @@ export default function DealOfTheWeek() {
               to="/shop"
               className="text-white bg-PrimaryOrange py-2 px-5 w-40 flex justify-center items-center text-sm"
             >
-              SHOP NOW
+              {t("SHOP NOW")}
             </Link>
           </div>
         </div>
