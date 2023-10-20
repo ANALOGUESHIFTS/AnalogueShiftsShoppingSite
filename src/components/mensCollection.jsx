@@ -9,7 +9,7 @@ export default function MensCollection() {
 
   const products = menProducts;
 
-  const categories = ["Clothings", "HandBag", "Shoes", "Accessories"];
+  const categories = ["Clothings", "HandBag", "Shoes"];
 
   const handleResize = () => {
     if (window.innerWidth <= 500) {

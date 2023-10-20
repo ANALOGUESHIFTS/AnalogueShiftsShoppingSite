@@ -23,7 +23,7 @@ export default function HomeSectionTwo() {
   ];
 
   const products = femaleProducts;
-  const categories = ["Clothings", "HandBag", "Shoes", "Accessories"];
+  const categories = ["Clothings", "HandBag", "Shoes"];
 
   const handleResize = () => {
     if (window.innerWidth <= 500) {
