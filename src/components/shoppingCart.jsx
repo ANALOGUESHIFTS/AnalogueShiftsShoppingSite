@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function ShoppingCart() {
   const [cartProducts, setCartProducts] = useState([
@@ -26,6 +27,7 @@ export default function ShoppingCart() {
     },
   ]);
   const [total, setTotal] = useState(0);
+  const { t, i18n } = useTranslation();
 
   const handleQuantityChange = (id, newQuantity) => {
     setCartProducts(
@@ -66,19 +68,19 @@ export default function ShoppingCart() {
         <div className="w-full border pb-8 max-[900px]:w-[700px]">
           <div className="w-full border-b grid grid-cols-6 h-14 items-center px-6 mb-6 gap-8">
             <p className="col-span-1 text-center text-PrimaryBlack font-bold text-xs">
-              IMAGE
+              {t("IMAGE")}
             </p>
             <p className="col-span-2 text-PrimaryBlack font-bold text-xs">
-              PRODUCT NAME
+              {t("PRODUCT NAME")}
             </p>
             <p className="col-span-1 text-PrimaryBlack font-bold text-xs">
-              PRICE
+              {t("Price").toUpperCase()}
             </p>
             <p className="col-span-1 text-PrimaryBlack font-bold text-xs">
-              QUANTITY
+              {t("Quantity").toUpperCase()}
             </p>
             <p className="col-span-1 text-PrimaryBlack font-bold text-xs">
-              TOTAL
+              {t("Total").toUpperCase()}
             </p>
           </div>
 
@@ -146,14 +148,14 @@ export default function ShoppingCart() {
               to="/shop"
               className="w-[57%] h-12 flex justify-center items-center border-2 border-solid border-black/10 text-sm text-PrimaryBlack/30 font-bold"
             >
-              CONTINUE SHOPPING
+              {t("CONTINUE SHOPPING")}
             </Link>
             <button className="w-[40%] h-12 flex justify-center items-center border-solid border-black/10 text-sm text-PrimaryBlack font-bold bg-black/10 border-2">
-              UPDATE CART
+              {t("UPDATE CART")}
             </button>
           </div>
           <p className="pt-8 font-bold text-PrimaryBlack text-base pb-3">
-            DISCOUNT CODES
+            {t("DISCOUNT CODES")}
           </p>
           <div className="w-full h-12 border flex">
             <input
@@ -162,7 +164,7 @@ export default function ShoppingCart() {
               placeholder="Enter your codes"
             />
             <button className="w-[20%] h-12 flex justify-center items-center text-sm text-PrimaryBlack font-bold border-none">
-              APPLY
+              {t("Apply").toUpperCase()}
             </button>
           </div>
         </div>
@@ -170,14 +172,16 @@ export default function ShoppingCart() {
           <div className="row-span-1 border-x-2 border-t-2 border-solid border-black/10 w-full px-5 pt-3">
             <div className="w-full h-full flex justify-between border-b border-solid border-white">
               <p className="text-PrimaryBlack text-base font-medium">
-                Subtotal
+                {t("Subtotal")}
               </p>
               <p className="text-base font-bold text-PrimaryBlack">${total}</p>
             </div>
           </div>
           <div className="row-span-1 w-full border-x-2 border-solid border-black/10 px-5 pt-3">
             <div className="w-full h-full flex justify-between border-b border-solid">
-              <p className="text-base font-bold text-PrimaryBlack">TOTAL</p>
+              <p className="text-base font-bold text-PrimaryBlack">
+                {t("Total").toUpperCase()}
+              </p>
               <p className="text-base font-bold text-PrimaryOrange">${total}</p>
             </div>
           </div>
@@ -185,7 +189,7 @@ export default function ShoppingCart() {
             to="/checkout"
             className="row-span-1 w-full flex justify-center items-center bg-PrimaryBlack text-base font-bold text-white"
           >
-            PROCEED TO CHECK OUT
+            {t("PROCEED TO CHECK OUT")}
           </Link>
         </div>
       </div>

@@ -1,44 +1,48 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 export default function BlogSection() {
+  const { t, i18n } = useTranslation();
   const blogs = [
     {
       image: "/images/latest-1.jpg",
       date: "May 4,2023",
       comments: "5",
-      title: "Cinnamon In The Look By Marie Claire",
-      details: "Cinnamon In The Look By Marie Claire",
+      title: t("Cinnamon In The Look By Marie Claire"),
+      details: t("Cinnamon In The Look By Marie Claire"),
     },
     {
       image: "/images/latest-2.jpg",
       date: "May 4,2023",
       comments: "5",
-      title: "Revolutionising Nigeria's Fashion E-commerce by thisday style",
-      details: "Revolutionising Nigeria's Fashion E-commerce by thisday style",
+      title: t("Revolutionising Nigeria's Fashion E-commerce by thisday style"),
+      details: t(
+        "Revolutionising Nigeria's Fashion E-commerce by thisday style"
+      ),
     },
     {
       image: "/images/latest-3.jpg",
       date: "May 4,2023",
       comments: "5",
-      title: "Outfit of the day: Sister of the groom!",
-      details: "Outfit of the day: Sister of the groom!",
+      title: t("Outfit of the day: Sister of the groom!"),
+      details: t("Outfit of the day: Sister of the groom!"),
     },
   ];
   const perks = [
     {
       icon: "images/icon-1.png",
-      title: "FREE SHIPPING",
-      description: "For all order over 99$",
+      title: t("FREE SHIPPING"),
+      description: t("For all order over 99$"),
     },
     {
       icon: "images/icon-2.png",
-      title: "DELIVERY ON TIME",
-      description: "If good have prolems",
+      title: t("DELIVERY ON TIME"),
+      description: t("If good have prolems"),
     },
     {
       icon: "images/icon-1.png",
-      title: "SECURE PAYMENT",
-      description: "100% secure payment",
+      title: t("SECURE PAYMENT"),
+      description: t("100% secure payment"),
     },
   ];
   return (

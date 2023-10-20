@@ -2,7 +2,10 @@ import { useState } from "react";
 import CartDropdown from "./cartDropdown";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 export default function HeaderComponent() {
+  const { t, i18n } = useTranslation();
   const [CartDropdownDisplay, setCartDropdownDisplay] = useState(false);
   const [category, setCategory] = useState("All Categories");
   const [searchValue, setSearchValue] = useState("");

@@ -1,13 +1,26 @@
 import { useState, useEffect } from "react";
-import LanguageDropdownComponent from "./languageDropdownComponent";
+import LanguageDropdownComponent from "./langDropdown";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 export default function TopbarComponent() {
-  const [languageSelected, setLanguageSelected] = useState("English");
+  const [languageSelected, setLanguageSelected] = useState("en");
   const [dropdown, setDropdown] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  const [flag, setFlag] = useState("/images/usa-flag.webp");
 
   useEffect(() => {
     setDropdown(false);
+    i18n.changeLanguage(languageSelected);
+    if (languageSelected === "en") {
+      setFlag("/images/usa-flag.webp");
+    } else if (languageSelected === "german") {
+      setFlag("/images/germany-flag.webp");
+    } else {
+      setFlag("/images/french-flag.png");
+    }
   }, [languageSelected]);
   return (
     <div className="px-28 flex w-full items-center border-b max-[1000px]:px-12 max-[800px]:px-0">
@@ -41,16 +54,11 @@ export default function TopbarComponent() {
           className="col-span-1 border-r h-full flex items-center justify-between px-4 cursor-pointer relative max-[900px]:col-span-7 max-[900px]:justify-end max-[900px]:gap-8"
         >
           <div className="flex items-center gap-2">
-            <img
-              src={
-                languageSelected === "English"
-                  ? "/images/usa-flag.webp"
-                  : "/images/germany-flag.webp"
-              }
-              alt=""
-            />
+            <img src={flag} alt="" className="w-8 h-5" />
             <p className="text-PrimaryBlack text-sm">
-              {languageSelected === "English" ? "English" : "German"}
+              {languageSelected === "en" && "English"}{" "}
+              {languageSelected === "german" && "German"}
+              {languageSelected === "french" && "French"}
             </p>
           </div>
           <i class="fa-solid fa-angle-down text-PrimaryBlack text-xs"></i>

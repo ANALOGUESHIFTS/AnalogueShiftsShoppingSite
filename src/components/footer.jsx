@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Link } from "react-router-dom";
 
@@ -22,6 +23,8 @@ export default function Footer() {
     "fa-brands fa-pinterest text-white",
   ];
 
+  const { t, i18n } = useTranslation();
+
   return (
     <footer className="w-full">
       <div
@@ -43,14 +46,16 @@ export default function Footer() {
               alt=""
             />
           </Link>
-          <div className="flex flex-col w-full pt-7 gap-2">
+          <div className="flex flex-col w-full pt-7 gap-3">
             <p className="text-white/70 text-base pr-2 ">
-              Address: SF1 kadun city plaza, before kastina round about,
+              {t("Address")}: SF1 kadun city plaza, before kastina round about,
               opposite studio 24, kaduna Nigeria
             </p>
-            <p className="text-white/70 text-base ">Phone: +2348031376569</p>
             <p className="text-white/70 text-base ">
-              Email: cinnamon19fashion@gmail.com
+              {t("Phone")}: +2348031376569
+            </p>
+            <p className="text-white/70 text-base ">
+              {t("Email")}: cinnamon19fashion@gmail.com
             </p>
           </div>
           <div className="pt-6 flex gap-2">
@@ -66,46 +71,48 @@ export default function Footer() {
           </div>
         </div>
         <div className="col-span-2 flex flex-col">
-          <p className="text-white font-bold text-base">Information</p>
-          <div className="flex flex-col w-full pt-7 gap-2">
+          <p className="text-white font-bold text-base">{t("Information")}</p>
+          <div className="flex flex-col w-full pt-7 gap-3">
             <Link to="/about" className="text-white/70 text-base ">
-              About Us
+              {t("About Us")}
             </Link>
             <Link to="/checkout" className="text-white/70 text-base ">
-              Checkout
+              {t("Checkout")}
             </Link>
             <Link to="/contact" className="text-white/70 text-base ">
-              Contact
+              {t("Contact")}
             </Link>
             <Link to="/" className="text-white/70 text-base ">
-              Services
+              {t("Services")}
             </Link>
           </div>
         </div>
         <div className="col-span-2 flex flex-col">
-          <p className="text-white font-bold text-base">My Account</p>
-          <div className="flex flex-col w-full pt-7 gap-2">
+          <p className="text-white font-bold text-base">{t("My Account")}</p>
+          <div className="flex flex-col w-full pt-7 gap-3">
             <Link to="/profile" className="text-white/70 text-base ">
-              My Account
+              {t("My Account")}
             </Link>
             <Link to="/contact" className="text-white/70 text-base ">
-              Contact
+              {t("Contact")}
             </Link>
             <Link to="/shopping-cart" className="text-white/70 text-base ">
-              Shopping Cart
+              {t("Shopping Cart")}
             </Link>
             <Link to="/shop" className="text-white/70 text-base ">
-              Shop
+              {t("Shop")}
             </Link>
           </div>
         </div>
         <div className="col-span-3 flex flex-col">
           <p className="text-white font-bold text-base">
-            Join Our Newsletter Now
+            {t("Join Our Newsletter Now")}
           </p>
           <div className="flex flex-col w-full pt-7 gap-2">
             <p className="text-white/70 text-base ">
-              Get E-mail updates about our latest shop and special offers.
+              {t(
+                "Get E-mail updates about our latest shop and special offers."
+              )}
             </p>
             <div className="flex h-11 w-full">
               <input

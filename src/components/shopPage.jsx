@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { menProducts, femaleProducts } from "./products";
+import { useTranslation } from "react-i18next";
 
 const products = [...menProducts, ...femaleProducts];
 
@@ -18,6 +19,7 @@ export default function ShopPage() {
   );
   const [optionsList, setOptionsList] = useState([amountToDisplay]);
   const [showValue, setShowValue] = useState(amountToDisplay);
+  const { t, i18n } = useTranslation();
 
   const tags = [
     "Towel",
@@ -66,20 +68,22 @@ export default function ShopPage() {
       <div className="w-[25%] flex flex-col max-[900px]:w-full">
         <div className="flex flex-col pb-8">
           <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-            Categories
+            {t("Categories")}
           </p>
           <Link to="" className="text-base text-PrimaryBlack/80 pb-2">
-            Men
+            {t("Men")}
           </Link>
           <Link to="" className="text-base text-PrimaryBlack/80 pb-2">
-            Women
+            {t("Women")}
           </Link>
           <Link to="" className="text-base text-PrimaryBlack/80">
-            Kids
+            {t("Kids")}
           </Link>
         </div>
         <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">Brand</p>
+          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+            {t("Brand")}
+          </p>
           <div
             onClick={() => setCalvinKlein((prev) => !prev)}
             className="cursor-pointer flex gap-2.5 items-center pb-2"
@@ -125,7 +129,9 @@ export default function ShopPage() {
           </div>
         </div>
         <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">Price</p>
+          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+            {t("Price")}
+          </p>
           <div className="flex items-center gap-1 pb-5">
             <input
               type="text"
@@ -142,11 +148,13 @@ export default function ShopPage() {
             />
           </div>
           <button className="text-white bg-PrimaryOrange py-2 px-5 w-fit font-semibold">
-            FILTER
+            {t("FILTER")}
           </button>
         </div>
         <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">Color</p>
+          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+            {t("Color")}
+          </p>
           <div className="w-9/12 flex justify-between items-center pb-4">
             <div className="flex w-24 gap-3 items-center cursor-pointer">
               <div className="w-5 h-5 rounded-[50%] bg-PrimaryBlack"></div>
@@ -179,7 +187,9 @@ export default function ShopPage() {
           </div>
         </div>
         <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">Size</p>
+          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+            {t("Size")}
+          </p>
           <div className="w-full flex gap-3 items-center">
             {sizes.map((size) => {
               return (
@@ -207,7 +217,9 @@ export default function ShopPage() {
           </div>
         </div>
         <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">Tags</p>
+          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+            {t("Tags")}
+          </p>
           <div className="w-full flex gap-3 items-center flex-wrap">
             {tags.map((tag) => {
               return (
@@ -276,7 +288,7 @@ export default function ShopPage() {
                     <button className="h-full w-[56%] bg-white flex justify-center items-center text-PrimaryBlack">
                       <i className="fa-solid fa-plus text-xs"></i>&nbsp;
                       <p className="font-bold text-PrimaryBlack text-sm">
-                        Quick View
+                        {t("Quick View")}
                       </p>
                     </button>
                     <button className="h-full w-[20%] bg-white flex justify-center items-center text-PrimaryBlack">

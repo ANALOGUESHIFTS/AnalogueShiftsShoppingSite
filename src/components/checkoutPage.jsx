@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function CheckOutPage() {
   const [cartProducts, setCartProducts] = useState([
@@ -32,6 +33,7 @@ export default function CheckOutPage() {
     "Pay with Cards, Bank Transfer or USSD"
   );
   const [couponCode, setCouponCode] = useState("");
+  const { t, i18n } = useTranslation();
 
   const containerRef = useRef();
 
@@ -59,14 +61,14 @@ export default function CheckOutPage() {
                   <i className="fa-solid fa-check text-white text-xs"></i>
                 </div>
                 <p className="text-PrimaryBlack font-bold text-xs tracking-wider">
-                  1. CUSTOMER ADDRESS
+                  1. {t("CUSTOMER ADDRESS")}
                 </p>
               </div>
               <Link
                 to=""
                 className="flex items-center hover:underline text-[13px] text-blue-900 font-medium gap-1"
               >
-                Change
+                {t("Change")}
                 <i className="fa-solid fa-angle-right text-[11px]"></i>
               </Link>
             </div>
@@ -78,7 +80,7 @@ export default function CheckOutPage() {
                   <i className="fa-solid fa-check text-white text-xs"></i>
                 </div>
                 <p className="text-PrimaryBlack font-bold text-xs tracking-wider">
-                  2. DELIVERY DETAILS
+                  2. {t("DELIVERY DETAILS")}
                 </p>
               </div>
               <select
@@ -95,10 +97,10 @@ export default function CheckOutPage() {
               {deliveryMethod}
             </p>
             <p className="pt-5 text-green-600 pl-6 text-xs font-semibold">
-              SAVE UP TO ₦ 1,840
+              {t("SAVE UP TO")} ₦ 1,840
             </p>
             <p className="pt-2 text-PrimaryBlack font-semibold text-[13px] pl-6">
-              By switching to a pickup station starting from ₦ 1,520
+              {t("By switching to a pickup station starting from")} ₦ 1,520
             </p>
             {deliveryMethod === "Pick-up Station" && (
               <div className="pt-8 flex flex-col">
@@ -122,7 +124,7 @@ export default function CheckOutPage() {
                   <i className="fa-solid fa-check text-white text-xs"></i>
                 </div>
                 <p className="text-PrimaryBlack font-bold text-xs tracking-wider">
-                  3. PAYMENT METHOD
+                  3. {t("PAYMENT METHOD")}
                 </p>
               </div>
               <select
@@ -141,17 +143,17 @@ export default function CheckOutPage() {
               {paymentMethod}
             </p>
             <p className="text-xs font-semibold text-PrimaryBlack/70 pl-6">
-              You will be redirected to our secure checkout page
+              {t("You will be redirected to our secure checkout page")}
             </p>
           </div>
         </div>
         <div className="col-span-3 flex flex-col max-[900px]:w-full">
           <p className=" text-PrimaryBlack font-semibold text-sm">
-            Order Summary
+            {t("Order Summary")}
           </p>
           <div className="w-full flex justify-between pt-6">
             <p className="text-sm font-medium text-PrimaryBlack/90">
-              Item's total ({cartProducts.length})
+              {t("Item's total")} ({cartProducts.length})
             </p>
             <p className="text-sm font-semibold text-PrimaryBlack/90">
               ${total}
@@ -159,14 +161,16 @@ export default function CheckOutPage() {
           </div>
           <div className="w-full flex justify-between pt-6">
             <p className="text-sm font-medium text-PrimaryBlack/90">
-              Delivery fees
+              {t("Delivery fees")}
             </p>
             <p className="text-sm font-semibold text-PrimaryBlack/90">
               {/* Delivery Fees */}
             </p>
           </div>
           <div className="w-full flex justify-between pt-6">
-            <p className="text-sm font-semibold text-PrimaryBlack">Total</p>
+            <p className="text-sm font-semibold text-PrimaryBlack">
+              {t("Total")}
+            </p>
             <p className="text-base font-semibold text-PrimaryBlack/90">
               ${total}
             </p>
@@ -185,14 +189,14 @@ export default function CheckOutPage() {
                   couponCode.length > 0 ? "#e7ab3c" : "rgba(0,0,0,0.5)"
                 }`,
               }}
-              className="text-sm font-semibold"
+              className="text-sm font-semibold cursor-pointer"
             >
-              Apply
+              {t("Apply")}
             </p>
           </div>
           <div className="w-full flex justify-between pt-6 items-center">
             <button className="border-none w-full flex justify-center items-center h-11 rounded text-white bg-PrimaryOrange hover:bg-PrimaryOrange/70">
-              CONFIRM ORDER
+              {t("CONFIRM ORDER")}
             </button>
           </div>
         </div>

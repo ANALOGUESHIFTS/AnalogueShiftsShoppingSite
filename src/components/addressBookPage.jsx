@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import AddAddress from "./addAddress";
 
@@ -7,6 +8,7 @@ export default function AddressBookPage() {
   const [addressModal, setAddressModal] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(0);
+  const { t, i18n } = useTranslation();
   const containerRef = useRef();
 
   const deleteAddress = (id) => {
@@ -58,7 +60,7 @@ export default function AddressBookPage() {
           >
             <i className="fa-regular fa-user text-PrimaryBlack text-xs"></i>
             <p className="text-PrimaryBlack font-semibold text-sm">
-              My Cinnamon Account
+              {t("My Cinnamon Account")}
             </p>
           </Link>
           <Link
@@ -67,7 +69,7 @@ export default function AddressBookPage() {
           >
             <i className="fa-solid fa-book-open text-PrimaryBlack text-xs"></i>
             <p className="text-PrimaryBlack font-semibold text-sm">
-              Addresss Book
+              {t("Addresss Book")}
             </p>
           </Link>
           <Link
@@ -75,13 +77,13 @@ export default function AddressBookPage() {
             className="px-5 py-3 flex items-center gap-4 bg-transparent hover:bg-black/10  w-full"
           >
             <i className="fa-solid fa-right-from-bracket text-red-500 text-xs"></i>
-            <p className="text-red-500 font-bold text-sm">Log Out</p>
+            <p className="text-red-500 font-bold text-sm">{t("Log Out")}</p>
           </Link>
         </aside>
         <section className="w-[calc(100%-300px)] h-[500px] bg-white rounded-lg max-[800px]:w-full max-[500px]:h-auto">
           <div className=" px-5 items-center border-b flex justify-between h-[50px]">
             <p className="text-PrimaryBlack/80 text-lg font-bold">
-              Address Book
+              {t("Addresss Book")}
             </p>
             <i
               onClick={toggleMenu}
@@ -91,7 +93,7 @@ export default function AddressBookPage() {
               onClick={() => setAddressModal(true)}
               className="px-6 py-2 max-[800px]:hidden rounded shadow-xl hover:bg-PrimaryOrange/80 bg-PrimaryOrange text-white font-bold text-xs"
             >
-              ADD NEW ADDRESS &nbsp; <i className="fa-solid fa-plus"></i>
+              {t("ADD NEW ADDRESS")} &nbsp; <i className="fa-solid fa-plus"></i>
             </button>
           </div>
           <div className="py-3 w-full border-b max-[800px]:flex justify-center hidden">
@@ -99,7 +101,7 @@ export default function AddressBookPage() {
               onClick={() => setAddressModal(true)}
               className="px-6 py-2 rounded shadow-xl hover:bg-PrimaryOrange/80 bg-PrimaryOrange text-white font-bold text-xs"
             >
-              ADD NEW ADDRESS &nbsp; <i className="fa-solid fa-plus"></i>
+              {t("ADD NEW ADDRESS")} &nbsp; <i className="fa-solid fa-plus"></i>
             </button>
           </div>
           <div className="p-4 w-full flex flex-wrap gap-4 gap-y-4">

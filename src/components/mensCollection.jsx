@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { menProducts } from "./products";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { useTranslation } from "react-i18next";
 
 export default function MensCollection() {
   const [selectedCategory, setSelectedCategory] = useState("Clothings");
+  const { t, i18n } = useTranslation();
   const [perView, setPerView] = useState(3);
 
   const products = menProducts;
@@ -135,12 +137,12 @@ export default function MensCollection() {
           }}
           className="h-full w-[26%] max-[900px]:w-full max-[900px]:h-[620px] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
         >
-          <p className="text-white font-extrabold text-[50px]">Men's</p>
+          <p className="text-white font-extrabold text-[50px]">{t("Men's")}</p>
           <Link
             to="/shop"
             className="text-white pb-1.5 text-lg font-semibold border-b-2 border-white border-solid"
           >
-            Discover More
+            {t("Discover More")}
           </Link>
         </div>
       </div>

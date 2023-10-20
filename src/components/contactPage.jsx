@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ContactPage() {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userMessage, setUserMessage] = useState("");
+  const { t, i18n } = useTranslation();
   const contact = [
     {
-      label: "Address:",
+      label: t("Address"),
       details:
         "SF1 kadun city plaza, before kastina round about, opposite studio 24, kaduna Nigeria",
       icon: (
@@ -14,14 +16,14 @@ export default function ContactPage() {
       ),
     },
     {
-      label: "Phone:",
+      label: t("Phone"),
       details: "+2348031376569",
       icon: (
         <i class="fa-solid fa-mobile-screen-button text-PrimaryBlack/50 text-2xl"></i>
       ),
     },
     {
-      label: "Email:",
+      label: t("Email"),
       details: "cinnamon19fashion@gmail.com",
       icon: (
         <i class="fa-regular fa-envelope text-PrimaryBlack/50 text-2xl"></i>
@@ -54,10 +56,10 @@ export default function ContactPage() {
       <div className="pt-12 w-full flex justify-between max-[800px]:flex-col max-[800px]:gap-5">
         <div className="w-[46%] max-[800px]:w-full">
           <p className="font-bold text-2xl text-PrimaryBlack pb-5">
-            Contact Us
+            {t("Contact Us")}
           </p>
           <p className="text-base text-PrimaryBlack/80 pb-5">
-            You can reach us with the following details below.
+            {t("You can reach us with the following details below.")}
           </p>
           <div className="flex w-full flex-col gap-4">
             {contact.map((data) => {
@@ -69,7 +71,7 @@ export default function ContactPage() {
                   {data.icon}
                   <div className="flex flex-col">
                     <p className="text-base text-PrimaryBlack/60 font-medium">
-                      {data.label}
+                      {data.label}:
                     </p>
                     <p className="text-base text-PrimaryBlack font-medium w-full">
                       {data.details}
@@ -82,10 +84,10 @@ export default function ContactPage() {
         </div>
         <div className="w-[46%] max-[800px]:w-full">
           <p className="font-bold text-2xl text-PrimaryBlack pb-5">
-            Leave A Comment
+            {t("Leave A Comment")}
           </p>
           <p className="text-base text-PrimaryBlack/80 pb-5">
-            Our staff will call back later and answer your questions.
+            {t("Our staff will call back later and answer your questions.")}
           </p>
           <div className="w-full flex justify-between pb-5 max-[800px]:flex-col max-[800px]:gap-5">
             <input
@@ -113,7 +115,7 @@ export default function ContactPage() {
           ></textarea>
           <div className="pt-5">
             <button className="bg-PrimaryOrange text-white text-[15px] font-bold border-npne px-6 py-2.5">
-              SEND MESSAGE
+              {t("SEND MESSAGE")}
             </button>
           </div>
         </div>

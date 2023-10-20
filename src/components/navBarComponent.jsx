@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 export default function NavBarComponent() {
+  const { t, i18n } = useTranslation();
   const [navbarHeight, setNavbarHeight] = useState("0px");
   const [selectedDepartment, setSelectedDepartment] =
     useState("All Department");

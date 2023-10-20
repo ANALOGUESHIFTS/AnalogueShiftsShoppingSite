@@ -4,20 +4,23 @@ import { useState, useEffect } from "react";
 import { femaleProducts } from "./products";
 import { SplideSlide, Splide } from "@splidejs/react-splide";
 
+import { useTranslation } from "react-i18next";
+
 export default function HomeSectionTwo() {
   const [selectedCategory, setSelectedCategory] = useState("Clothings");
   const [perView, setPerView] = useState(3);
+  const { t, i18n } = useTranslation();
   const collections = [
     {
-      title: "Men's",
+      title: t("Men's"),
       image: "/images/banner-1.jpg",
     },
     {
-      title: "Women's",
+      title: t("Women's"),
       image: "/images/banner-2.jpg",
     },
     {
-      title: "Kid's",
+      title: t("Kid's"),
       image: "/images/banner-3.jpg",
     },
   ];
@@ -69,12 +72,14 @@ export default function HomeSectionTwo() {
           }}
           className="h-full w-[26%] max-[900px]:w-full max-[900px]:h-[620px] bg-no-repeat bg-cover flex flex-col justify-center bg-center items-center"
         >
-          <p className="text-white font-extrabold text-[50px]">Women's</p>
+          <p className="text-white font-extrabold text-[50px]">
+            {t("Women's")}
+          </p>
           <Link
             to="/shop"
             className="text-white pb-1.5 text-lg font-semibold border-b-2 border-white border-solid"
           >
-            Discover More
+            {t("Discover More")}
           </Link>
         </div>
         <div className="w-[71%] h-full flex flex-col justify-center max-[900px]:w-full max-[900px]:py-3">

@@ -1,26 +1,31 @@
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function FaqPage() {
   const [openedFaq, setOpenedFaq] = useState(1);
+  const { t, i18n } = useTranslation();
 
   const faqs = [
     {
       id: 1,
-      title: "Do I need to create a cinnamon account?",
-      answer:
-        "You can browse our website and add items to your basket without creating an account, but to make any purchases you need to create an account by providing an email address and creating a password. Creating an account with us makes your shopping process more convenient.",
+      title: t("Do I need to create a cinnamon account?"),
+      answer: t(
+        "You can browse our website and add items to your basket without creating an account, but to make any purchases you need to create an account by providing an email address and creating a password. Creating an account with us makes your shopping process more convenient."
+      ),
     },
     {
       id: 2,
-      title: "Where can I get my order reports?",
-      answer:
-        "Once you have successfully submitted your order, you will receive an automated email confirming your order details. Your order will then be processed by our warehouse team and you’ll receive a dispatch confirmation email when your order is dispatched for delivery.",
+      title: t("Where can I get my order reports?"),
+      answer: t(
+        "Once you have successfully submitted your order, you will receive an automated email confirming your order details. Your order will then be processed by our warehouse team and you’ll receive a dispatch confirmation email when your order is dispatched for delivery."
+      ),
     },
     {
       id: 3,
-      title: "What shoud I do if my order isn't delivered",
-      answer:
-        "If your order has not been delivered within the timescales for your area, please contact us. Remember to include your order number within your message as this will help us speed up the search for your order. In the unlikely event that we’re unable to locate your parcel, we will send you a ‘Missing Parcel Claim Form’ to sign and return, which will act as a declaration of your claim. Upon receipt of your declaration, we will investigate the claim and advise you of the outcome within 4 working days. If appropriate, a refund will be issued to the credit/debit card used for your purchase AS SOON AS POSSIBLE.",
+      title: t("What shoud I do if my order isn't delivered"),
+      answer: t(
+        "If your order has not been delivered within the timescales for your area, please contact us. Remember to include your order number within your message as this will help us speed up the search for your order. In the unlikely event that we’re unable to locate your parcel, we will send you a ‘Missing Parcel Claim Form’ to sign and return, which will act as a declaration of your claim. Upon receipt of your declaration, we will investigate the claim and advise you of the outcome within 4 working days. If appropriate, a refund will be issued to the credit/debit card used for your purchase AS SOON AS POSSIBLE."
+      ),
     },
   ];
 

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { menProducts, femaleProducts } from "./products";
+import { useTranslation } from "react-i18next";
 
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
@@ -13,6 +14,7 @@ export default function ProductDetails() {
   const products = [...menProducts, ...femaleProducts];
   const item = products.filter((data) => data.id === id);
   const containerRef = useRef();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     containerRef.current.scrollTop = 0;
@@ -53,7 +55,7 @@ export default function ProductDetails() {
           </p>
           <div className="pt-3">
             <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
-              Color: {selectedColor}
+              {t("Color")}: {selectedColor}
             </p>
             <div className="flex w-full flex-wrap gap-1.5">
               {item[0].colors.map((color) => {
@@ -74,7 +76,7 @@ export default function ProductDetails() {
           </div>
           <div className="pt-3">
             <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
-              Size: {selectedSize}
+              {t("Size")}: {selectedSize}
             </p>
             <div className="flex w-full flex-wrap gap-1.5">
               {item[0].sizes.map((size) => {
@@ -95,7 +97,7 @@ export default function ProductDetails() {
         </div>
         <div className=" flex flex-col w-auto items-center">
           <p className="pb-3 text-PrimaryBlack text-base font-semibold">
-            Quantity
+            {t("Quantity")}
           </p>
           <div className="flex w-auto pb-4">
             <button
@@ -115,7 +117,7 @@ export default function ProductDetails() {
             </button>
           </div>
           <button className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80">
-            ADD TO CART
+            {t("ADD TO CART")}
           </button>
         </div>
       </div>

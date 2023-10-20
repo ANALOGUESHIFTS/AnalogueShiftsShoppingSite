@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 export default function DealOfTheWeek() {
   const [secondsRemaining, setSecondsRemaining] = useState(30 * 24 * 60 * 60);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -34,11 +37,12 @@ export default function DealOfTheWeek() {
             id="dealOfTheWeekTitle"
             className="text-PrimaryBlack/90 text-4xl font-bold relative w-fit pb-11"
           >
-            Deal Of The Week
+            {t("Deal Of The Week")}
           </p>
           <p className="text-center text-PrimaryBlack/70 text-base pb-5 font-medium">
-            You can now enjoy our mouthwatering offers & deals on Fashion a
-            weekly basis
+            {t(
+              "You can now enjoy our mouthwatering offers & deals on Fashion a weekly basis"
+            )}
           </p>
           <div className="flex items-end pb-6">
             <p className="font-bold text-PrimaryOrange text-2xl">$35.00</p>
