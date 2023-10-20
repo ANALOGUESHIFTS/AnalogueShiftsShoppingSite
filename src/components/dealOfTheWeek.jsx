@@ -37,7 +37,7 @@ export default function DealOfTheWeek() {
             Deal Of The Week
           </p>
           <p className="text-center text-PrimaryBlack/70 text-base pb-5 font-medium">
-            You can now enjoy our mouthwatering offers & deals on Fashionon a
+            You can now enjoy our mouthwatering offers & deals on Fashion a
             weekly basis
           </p>
           <div className="flex items-end pb-6">
