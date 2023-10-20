@@ -103,7 +103,7 @@ export default function HomeSectionTwo() {
             })}
           </div>
           <div className="w-full h-full relative flex justify-center">
-            <div className="w-[92%] pt-8">
+            <div className="w-full pt-8">
               <Splide
                 aria-label="Product Images"
                 className="w-full"
@@ -117,7 +117,7 @@ export default function HomeSectionTwo() {
                     <SplideSlide>
                       <Link
                         to={`/product-details/${data.id}`}
-                        className="w-[235px] flex flex-col"
+                        className="w-[235px] flex flex-col max-[500px]:w-full"
                         key={data.id}
                       >
                         <div
