@@ -20,7 +20,7 @@
     "FREE SHIPPING": "LIVRAISON GRATUITE",
     "For all order over 99$": "Pour toute commande de plus de 99$",
     "DELIVERY ON TIME": "LIVRAISON À TEMPS",
-    "If good have prolems": "Si c'est bien, j'ai des problèmes",
+    "If good have problems": "Si c'est bien, j'ai des problèmes",
     "SECURE PAYMENT": "PAIEMENT SÉCURISÉ",
     "100% secure payment":"Paiement 100% sécurisé",
     "Information": "Information",
@@ -98,5 +98,6 @@
 "CONTINUE SHOPPING": "CONTINUER VOS ACHATS",
 "UPDATE CART": "MISE À JOUR PANIER",
 "IMAGE": "IMAGE",
-"PRODUCT NAME": "NOM DU PRODUIT"
+"PRODUCT NAME": "NOM DU PRODUIT",
+"From The Blog": "du blog"
 }

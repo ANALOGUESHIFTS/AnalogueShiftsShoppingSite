@@ -18,8 +18,10 @@ export default function TopbarComponent() {
       setFlag("/images/usa-flag.webp");
     } else if (languageSelected === "german") {
       setFlag("/images/germany-flag.webp");
-    } else {
+    } else if (languageSelected === "french") {
       setFlag("/images/french-flag.png");
+    } else {
+      setFlag("/images/spanish-flag.png");
     }
   }, [languageSelected]);
   return (
@@ -59,6 +61,7 @@ export default function TopbarComponent() {
               {languageSelected === "en" && "English"}{" "}
               {languageSelected === "german" && "German"}
               {languageSelected === "french" && "French"}
+              {languageSelected === "spanish" && "Spanish"}
             </p>
           </div>
           <i class="fa-solid fa-angle-down text-PrimaryBlack text-xs"></i>

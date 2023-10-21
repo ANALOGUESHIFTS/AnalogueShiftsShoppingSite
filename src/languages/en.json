@@ -20,7 +20,7 @@
     "FREE SHIPPING": "FREE SHIPPING",
     "For all order over 99$": "For all order over 99$",
     "DELIVERY ON TIME": "DELIVERY ON TIME",
-    "If good have prolems": "If good have prolems",
+    "If good have problems": "If good have problems",
     "SECURE PAYMENT": "SECURE PAYMENT",
     "100% secure payment":"100% secure payment",
     "Information": "Information",
@@ -98,5 +98,6 @@
 "CONTINUE SHOPPING": "CONTINUE SHOPPING",
 "UPDATE CART": "UPDATE CART",
 "IMAGE": "IMAGE",
-"PRODUCT NAME": "PRODUCT NAME"
+"PRODUCT NAME": "PRODUCT NAME",
+"From The Blog": "From The Blog"
 }

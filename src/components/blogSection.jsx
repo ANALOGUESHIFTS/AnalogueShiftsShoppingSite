@@ -37,7 +37,7 @@ export default function BlogSection() {
     {
       icon: "images/icon-2.png",
       title: t("DELIVERY ON TIME"),
-      description: t("If good have prolems"),
+      description: t("If good have problems"),
     },
     {
       icon: "images/icon-1.png",
@@ -52,7 +52,7 @@ export default function BlogSection() {
           id="dealOfTheWeekTitle"
           className="text-PrimaryBlack text-3xl font-bold relative w-fit pb-11"
         >
-          From The Blog
+          {t("From The Blog")}
         </p>
       </div>
       <div className="flex w-full justify-between max-[900px]:flex-col max-[900px]:gap-4">

@@ -33,6 +33,13 @@ export default function LanguageDropdownComponent({ clicked }) {
         <img src="/images/french-flag.png" className="w-8 h-5" alt="" />
         <p className="text-PrimaryBlack text-sm">French</p>
       </div>
+      <div
+        onClick={() => clicked("spanish")}
+        className="flex items-center gap-2 cursor-pointer px-1"
+      >
+        <img src="/images/spanish-flag.png" className="w-8 h-5" alt="" />
+        <p className="text-PrimaryBlack text-sm">Spanish</p>
+      </div>
     </div>
   );
 }
