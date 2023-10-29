@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-
 import { useState, useEffect } from "react";
-import { femaleProducts } from "./products";
 import { SplideSlide, Splide } from "@splidejs/react-splide";
-
 import { useTranslation } from "react-i18next";
+import { v4 } from "uuid";
 
-export default function HomeSectionTwo() {
+export default function HomeSectionTwo({ products }) {
   const [selectedCategory, setSelectedCategory] = useState("Clothings");
   const [perView, setPerView] = useState(3);
   const { t, i18n } = useTranslation();
@@ -24,8 +22,6 @@ export default function HomeSectionTwo() {
       image: "/images/banner-3.jpg",
     },
   ];
-
-  const products = femaleProducts;
   const categories = ["Clothings", "HandBag", "Shoes"];
 
   const handleResize = () => {
@@ -55,7 +51,7 @@ export default function HomeSectionTwo() {
           return (
             <div
               style={{ backgroundImage: `url(${data.image})` }}
-              key={data.title}
+              key={v4()}
               className="bg-no-repeat bg-cover max-[900px]:w-full w-[31%] h-52 flex items-center justify-center relative collectionBox"
             >
               <p className="bg-white px-6 py-2.5 font-bold text-xl text-PrimaryBlack">
@@ -117,61 +113,65 @@ export default function HomeSectionTwo() {
                   gap: "20px",
                 }}
               >
-                {products.map((data) => {
-                  return (
-                    <SplideSlide>
-                      <Link
-                        to={`/product-details/${data.id}`}
-                        className="w-[235px] flex flex-col max-[500px]:w-full"
-                        key={data.id}
-                      >
-                        <div
-                          style={{ backgroundImage: `url(${data.img})` }}
-                          className="productImageBox w-full h-80 bg-cover bg-no-repeat overflow-hidden relative"
+                {products.length > 0 &&
+                  products.map((data) => {
+                    return (
+                      <SplideSlide>
+                        <Link
+                          to={`/product-details/${data.id}`}
+                          className="w-[235px] flex flex-col max-[500px]:w-full"
+                          key={v4()}
                         >
-                          <button className="favouriteButton border-none duration-300 -translate-y-14 absolute top-5 right-5 bg-transparent text-PrimaryBlack">
-                            <i className="fa-regular fa-heart text-lg"></i>
-                          </button>
-                          <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
-                            <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
-                              <i className="fa-solid fa-bag-shopping"></i>
+                          <div
+                            style={{
+                              backgroundImage: `url(${data.productPictures[0]})`,
+                            }}
+                            className="productImageBox bg-center w-full h-80 bg-cover bg-no-repeat overflow-hidden relative"
+                          >
+                            <button className="favouriteButton border-none duration-300 -translate-y-14 absolute top-5 right-5 bg-transparent text-PrimaryBlack">
+                              <i className="fa-regular fa-heart text-lg"></i>
                             </button>
+                            <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
+                              <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
+                                <i className="fa-solid fa-bag-shopping"></i>
+                              </button>
 
-                            <button className="h-full w-[56%] bg-white flex justify-center items-center text-PrimaryBlack">
-                              <i className="fa-solid fa-plus text-xs"></i>&nbsp;
-                              <p className="font-bold text-PrimaryBlack text-sm">
-                                Quick View
-                              </p>
-                            </button>
+                              <button className="h-full w-[56%] bg-white flex justify-center items-center text-PrimaryBlack">
+                                <i className="fa-solid fa-plus text-xs"></i>
+                                &nbsp;
+                                <p className="font-bold text-PrimaryBlack text-sm">
+                                  Quick View
+                                </p>
+                              </button>
 
-                            <button className="h-full w-[20%] bg-white flex justify-center items-center text-PrimaryBlack">
-                              <i className="fa-solid fa-shuffle"></i>
-                            </button>
+                              <button className="h-full w-[20%] bg-white flex justify-center items-center text-PrimaryBlack">
+                                <i className="fa-solid fa-shuffle"></i>
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                        <div className="w-full py-6 flex flex-col items-center gap-2">
-                          <p className="text-xs text-PrimaryBlack/50 font-bold">
-                            {data.category}
-                          </p>
-                          <p className="text-lg text-PrimaryBlack/90 font-bold">
-                            {data.name}
-                          </p>
-                          <p className="text-xl text-PrimaryOrange font-bold flex items-center">
-                            ${data.priceAfter}&nbsp;
-                            {data.priceBefore && (
-                              <p
-                                className="text-base text-PrimaryBlack/50 font-normal relative"
-                                id="priceBefore"
-                              >
-                                ${data.priceBefore}
-                              </p>
-                            )}
-                          </p>
-                        </div>
-                      </Link>
-                    </SplideSlide>
-                  );
-                })}
+                          <div className="w-full py-6 flex flex-col items-center gap-2">
+                            <p className="text-xs text-PrimaryBlack/50 font-bold">
+                              {data.category}
+                            </p>
+                            <p className="text-lg text-PrimaryBlack/90 font-bold">
+                              {data.name}
+                            </p>
+                            <p className="text-xl text-PrimaryOrange font-bold flex items-center">
+                              ${data.priceAfter}&nbsp;
+                              {data.priceBefore && (
+                                <p
+                                  className="text-base text-PrimaryBlack/50 font-normal relative"
+                                  id="priceBefore"
+                                >
+                                  ${data.priceBefore}
+                                </p>
+                              )}
+                            </p>
+                          </div>
+                        </Link>
+                      </SplideSlide>
+                    );
+                  })}
               </Splide>
             </div>
           </div>

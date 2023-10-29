@@ -2,7 +2,11 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 //Routing
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+
+//Firebase
+import { auth } from "./config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 //Components
 import Footer from "./components/footer";
@@ -26,8 +30,11 @@ import BlogDetailsPage from "./components/blogDetailsPage";
 import AboutPage from "./components/aboutPage";
 import ProfilePage from "./components/profilePage";
 import AddressBookPage from "./components/addressBookPage";
+import NotFound from "./components/notFound";
+import ManagementPage from "./components/managementPage";
 
 function App() {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
   //Handling Loading
@@ -36,6 +43,16 @@ function App() {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setLoading(false);
+        console.log(user);
+      } else {
+        setUser({});
+      }
+    });
   }, []);
 
   return (
@@ -62,6 +79,10 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/address-book" element={<AddressBookPage />} />
+            {user && user.email === "cinnamon19fashion@gmail.com" && (
+              <Route path="/management" element={<ManagementPage />} />
+            )}
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </main>

@@ -1,335 +1,407 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { menProducts, femaleProducts } from "./products";
+import { listAll, ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../config/firebase";
 import { useTranslation } from "react-i18next";
-
-const products = [...menProducts, ...femaleProducts];
+import LoadingTwo from "./loadingTwo";
+import { db } from "../config/firebase";
+import { getDocs, collection } from "firebase/firestore";
+import { v4 } from "uuid";
 
 export default function ShopPage() {
-  const [calvinKlein, setCalvinKlein] = useState(false);
-  const [diesel, setDiesel] = useState(false);
-  const [polo, setPolo] = useState(false);
-  const [tommyHilfiger, setTommyHilfiger] = useState(false);
   const [startingPrice, setStartingPrice] = useState("$33");
   const [endingPrice, setEndingPrice] = useState("$98");
   const [selectedSize, setSelectedSize] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
   const [sortingType, setSortingType] = useState("");
-  const [amountToDisplay, setAmountToDisplay] = useState(
-    products.length <= 9 ? products.length : 9
-  );
-  const [optionsList, setOptionsList] = useState([amountToDisplay]);
-  const [showValue, setShowValue] = useState(amountToDisplay);
+  const [products, setProducts] = useState([]);
+  const [pictures, setPictures] = useState([]);
+  const [initialProducts, setInitialProducts] = useState([]);
+  const productsCollectionRef = collection(db, "products");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [loading, setLoading] = useState();
   const { t, i18n } = useTranslation();
 
-  const tags = [
-    "Towel",
-    "Shoes",
-    "Coat",
-    "Dresses",
-    "Trousers",
-    "Men's Hat",
-    "Backpack",
-  ];
-  const sizes = ["S", "M", "L", "XS"];
+  const [tags, setTags] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
 
-  const loadMore = () => {
-    if (showValue < products.length && products.length <= showValue + 9) {
-      setShowValue(products.length);
-    } else if (showValue < products.length && products.length > showValue + 9) {
-      setShowValue((prev) => prev + 9);
+  const brandsCollectionRef = collection(db, "brands");
+  const categoriesCollectionRef = collection(db, "categories");
+  const sizesCollectionRef = collection(db, "sizes");
+  const tagsCollectionRef = collection(db, "tags");
+
+  const getImage = async (folder) => {
+    let images = [];
+    try {
+      listAll(ref(storage, `${folder}/`)).then((res) =>
+        res.items.forEach((item) => {
+          getDownloadURL(item).then((url) => images.push(url));
+        })
+      );
+
+      setPictures((prev) => [
+        ...prev,
+        {
+          folder: folder,
+          images: images,
+        },
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getProducts = async () => {
+    try {
+      const data = await getDocs(productsCollectionRef);
+      for (let folder of data.docs) {
+        await getImage(folder.data().productImagesFolder);
+      }
+
+      let filteredData = data.docs.map((x) => {
+        return {
+          ...x.data(),
+          id: x.id,
+        };
+      });
+
+      setInitialProducts(filteredData);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Fetching Products");
     }
   };
 
   useEffect(() => {
-    let minimum = 9;
-    while (products.length > minimum) {
-      if (products.length <= minimum + 9) {
-        setOptionsList([...optionsList, products.length]);
-        minimum += products.length;
-      } else {
-        setOptionsList([...optionsList, minimum + 9]);
-        minimum += 9;
-      }
-    }
-  }, []);
+    let dummyProducts = initialProducts;
+    dummyProducts.forEach((data) => {
+      data.productPictures = pictures.filter(
+        (x) => x.folder === data.productImagesFolder
+      )[0].images;
+    });
+    setTimeout(() => {
+      setProducts(dummyProducts);
+    }, 1000);
+    setTimeout(() => {
+      setLoading(true);
+    }, 4000);
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  }, [pictures]);
 
   const containerRef = useRef();
+
+  const getBrands = async () => {
+    try {
+      const data = await getDocs(brandsCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setBrands(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getCategories = async () => {
+    try {
+      const data = await getDocs(categoriesCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setCategories(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getSizes = async () => {
+    try {
+      const data = await getDocs(sizesCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setSizes(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getTags = async () => {
+    try {
+      const data = await getDocs(tagsCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setTags(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getDatas = async () => {
+    setLoading(true);
+    try {
+      await getBrands();
+      await getCategories();
+      await getSizes();
+      await getTags();
+      await getProducts();
+    } catch (err) {
+      setLoading(false);
+      alert("Error Fetching data, please try again");
+    }
+  };
 
   useEffect(() => {
     containerRef.current.scrollTop = 0;
     containerRef.current.scrollIntoView({ behavior: "smooth" });
+    getDatas();
   }, []);
 
   return (
-    <main
-      ref={containerRef}
-      className="w-full p-28 flex max-[1000px]:px-12 max-[800px]:px-8 max-[900px]:py-20 max-[900px]:flex-col max-[900px]:gap-6"
-    >
-      <div className="w-[25%] flex flex-col max-[900px]:w-full">
-        <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-            {t("Categories")}
-          </p>
-          <Link to="" className="text-base text-PrimaryBlack/80 pb-2">
-            {t("Men")}
-          </Link>
-          <Link to="" className="text-base text-PrimaryBlack/80 pb-2">
-            {t("Women")}
-          </Link>
-          <Link to="" className="text-base text-PrimaryBlack/80">
-            {t("Kids")}
-          </Link>
-        </div>
-        <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-            {t("Brand")}
-          </p>
-          <div
-            onClick={() => setCalvinKlein((prev) => !prev)}
-            className="cursor-pointer flex gap-2.5 items-center pb-2"
-          >
-            <input
-              type="checkbox"
-              name="Calvin Klein"
-              value={calvinKlein}
-              checked={calvinKlein}
-            />
-            <p className="text-base text-PrimaryBlack">Calvin Klein</p>
-          </div>
-          <div
-            onClick={() => setDiesel((prev) => !prev)}
-            className="cursor-pointer flex gap-2.5 items-center pb-2"
-          >
-            <input
-              type="checkbox"
-              name="Diesel"
-              value={diesel}
-              checked={diesel}
-            />
-            <p className="text-base text-PrimaryBlack">Diesel</p>
-          </div>
-          <div
-            onClick={() => setPolo((prev) => !prev)}
-            className="cursor-pointer flex gap-2.5 items-center pb-2"
-          >
-            <input type="checkbox" name="Polo" value={polo} checked={polo} />
-            <p className="text-base text-PrimaryBlack">Polo</p>
-          </div>
-          <div
-            onClick={() => setTommyHilfiger((prev) => !prev)}
-            className="cursor-pointer flex gap-2.5 items-center pb-2"
-          >
-            <input
-              type="checkbox"
-              name="Tommy Hilfiger"
-              value={tommyHilfiger}
-              checked={tommyHilfiger}
-            />
-            <p className="text-base text-PrimaryBlack">Tommy Hilfiger</p>
-          </div>
-        </div>
-        <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-            {t("Price")}
-          </p>
-          <div className="flex items-center gap-1 pb-5">
-            <input
-              type="text"
-              className="outline-none border px-2 py-1.5 text-base text-PrimaryBlack w-14"
-              value={startingPrice}
-              onChange={(e) => setStartingPrice(e.target.value)}
-            />
-            <p className="w-4 border-b"></p>
-            <input
-              type="text"
-              className="outline-none border px-2 py-1.5 text-base text-PrimaryBlack w-14"
-              value={endingPrice}
-              onChange={(e) => setEndingPrice(e.target.value)}
-            />
-          </div>
-          <button className="text-white bg-PrimaryOrange py-2 px-5 w-fit font-semibold">
-            {t("FILTER")}
-          </button>
-        </div>
-        <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-            {t("Color")}
-          </p>
-          <div className="w-9/12 flex justify-between items-center pb-4">
-            <div className="flex w-24 gap-3 items-center cursor-pointer">
-              <div className="w-5 h-5 rounded-[50%] bg-PrimaryBlack"></div>
-              <p className="text-base text-PrimaryBlack/80">Black</p>
-            </div>
-            <div className="flex w-24 gap-3 items-center cursor-pointer">
-              <div className="w-5 h-5 rounded-[50%] bg-violet-700"></div>
-              <p className="text-base text-PrimaryBlack/80">Violet</p>
-            </div>
-          </div>
-          <div className="w-9/12 flex justify-between items-center pb-4">
-            <div className="flex w-24 gap-3 items-center cursor-pointer">
-              <div className="w-5 h-5 rounded-[50%] bg-blue-700"></div>
-              <p className="text-base text-PrimaryBlack/80">Blue</p>
-            </div>
-            <div className="flex w-24 gap-3 items-center cursor-pointer">
-              <div className="w-5 h-5 rounded-[50%] bg-yellow-500"></div>
-              <p className="text-base text-PrimaryBlack/80">Yellow</p>
-            </div>
-          </div>
-          <div className="w-9/12 flex justify-between items-center">
-            <div className="flex w-24 gap-3 items-center cursor-pointer">
-              <div className="w-5 h-5 rounded-[50%] bg-red-600"></div>
-              <p className="text-base text-PrimaryBlack/80">Red</p>
-            </div>
-            <div className="flex w-24 gap-3 items-center cursor-pointer">
-              <div className="w-5 h-5 rounded-[50%] bg-green-500"></div>
-              <p className="text-base text-PrimaryBlack/80">Green</p>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-            {t("Size")}
-          </p>
-          <div className="w-full flex gap-3 items-center">
-            {sizes.map((size) => {
+    <>
+      {loading && <LoadingTwo />}
+      <main
+        ref={containerRef}
+        className="w-full p-28 flex max-[1000px]:px-12 max-[800px]:px-8 max-[900px]:py-20 max-[900px]:flex-col max-[900px]:gap-6"
+      >
+        <div className="w-[25%] flex flex-col max-[900px]:w-full">
+          <div className="flex flex-col pb-8">
+            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+              {t("Categories")}
+            </p>
+            {categories.map((data) => {
               return (
                 <div
-                  onClick={() => setSelectedSize(size)}
+                  onClick={() => {
+                    if (selectedCategory === data.categoryName) {
+                      setSelectedCategory("");
+                    } else {
+                      setSelectedCategory(data.categoryName);
+                    }
+                  }}
                   style={{
-                    backgroundColor: `${
-                      selectedSize === size ? "black" : "transparent"
+                    borderBottom: `${
+                      selectedCategory === data.categoryName
+                        ? "1px solid rgba(0,0,0,0.5)"
+                        : "none"
                     }`,
                   }}
-                  key={size}
-                  className="w-11 h-9 border cursor-pointer flex justify-center items-center"
+                  key={v4()}
+                  className="text-base cursor-pointer w-fit text-PrimaryBlack/80 py-1"
                 >
-                  <p
-                    style={{
-                      color: `${selectedSize === size ? "white" : "black"}`,
-                    }}
-                    className="text-[15px] font-semibold"
-                  >
-                    {size}
+                  {t(data.categoryName)}
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex flex-col pb-8">
+            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+              {t("Brand")}
+            </p>
+            {brands.map((data) => {
+              return (
+                <div
+                  key={v4()}
+                  onClick={() => {
+                    if (selectedBrand === data.brandName) {
+                      setSelectedBrand("");
+                    } else {
+                      setSelectedBrand(data.brandName);
+                    }
+                  }}
+                  className="cursor-pointer flex gap-2.5 items-center pb-2"
+                >
+                  <input
+                    type="checkbox"
+                    name={data.brandName}
+                    checked={selectedBrand === data.brandName}
+                  />
+                  <p className="text-base text-PrimaryBlack">
+                    {data.brandName}
                   </p>
                 </div>
               );
             })}
           </div>
-        </div>
-        <div className="flex flex-col pb-8">
-          <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-            {t("Tags")}
-          </p>
-          <div className="w-full flex gap-3 items-center flex-wrap">
-            {tags.map((tag) => {
-              return (
-                <Link
-                  to=""
-                  key={tag}
-                  className="w-auto px-5 h-9 border cursor-pointer flex justify-center items-center"
-                >
-                  <p className="text-base text-PrimaryBlack/70 font-semibold">
-                    {tag}
-                  </p>
-                </Link>
-              );
-            })}
+          <div className="flex flex-col pb-8">
+            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+              {t("Price")}
+            </p>
+            <div className="flex items-center gap-1 pb-5">
+              <input
+                type="text"
+                className="outline-none border px-2 py-1.5 text-base text-PrimaryBlack w-14"
+                value={startingPrice}
+                onChange={(e) => setStartingPrice(e.target.value)}
+              />
+              <p className="w-4 border-b"></p>
+              <input
+                type="text"
+                className="outline-none border px-2 py-1.5 text-base text-PrimaryBlack w-14"
+                value={endingPrice}
+                onChange={(e) => setEndingPrice(e.target.value)}
+              />
+            </div>
+            <button className="text-white bg-PrimaryOrange py-2 px-5 w-fit font-semibold">
+              {t("FILTER")}
+            </button>
           </div>
-        </div>
-      </div>
-      <div className="w-[75%] max-[900px]:w-full">
-        <div className="w-full flex justify-between items-center pb-5 max-[900px]:flex-col max-[900px]:gap-3">
-          <div className="flex max-[900px]:w-full gap-3 max-[900px]:gap-[5%]">
-            <select
-              value={sortingType}
-              onChange={(e) => setSortingType(e.target.value)}
-              name="Sorting"
-              className="outline-none border py-2.5 px-4 w-52 max-[900px]:w-[45%] text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
-            >
-              <option value="Default Sorting">Default Sorting</option>
-            </select>
-            <select
-              value={showValue}
-              onChange={(e) => setShowValue(e.target.value)}
-              className="outline-none border py-2.5 px-4 w-52 max-[900px]:w-[45%] text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
-            >
-              {optionsList.map((num) => {
+
+          <div className="flex flex-col pb-8">
+            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+              {t("Size")}
+            </p>
+            <div className="w-full flex gap-3 items-center">
+              {sizes.map((size) => {
                 return (
-                  <option key={num} value={num}>
-                    Show: &nbsp; {num}
-                  </option>
+                  <div
+                    onClick={() => {
+                      if (selectedSize === size.sizeName) {
+                        setSelectedSize("");
+                      } else {
+                        setSelectedSize(size.sizeName);
+                      }
+                    }}
+                    style={{
+                      backgroundColor: `${
+                        selectedSize === size.sizeName ? "black" : "transparent"
+                      }`,
+                    }}
+                    key={v4}
+                    className="w-11 h-9 border cursor-pointer flex justify-center items-center"
+                  >
+                    <p
+                      style={{
+                        color: `${
+                          selectedSize === size.sizeName ? "white" : "black"
+                        }`,
+                      }}
+                      className="text-[15px] font-semibold"
+                    >
+                      {size.sizeName}
+                    </p>
+                  </div>
                 );
               })}
-            </select>
+            </div>
           </div>
-          <p className="text-base text-PrimaryBlack/70 font-semibold max-[900px]:w-full">
-            Show {showValue} Of {products.length} Product
-          </p>
-        </div>
-        <div className="w-full flex flex-wrap gap-x-[2%] gap-y-4">
-          {products.slice(0, showValue).map((data) => {
-            return (
-              <Link
-                to={`/product-details/${data.id}`}
-                className="w-[31.3%] flex flex-col max-[900px]:w-full "
-                key={data.img}
-              >
-                <div
-                  style={{ backgroundImage: `url(${data.img})` }}
-                  className="productImageBox w-full h-80 max-[900px]:h-96 bg-cover bg-no-repeat overflow-hidden relative"
-                >
-                  <button className="favouriteButton border-none duration-300 -translate-y-14 absolute top-5 right-5 bg-transparent text-PrimaryBlack">
-                    <i className="fa-regular fa-heart text-lg"></i>
-                  </button>
-                  <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
-                    <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
-                      <i className="fa-solid fa-bag-shopping"></i>
-                    </button>
-                    <button className="h-full w-[56%] bg-white flex justify-center items-center text-PrimaryBlack">
-                      <i className="fa-solid fa-plus text-xs"></i>&nbsp;
-                      <p className="font-bold text-PrimaryBlack text-sm">
-                        {t("Quick View")}
-                      </p>
-                    </button>
-                    <button className="h-full w-[20%] bg-white flex justify-center items-center text-PrimaryBlack">
-                      <i className="fa-solid fa-shuffle"></i>
-                    </button>
+          <div className="flex flex-col pb-8">
+            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+              {t("Tags")}
+            </p>
+            <div className="w-full flex gap-3 items-center flex-wrap">
+              {tags.map((tag) => {
+                return (
+                  <div
+                    onClick={() => {
+                      if (selectedTag === tag.tagName) {
+                        setSelectedTag("");
+                      } else {
+                        setSelectedTag(tag.tagName);
+                      }
+                    }}
+                    style={{
+                      backgroundColor: `${
+                        selectedTag === tag.tagName ? "black" : "transparent"
+                      }`,
+                    }}
+                    key={v4()}
+                    className="w-auto px-5 h-9 border cursor-pointer flex justify-center items-center"
+                  >
+                    <p
+                      style={{
+                        color: `${
+                          selectedTag === tag.tagName ? "white" : "black"
+                        }`,
+                      }}
+                      className="text-base font-semibold"
+                    >
+                      {tag.tagName}
+                    </p>
                   </div>
-                </div>
-                <div className="w-full py-6 flex flex-col items-center gap-2">
-                  <p className="text-xs text-PrimaryBlack/50 font-bold">
-                    {data.category}
-                  </p>
-                  <p className="text-lg text-PrimaryBlack/90 font-bold">
-                    {data.name}
-                  </p>
-                  <p className="text-xl text-PrimaryOrange font-bold flex items-center">
-                    ${data.priceAfter}&nbsp;
-                    {data.priceBefore && (
-                      <p
-                        className="text-base text-PrimaryBlack/50 font-normal relative"
-                        id="priceBefore"
-                      >
-                        ${data.priceBefore}
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className="w-[75%] max-[900px]:w-full">
+          <div className="w-full flex justify-between items-center pb-5 max-[900px]:flex-col max-[900px]:gap-3">
+            <div className="flex max-[900px]:w-full gap-3 max-[900px]:gap-[5%]">
+              <select
+                value={sortingType}
+                onChange={(e) => setSortingType(e.target.value)}
+                name="Sorting"
+                className="outline-none border py-2.5 px-4 w-52 max-[900px]:w-[45%] text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
+              >
+                <option value="Default Sorting">Default Sorting</option>
+              </select>
+            </div>
+          </div>
+          <div className="w-full flex flex-wrap gap-x-[2%] gap-y-4">
+            {products.length > 0 &&
+              products.map((data) => {
+                return (
+                  <Link
+                    to={`/product-details/${data.id}`}
+                    className="w-[31.3%] flex flex-col max-[900px]:w-full "
+                    key={v4()}
+                  >
+                    <div
+                      style={{
+                        backgroundImage: `url(${data.productPictures[0]})`,
+                      }}
+                      className="productImageBox w-full bg-center h-80 max-[900px]:h-96 bg-cover bg-no-repeat overflow-hidden relative"
+                    >
+                      <button className="favouriteButton border-none duration-300 -translate-y-14 absolute top-5 right-5 bg-transparent text-PrimaryBlack">
+                        <i className="fa-regular fa-heart text-lg"></i>
+                      </button>
+                      <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
+                        <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
+                          <i className="fa-solid fa-bag-shopping"></i>
+                        </button>
+                        <button className="h-full w-[56%] bg-white flex justify-center items-center text-PrimaryBlack">
+                          <i className="fa-solid fa-plus text-xs"></i>&nbsp;
+                          <p className="font-bold text-PrimaryBlack text-sm">
+                            {t("Quick View")}
+                          </p>
+                        </button>
+                        <button className="h-full w-[20%] bg-white flex justify-center items-center text-PrimaryBlack">
+                          <i className="fa-solid fa-shuffle"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="w-full py-6 flex flex-col items-center gap-2">
+                      <p className="text-xs text-PrimaryBlack/50 font-bold">
+                        {data.category}
                       </p>
-                    )}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
+                      <p className="text-lg text-PrimaryBlack/90 font-bold">
+                        {data.name}
+                      </p>
+                      <p className="text-xl text-PrimaryOrange font-bold flex items-center">
+                        ${data.priceAfter}&nbsp;
+                        {data.priceBefore && (
+                          <p
+                            className="text-base text-PrimaryBlack/50 font-normal relative"
+                            id="priceBefore"
+                          >
+                            ${data.priceBefore}
+                          </p>
+                        )}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+          </div>
         </div>
-        <div className="w-full flex justify-center pt-5">
-          <button
-            disabled={showValue === products.length}
-            style={{ opacity: `${showValue === products.length ? 0.5 : 1}` }}
-            onClick={loadMore}
-            className="font-bold text-PrimaryBlack text-base pb-1 border-b-2 border-solid border-PrimaryOrange"
-          >
-            Load More
-          </button>
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

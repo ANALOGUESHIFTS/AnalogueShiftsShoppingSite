@@ -68,15 +68,7 @@ export default function BlogPage() {
   );
   const [showValue, setShowValue] = useState(amountToDisplay);
 
-  const tags = [
-    "Towel",
-    "Shoes",
-    "Coat",
-    "Dresses",
-    "Trousers",
-    "Men's Hat",
-    "Backpack",
-  ];
+  const tags = ["Shoes", "Coat", "Dresses", "Trousers", "Men's Hat"];
 
   const loadMore = () => {
     if (showValue < blogs.length && blogs.length <= showValue + 6) {

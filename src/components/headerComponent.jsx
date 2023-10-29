@@ -1,18 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CartDropdown from "./cartDropdown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { auth } from "../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 import { useTranslation } from "react-i18next";
 
 export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
   const [CartDropdownDisplay, setCartDropdownDisplay] = useState(false);
   const [category, setCategory] = useState("All Categories");
   const [searchValue, setSearchValue] = useState("");
   const [categories, setCategories] = useState(["All Categories"]);
 
-  const [numberOfFavourites, setNumberOfFavourites] = useState(1);
-  const [numberOfCart, setNumberOfCart] = useState(3);
+  const [numberOfFavourites, setNumberOfFavourites] = useState(0);
+  const [numberOfCart, setNumberOfCart] = useState(0);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+
+  const handleNavigation = (path) => {
+    if (user) {
+      navigate(path);
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="w-full px-28 py-12 flex justify-between max-[1000px]:justify-around max-[900px]:gap-4 max-[900px]:py-2 max-[900px]:flex-col items-center max-[1000px]:px-12 max-[800px]:px-3">
       {/* LOGO */}
@@ -48,36 +72,46 @@ export default function HeaderComponent() {
         </div>
       </div>
       <div className="flex items-center max-[900px]:w-[80%]">
-        <a href="">
-          <div className="relative pt-1 pr-2">
-            <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
-              <p className="text-white text-xs">{numberOfFavourites}</p>
+        {user === null ||
+          (user && user.email !== "cinnamon19fashion@gmail.com" && (
+            <Link to="">
+              <div className="relative pt-1 pr-2">
+                <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
+                  <p className="text-white text-xs">{numberOfFavourites}</p>
+                </div>
+                <i class="fa-regular fa-heart text-PrimaryBlack/80 text-xl"></i>
+              </div>
+            </Link>
+          ))}
+        {user === null ||
+          (user && user.email !== "cinnamon19fashion@gmail.com" && (
+            <div
+              onClick={() => handleNavigation("/cart")}
+              className="relative cursor-pointer pl-4 h-[80px] flex items-center"
+              onMouseEnter={() => setCartDropdownDisplay(true)}
+              onMouseLeave={() => setCartDropdownDisplay(false)}
+            >
+              {CartDropdownDisplay && (
+                <div className="w-auto h-auto">
+                  <CartDropdown />
+                </div>
+              )}
+              <div className="relative pt-1 pr-2">
+                <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
+                  <p className="text-white text-xs">{numberOfCart}</p>
+                </div>
+                <i class="fa-solid fa-bag-shopping text-PrimaryBlack/80 text-xl"></i>
+              </div>
             </div>
-            <i class="fa-regular fa-heart text-PrimaryBlack/80 text-xl"></i>
-          </div>
-        </a>
-        <Link
-          to="/shopping-cart"
-          href=""
-          className="relative cursor-pointer pl-4 h-[80px] flex items-center"
-          onMouseEnter={() => setCartDropdownDisplay(true)}
-          onMouseLeave={() => setCartDropdownDisplay(false)}
-        >
-          {CartDropdownDisplay && (
-            <div className="w-auto h-auto">
-              <CartDropdown />
-            </div>
-          )}
-          <div className="relative pt-1 pr-2">
-            <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
-              <p className="text-white text-xs">{numberOfCart}</p>
-            </div>
-            <i class="fa-solid fa-bag-shopping text-PrimaryBlack/80 text-xl"></i>
-          </div>
-        </Link>
-        <p className="pl-4 text-PrimaryBlack font-medium text-lg pt-2">
-          $150.00
-        </p>
+          ))}
+        {user && user.email === "cinnamon19fashion@gmail.com" && (
+          <Link
+            to="/management"
+            className="h-14 w-14 flex justify-center items-center bg-PrimaryOrange max-[900px]:w-[25%]"
+          >
+            <i class="fa-solid fa-gear text-white"></i>
+          </Link>
+        )}
       </div>
     </div>
   );

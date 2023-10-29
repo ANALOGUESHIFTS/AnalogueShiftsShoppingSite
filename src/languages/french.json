@@ -99,5 +99,16 @@
 "UPDATE CART": "MISE À JOUR PANIER",
 "IMAGE": "IMAGE",
 "PRODUCT NAME": "NOM DU PRODUIT",
-"From The Blog": "du blog"
+"From The Blog": "du blog", 
+"Edit Details": "Modifier les détails",
+"Confirm": "Confirmer",
+"All Brands": "Toutes les marques",
+"Add Brand": "Ajouter une marque",
+"Add Category": "ajouter une catégorie",
+"All Tags": "Toutes les balises",
+"Add Tag": "Ajouter une étiquette",
+"All Sizes": "Toutes les tailles",
+"Add Size": "Ajouter une taille",
+"All Products": "Tous les produits",
+"Add Product": "Ajouter un produit"
 }
