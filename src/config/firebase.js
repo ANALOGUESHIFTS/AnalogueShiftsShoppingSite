@@ -6,7 +6,7 @@ import {getStorage} from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyDplj2QjdvwGTvg3vKZ-w_FjztFKK69DBM",
-  authDomain: "cinnamon19fashion-101a1.firebaseapp.com",
+  authDomain: "cinnamon19fashion.com",
   projectId: "cinnamon19fashion-101a1",
   storageBucket: "cinnamon19fashion-101a1.appspot.com",
   messagingSenderId: "716433825298",

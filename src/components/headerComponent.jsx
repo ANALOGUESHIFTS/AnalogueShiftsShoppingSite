@@ -72,38 +72,36 @@ export default function HeaderComponent() {
         </div>
       </div>
       <div className="flex items-center max-[900px]:w-[80%]">
-        {user === null ||
-          (user && user.email !== "cinnamon19fashion@gmail.com" && (
-            <Link to="">
-              <div className="relative pt-1 pr-2">
-                <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
-                  <p className="text-white text-xs">{numberOfFavourites}</p>
-                </div>
-                <i class="fa-regular fa-heart text-PrimaryBlack/80 text-xl"></i>
+        {user?.email !== "cinnamon19fashion@gmail.com" && (
+          <Link to="">
+            <div className="relative pt-1 pr-2">
+              <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
+                <p className="text-white text-xs">{numberOfFavourites}</p>
               </div>
-            </Link>
-          ))}
-        {user === null ||
-          (user && user.email !== "cinnamon19fashion@gmail.com" && (
-            <div
-              onClick={() => handleNavigation("/cart")}
-              className="relative cursor-pointer pl-4 h-[80px] flex items-center"
-              onMouseEnter={() => setCartDropdownDisplay(true)}
-              onMouseLeave={() => setCartDropdownDisplay(false)}
-            >
-              {CartDropdownDisplay && (
-                <div className="w-auto h-auto">
-                  <CartDropdown />
-                </div>
-              )}
-              <div className="relative pt-1 pr-2">
-                <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
-                  <p className="text-white text-xs">{numberOfCart}</p>
-                </div>
-                <i class="fa-solid fa-bag-shopping text-PrimaryBlack/80 text-xl"></i>
-              </div>
+              <i class="fa-regular fa-heart text-PrimaryBlack/80 text-xl"></i>
             </div>
-          ))}
+          </Link>
+        )}
+        {user?.email !== "cinnamon19fashion@gmail.com" && (
+          <div
+            onClick={() => handleNavigation("/cart")}
+            className="relative cursor-pointer pl-4 h-[80px] flex items-center"
+            onMouseEnter={() => setCartDropdownDisplay(true)}
+            onMouseLeave={() => setCartDropdownDisplay(false)}
+          >
+            {CartDropdownDisplay && (
+              <div className="w-auto h-auto">
+                <CartDropdown />
+              </div>
+            )}
+            <div className="relative pt-1 pr-2">
+              <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
+                <p className="text-white text-xs">{numberOfCart}</p>
+              </div>
+              <i class="fa-solid fa-bag-shopping text-PrimaryBlack/80 text-xl"></i>
+            </div>
+          </div>
+        )}
         {user && user.email === "cinnamon19fashion@gmail.com" && (
           <Link
             to="/management"
