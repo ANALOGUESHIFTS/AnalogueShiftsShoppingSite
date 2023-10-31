@@ -7,6 +7,9 @@ import { onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
 import LoadingTwo from "./loadingTwo";
 import EditUserDetails from "./editUserDetails";
 import IdiomProof from "./idiomProof";
+import { db } from "../config/firebase";
+import { v4 } from "uuid";
+import { getDocs, collection, addDoc, doc } from "firebase/firestore";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -14,8 +17,10 @@ export default function ProfilePage() {
   const [editModal, setEditModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
   const [user, setUser] = useState({});
+  const [addresses, setAddresses] = useState([]);
   const containerRef = useRef();
   const { t, i18n } = useTranslation();
+  const addressCollectionRef = collection(db, "addresses");
 
   const toggleMenu = () => {
     let elem = document.getElementById("menuBar");
@@ -23,6 +28,23 @@ export default function ProfilePage() {
       elem.style.left = "0px";
     } else {
       elem.style.left = "-300px";
+    }
+  };
+
+  const getAddresses = async () => {
+    try {
+      const data = await getDocs(addressCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        if (doc.data().email === user.email) {
+          return { ...doc.data(), id: doc.id };
+        }
+      });
+      setAddresses(filteredData);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Fetching Addresses");
     }
   };
 
@@ -38,13 +60,17 @@ export default function ProfilePage() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setLoading(false);
-        console.log(user);
       } else {
         navigate("/login");
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getAddresses();
+    }
+  }, [user]);
 
   const updateUserDetails = async (data) => {
     setLoading(true);
@@ -167,6 +193,35 @@ export default function ProfilePage() {
                 <Link to="/profile/address-book">
                   <i className="fa-solid fa-edit cursor-pointer text-PrimaryOrange"></i>
                 </Link>
+              </div>
+              <div className="w-full flex flex-col px-5 py-5">
+                {addresses[0] &&
+                  addresses.map((address) => {
+                    return (
+                      <div
+                        key={v4()}
+                        className="border w-full h-auto p-4 rounded max-[800px]:w-full"
+                      >
+                        <p className="font-semibold text-sm text-PrimaryBlack py-2.5">
+                          {address.firstName}&nbsp;
+                          {address.lastName}
+                        </p>
+                        <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                          {address.deliveryAddress}
+                        </p>
+                        <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                          {address.additionalInfo}
+                        </p>
+                        <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                          {address.city}, &nbsp; {address.region}
+                        </p>
+                        <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                          {address.phoneNumber} / &nbsp;
+                          {address.additionalPhoneNumber}
+                        </p>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>

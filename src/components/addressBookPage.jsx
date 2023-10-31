@@ -7,26 +7,84 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import LoadingTwo from "./loadingTwo";
 import AddAddress from "./addAddress";
 import IdiomProof from "./idiomProof";
+import { db } from "../config/firebase";
+import { v4 } from "uuid";
+import {
+  getDocs,
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import EditAddress from "./editAddress";
 
 export default function AddressBookPage() {
   const [addressModal, setAddressModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [addresses, setAddresses] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState(0);
   const { t, i18n } = useTranslation();
   const containerRef = useRef();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
   const [user, setUser] = useState({});
+  const addressCollectionRef = collection(db, "addresses");
 
-  const deleteAddress = (id) => {
-    setAddresses(
-      addresses
-        .filter((data) => data.id !== id)
-        .map((data, i) => {
-          return { ...data, id: i + 1 };
-        })
-    );
+  const getAddresses = async () => {
+    setLoading(true);
+    try {
+      const data = await getDocs(addressCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        if (doc.data().email === user.email) {
+          return { ...doc.data(), id: doc.id };
+        }
+      });
+      setAddresses(filteredData);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Fetching Addresses");
+    }
+  };
+
+  const deleteAddress = async () => {
+    setLoading(true);
+    const addressDoc = doc(db, "addresses", addresses[0].id);
+    try {
+      await deleteDoc(addressDoc);
+      getAddresses();
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Deleting Address");
+    }
+  };
+
+  const addAddress = async (data) => {
+    setLoading(true);
+    try {
+      await addDoc(addressCollectionRef, data);
+      getAddresses();
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Adding Address");
+    }
+  };
+
+  const editAddress = async (data) => {
+    setLoading(true);
+    const addressDoc = doc(db, "addresses", addresses[0].id);
+    try {
+      await updateDoc(addressDoc, data);
+      getAddresses();
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Editing Address");
+    }
   };
 
   const toggleMenu = () => {
@@ -49,6 +107,12 @@ export default function AddressBookPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      getAddresses();
+    }
+  }, [user]);
 
   useEffect(() => {
     setLoading(true);
@@ -86,9 +150,39 @@ export default function AddressBookPage() {
         <AddAddress
           cancel={() => setAddressModal(false)}
           save={(data) => {
-            setAddresses((prev) => [...prev, { id: prev.length + 1, ...data }]);
             setAddressModal(false);
+            addAddress({
+              email: user.email,
+              firstName: data["First Name"],
+              lastName: data["Last Name"],
+              phoneNumber: data["Phone Number"],
+              additionalPhoneNumber: data["Additional Phone Number"],
+              deliveryAddress: data["Delivery Address"],
+              additionalInfo: data["Additional Info"],
+              region: data["Region"],
+              city: data["City"],
+            });
           }}
+        />
+      )}
+      {editModal && (
+        <EditAddress
+          cancel={() => setEditModal(false)}
+          save={(data) => {
+            setEditModal(false);
+            editAddress({
+              email: user.email,
+              firstName: data["First Name"],
+              lastName: data["Last Name"],
+              phoneNumber: data["Phone Number"],
+              additionalPhoneNumber: data["Additional Phone Number"],
+              deliveryAddress: data["Delivery Address"],
+              additionalInfo: data["Additional Info"],
+              region: data["Region"],
+              city: data["City"],
+            });
+          }}
+          recentData={addresses[0]}
         />
       )}
       <main
@@ -135,12 +229,15 @@ export default function AddressBookPage() {
               onClick={toggleMenu}
               className="fa-solid fa-bars hidden max-[800px]:flex text-PrimaryBlack/80 max-[800px]:cursor-pointer"
             ></i>
-            <button
-              onClick={() => setAddressModal(true)}
-              className="px-6 py-2 max-[800px]:hidden rounded hover:bg-PrimaryOrange/80 bg-PrimaryOrange text-white font-bold text-xs"
-            >
-              {t("ADD NEW ADDRESS")} &nbsp; <i className="fa-solid fa-plus"></i>
-            </button>
+            {addresses.length < 1 && (
+              <button
+                onClick={() => setAddressModal(true)}
+                className="px-6 py-2 max-[800px]:hidden rounded hover:bg-PrimaryOrange/80 bg-PrimaryOrange text-white font-bold text-xs"
+              >
+                {t("ADD NEW ADDRESS")} &nbsp;{" "}
+                <i className="fa-solid fa-plus"></i>
+              </button>
+            )}
           </div>
           <div className="py-3 w-full border-b max-[800px]:flex justify-center hidden">
             <button
@@ -151,48 +248,41 @@ export default function AddressBookPage() {
             </button>
           </div>
           <div className="p-4 w-full overflow-y-auto h-[calc(100%-90px)] flex flex-wrap gap-4 gap-y-4">
-            {addresses.map((address, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => setSelectedAddress(index)}
-                  style={{
-                    backgroundColor: `${
-                      selectedAddress === index
-                        ? "rgba(231,171,60,0.3)"
-                        : "transparent"
-                    }`,
-                  }}
-                  className="border w-[calc(50%-8px)] h-auto p-4 rounded max-[800px]:w-full"
-                >
-                  <div className="w-full h-[35px] border-b flex items-center justify-between">
-                    <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                      ADDRESS {address.id}
+            {addresses.length > 0 &&
+              addresses.map((address, index) => {
+                return (
+                  <div
+                    key={v4()}
+                    className="border w-[calc(50%-8px)] h-auto p-4 rounded max-[800px]:w-full"
+                  >
+                    <div className="w-full h-[35px] border-b flex items-center justify-end gap-5">
+                      <button onClick={() => setEditModal(true)}>
+                        <i className="fa-solid fa-edit cursor-pointer text-PrimaryBlack/90 text-sm"></i>
+                      </button>
+                      <button onClick={() => deleteAddress()}>
+                        <i className="fa-solid fa-trash cursor-pointer text-PrimaryBlack/90 text-sm"></i>
+                      </button>
+                    </div>
+                    <p className="font-semibold text-sm text-PrimaryBlack py-2.5">
+                      {address.firstName}&nbsp;
+                      {address.lastName}
                     </p>
-                    <button onClick={() => deleteAddress(address.id)}>
-                      <i className="fa-solid fa-trash cursor-pointer text-PrimaryBlack/90 text-sm"></i>
-                    </button>
+                    <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                      {address.deliveryAddress}
+                    </p>
+                    <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                      {address.additionalInfo}
+                    </p>
+                    <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                      {address.city}, &nbsp; {address.region}
+                    </p>
+                    <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
+                      {address.phoneNumber} / &nbsp;
+                      {address.additionalPhoneNumber}
+                    </p>
                   </div>
-                  <p className="font-semibold text-sm text-PrimaryBlack py-2.5">
-                    {address["First Name"]}&nbsp;
-                    {address["Last Name"]}
-                  </p>
-                  <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                    {address["Delivery Address"]}
-                  </p>
-                  <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                    {address["Additional Info"]}
-                  </p>
-                  <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                    {address["City"]}, &nbsp; {address["Region"]}
-                  </p>
-                  <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                    {address["Phone Number"]} / &nbsp;
-                    {address["Additional Phone Number"]}
-                  </p>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </section>
       </main>

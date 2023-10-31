@@ -1,17 +1,20 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { listAll, ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../config/firebase";
 import LoadingTwo from "./loadingTwo";
+import { auth } from "../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { db } from "../config/firebase";
-import { getDoc, collection, doc } from "firebase/firestore";
+import { getDoc, collection, doc, addDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
 export default function ProductDetails() {
+  const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -23,6 +26,8 @@ export default function ProductDetails() {
   const [item, setItem] = useState(null);
   const containerRef = useRef();
   const { t, i18n } = useTranslation();
+  const cartCollectionRef = collection(db, "cartDatas");
+  const [user, setUser] = useState(null);
 
   const getImage = async (folder) => {
     try {
@@ -47,6 +52,8 @@ export default function ProductDetails() {
       let filteredData = { ...data.data(), id: data.id };
 
       setInitialProducts(filteredData);
+      setLoading(false);
+      setItem(null);
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -54,8 +61,22 @@ export default function ProductDetails() {
     }
   };
 
+  const addToCart = async (data) => {
+    setLoading(true);
+    try {
+      await addDoc(cartCollectionRef, data);
+      alert("Item Added To Cart");
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Adding Item to Cart");
+    }
+  };
+
   useEffect(() => {
     if (pictures.length > 0) {
+      setLoading(true);
       let dummyProducts = initialProducts;
       dummyProducts.productPictures = pictures;
       setTimeout(() => {
@@ -68,10 +89,24 @@ export default function ProductDetails() {
   }, [pictures]);
 
   useEffect(() => {
+    setLoading(true);
     containerRef.current.scrollTop = 0;
     containerRef.current.scrollIntoView({ behavior: "smooth" });
-    getProducts();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setLoading(false);
+      } else {
+        navigate("/login");
+      }
+    });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getProducts();
+    }
+  }, [user]);
 
   return (
     <>
@@ -141,7 +176,7 @@ export default function ProductDetails() {
                 {t("Size")}: {selectedSize}
               </p>
               <div className="flex w-full flex-wrap gap-1.5">
-                {item &&
+                {item?.sizes &&
                   item.sizes.map((size) => {
                     return (
                       <div
@@ -180,6 +215,17 @@ export default function ProductDetails() {
               </button>
             </div>
             <button
+              onClick={() => {
+                addToCart({
+                  email: user.email,
+                  quantity: quantity,
+                  size: selectedSize,
+                  color: selectedColor,
+                  productName: item.name,
+                  imagesFolder: item.productImagesFolder,
+                  price: item.priceAfter,
+                });
+              }}
               disabled={quantity < 1}
               className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"
             >

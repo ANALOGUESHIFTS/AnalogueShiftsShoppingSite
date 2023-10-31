@@ -79,6 +79,7 @@ export default function Products() {
       });
 
       setInitialProducts(filteredData);
+      setProducts([]);
 
       setLoading(false);
     } catch (err) {
@@ -218,7 +219,7 @@ export default function Products() {
     setTimeout(() => {
       setLoading(false);
     }, 5000);
-  }, [pictures]);
+  }, [pictures, initialProducts]);
 
   return (
     <>

@@ -6,7 +6,7 @@ import {getStorage} from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyDplj2QjdvwGTvg3vKZ-w_FjztFKK69DBM",
-  authDomain: "cinnamon19fashion.com",
+  authDomain: "cinnamon19fashion-101a1.firebaseapp.com",
   projectId: "cinnamon19fashion-101a1",
   storageBucket: "cinnamon19fashion-101a1.appspot.com",
   messagingSenderId: "716433825298",
@@ -21,4 +21,4 @@ const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider()
 export const db = getFirestore(app);
-export const storage = getStorage(app);
+export const storage = getStorage();

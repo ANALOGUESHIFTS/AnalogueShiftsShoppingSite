@@ -84,7 +84,7 @@ export default function HeaderComponent() {
         )}
         {user?.email !== "cinnamon19fashion@gmail.com" && (
           <div
-            onClick={() => handleNavigation("/cart")}
+            onClick={() => handleNavigation("/shopping-cart")}
             className="relative cursor-pointer pl-4 h-[80px] flex items-center"
             onMouseEnter={() => setCartDropdownDisplay(true)}
             onMouseLeave={() => setCartDropdownDisplay(false)}

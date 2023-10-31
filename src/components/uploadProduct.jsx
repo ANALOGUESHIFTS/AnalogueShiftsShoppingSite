@@ -185,7 +185,10 @@ export default function UploadProduct({
                 className="w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
               />
               <button
-                onClick={() => setColors([...colors, colorValue])}
+                onClick={() => {
+                  setColorValue("");
+                  setColors([...colors, colorValue]);
+                }}
                 className="text-sm text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
               >
                 Add Color&nbsp; <i className="fa-solid fa-plus"></i>

@@ -42,6 +42,7 @@ export default function HomePage() {
   };
 
   const getProducts = async () => {
+    setLoading(true);
     try {
       const data = await getDocs(productsCollectionRef);
       for (let folder of data.docs) {
@@ -56,6 +57,7 @@ export default function HomePage() {
       });
 
       setInitialProducts(filteredData);
+      setLoading(false);
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -79,7 +81,7 @@ export default function HomePage() {
     setTimeout(() => {
       setLoading(false);
     }, 5000);
-  }, [pictures]);
+  }, [pictures, initialProducts]);
 
   useEffect(() => {
     getProducts();
