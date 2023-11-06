@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import CartDropdown from "./cartDropdown";
 import { Link, useNavigate } from "react-router-dom";
 
 import { auth } from "../config/firebase";
@@ -11,7 +10,6 @@ export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [CartDropdownDisplay, setCartDropdownDisplay] = useState(false);
   const [category, setCategory] = useState("All Categories");
   const [searchValue, setSearchValue] = useState("");
   const [categories, setCategories] = useState(["All Categories"]);
@@ -86,14 +84,7 @@ export default function HeaderComponent() {
           <div
             onClick={() => handleNavigation("/shopping-cart")}
             className="relative cursor-pointer pl-4 h-[80px] flex items-center"
-            onMouseEnter={() => setCartDropdownDisplay(true)}
-            onMouseLeave={() => setCartDropdownDisplay(false)}
           >
-            {CartDropdownDisplay && (
-              <div className="w-auto h-auto">
-                <CartDropdown />
-              </div>
-            )}
             <div className="relative pt-1 pr-2">
               <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
                 <p className="text-white text-xs">{numberOfCart}</p>

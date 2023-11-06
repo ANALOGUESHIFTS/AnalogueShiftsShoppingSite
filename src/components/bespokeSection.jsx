@@ -10,14 +10,14 @@ export default function BespokeSection() {
   return (
     <>
       {popUp && <BespokeModal close={() => setPopUp(false)} />}
-      <div className="px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5 flex justify-center gap-10 h-[600px]">
+      <div className="px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5 max-[900px]:flex-col max-[900px]:h-auto flex justify-center gap-10 h-[600px]">
         <div
           style={{
             backgroundImage: "url(/images/consultation.webp)",
           }}
-          className="w-[400px] h-full bg-center bg-cover bg-no-repeat"
+          className="w-[400px] max-[500px]:w-[90%] h-full max-[900px]:h-[500px] bg-center bg-cover bg-no-repeat"
         ></div>
-        <div className="w-[500px] h-full pt-4">
+        <div className="w-[500px] max-[500px]:w-[90%]  max-[900px]:h-[500px] h-full pt-4">
           <i className="text-PrimaryBlack/70 font-thin text-2xl tracking-wide">
             In-store Consultation 40 min
           </i>
