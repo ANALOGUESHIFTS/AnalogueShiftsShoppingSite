@@ -18,9 +18,11 @@ export default function ProfilePage() {
   const [logoutModal, setLogoutModal] = useState(false);
   const [user, setUser] = useState({});
   const [addresses, setAddresses] = useState([]);
+  const [orders, setOrders] = useState([]);
   const containerRef = useRef();
   const { t, i18n } = useTranslation();
   const addressCollectionRef = collection(db, "addresses");
+  const ordersCollectionRef = collection(db, "orders");
 
   const toggleMenu = () => {
     let elem = document.getElementById("menuBar");
@@ -35,16 +37,28 @@ export default function ProfilePage() {
     try {
       const data = await getDocs(addressCollectionRef);
       const filteredData = data.docs.map((doc) => {
-        if (doc.data().email === user.email) {
-          return { ...doc.data(), id: doc.id };
-        }
+        return { ...doc.data(), id: doc.id };
       });
-      setAddresses(filteredData);
+      setAddresses(filteredData.filter((data) => data.email === user.email));
       setLoading(false);
     } catch (err) {
       console.error(err);
       setLoading(false);
       alert("Error Fetching Addresses");
+    }
+  };
+
+  const getOrders = async () => {
+    try {
+      const data = await getDocs(ordersCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setOrders(filteredData.filter((data) => data.email === user.email));
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Fetching Orders");
     }
   };
 
@@ -68,6 +82,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (user) {
+      getOrders();
       getAddresses();
     }
   }, [user]);
@@ -123,13 +138,13 @@ export default function ProfilePage() {
         />
       )}
       <main
-        className="px-20 py-7 w-full flex justify-between bg-[#efeff1] max-[1000px]:px-12 max-[800px]:px-5"
+        className="px-20 relative py-7 w-full flex justify-between bg-[#efeff1] max-[1000px]:px-12 max-[800px]:px-5"
         ref={containerRef}
       >
         <aside
           style={{ zIndex: `${loading || editModal ? 1 : "auto"}` }}
           id="menuBar"
-          className="w-[280px] h-[500px] relative rounded-lg bg-white flex flex-col overflow-hidden max-[800px]:flex max-[800px]:top-0 max-[800px]:fixed max-[800px]:h-screen max-[800px]:shadow-xl max-[800px]:rounded-none max-[800px]:left-[-300px] duration-500"
+          className="w-[280px] top-10 left-0 h-[500px] rounded-lg bg-white flex flex-col max-[800px]:fixed overflow-hidden max-[800px]:flex max-[800px]:top-0 sticky max-[800px]:h-screen max-[800px]:shadow-xl max-[800px]:rounded-none max-[800px]:left-[-300px] duration-500"
         >
           <Link
             to="/profile/"
@@ -157,7 +172,7 @@ export default function ProfilePage() {
             <p className="text-red-500 font-bold text-sm">{t("Log Out")}</p>
           </div>
         </aside>
-        <section className="w-[calc(100%-300px)] h-[500px] bg-white rounded-lg max-[800px]:w-full max-[500px]:h-auto">
+        <section className="w-[calc(100%-300px)] h-auto bg-white rounded-lg max-[800px]:w-full max-[500px]:h-auto">
           <p className="text-PrimaryBlack/80 text-lg font-bold px-5 py-3 border-b text-center h-[50px] max-[800px]:text-left max-[800px]:flex max-[800px]:justify-between">
             {t("Account Overview")}
             <i
@@ -166,7 +181,7 @@ export default function ProfilePage() {
             ></i>
           </p>
           <div className="w-full grid grid-cols-2 max-[500px]:flex max-[500px]:flex-col">
-            <div className="col-span-1 border-r h-[450px] max-[500px]:w-full max-[500px]:h-[250px] max-[500px]:border-r-0 max-[500px]:border-b">
+            <div className="col-span-1 border-r h-[300px] max-[500px]:w-full max-[500px]:h-[250px] max-[500px]:border-r-0 max-[500px]:border-b">
               <div className="w-full px-5 h-[50px] flex justify-between items-center border-b">
                 <p className="text-PrimaryBlack/80 text-base font-semibold">
                   {t("Account Details")}
@@ -185,7 +200,7 @@ export default function ProfilePage() {
                 </p>
               </div>
             </div>
-            <div className="col-span-1 h-[450px] max-[500px]:w-full max-[500px]:h-[250px]">
+            <div className="col-span-1 h-[300px] max-[500px]:w-full max-[500px]:h-[250px]">
               <div className="w-full px-5 h-[50px] flex justify-between items-center border-b">
                 <p className="text-PrimaryBlack/80 text-base font-semibold">
                   {t("Address Book")}
@@ -219,6 +234,85 @@ export default function ProfilePage() {
                           {address.phoneNumber} / &nbsp;
                           {address.additionalPhoneNumber}
                         </p>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+            <div className="col-span-2 border-t h-auto w-full max-[500px]:border-r-0 max-[500px]:border-b">
+              <div className="w-full px-5 h-[50px] flex justify-between items-center border-b">
+                <p className="text-PrimaryBlack/80 text-base font-semibold">
+                  {t("Orders")}
+                </p>
+              </div>
+              <div className="w-full flex flex-col px-2 py-2 gap-3">
+                {orders[0] &&
+                  orders.map((order) => {
+                    console.log(order);
+                    return (
+                      <div
+                        key={v4()}
+                        className="border-b w-full h-auto p-4 rounded max-[800px]:w-full flex flex-col gap-2"
+                      >
+                        <div className="w-full flex gap-2 items-center">
+                          <p className="font-bold text-sm text-PrimaryBlack/80">
+                            Date:
+                          </p>
+                          <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                            {order.date}
+                          </p>
+                        </div>
+                        <div className="w-full flex gap-2 items-center">
+                          <p className="font-bold text-sm text-PrimaryBlack/80">
+                            Reference:
+                          </p>
+                          <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                            {order.reference}
+                          </p>
+                        </div>
+                        <div className="w-full flex gap-2 items-center">
+                          <p className="font-bold text-sm text-PrimaryBlack/80">
+                            Total Amount:
+                          </p>
+                          <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                            {order.currency} {order.totalAmount}.00
+                          </p>
+                        </div>
+                        <p className="font-bold text-sm pt-2 text-PrimaryBlack/80">
+                          Product{order.products.length > 1 && "s"}
+                        </p>
+                        {order.products.map((product, index) => {
+                          return (
+                            <div
+                              key={v4()}
+                              className="border w-full h-auto p-4 rounded max-[800px]:w-full"
+                            >
+                              <p className="font-semibold text-sm text-PrimaryBlack py-2.5">
+                                Product&nbsp;
+                                {index + 1}
+                              </p>
+                              <p className="text-[13px] font-bold text-PrimaryBlack/80 pb-1">
+                                Name: {product.name}
+                              </p>
+                              <p className="text-[13px] font-bold text-PrimaryBlack/80 pb-1">
+                                Color: {product.color}
+                              </p>
+                              <p className="text-[13px] font-bold text-PrimaryBlack/80 pb-1">
+                                Size: {product.size}
+                              </p>
+                              <p className="text-[13px] font-bold text-PrimaryBlack/80 pb-1">
+                                Quantity: {product.quantity}
+                              </p>
+                              <Link
+                                to={`/product-details/${product.productId}`}
+                              >
+                                <p className="text-[13px] font-semibold hover:underline text-blue-600 pb-1">
+                                  View Product
+                                </p>
+                              </Link>
+                            </div>
+                          );
+                        })}
                       </div>
                     );
                   })}

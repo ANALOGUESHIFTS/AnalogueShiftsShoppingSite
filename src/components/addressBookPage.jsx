@@ -36,11 +36,9 @@ export default function AddressBookPage() {
     try {
       const data = await getDocs(addressCollectionRef);
       const filteredData = data.docs.map((doc) => {
-        if (doc.data().email === user.email) {
-          return { ...doc.data(), id: doc.id };
-        }
+        return { ...doc.data(), id: doc.id };
       });
-      setAddresses(filteredData);
+      setAddresses(filteredData.filter((data) => data.email === user.email));
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -126,6 +124,10 @@ export default function AddressBookPage() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    console.log(addresses);
+  }, [addresses]);
 
   useEffect(() => {
     if (!loading) {
@@ -229,7 +231,7 @@ export default function AddressBookPage() {
               onClick={toggleMenu}
               className="fa-solid fa-bars hidden max-[800px]:flex text-PrimaryBlack/80 max-[800px]:cursor-pointer"
             ></i>
-            {addresses.length < 1 && (
+            {!addresses[0] && (
               <button
                 onClick={() => setAddressModal(true)}
                 className="px-6 py-2 max-[800px]:hidden rounded hover:bg-PrimaryOrange/80 bg-PrimaryOrange text-white font-bold text-xs"
@@ -239,16 +241,19 @@ export default function AddressBookPage() {
               </button>
             )}
           </div>
-          <div className="py-3 w-full border-b max-[800px]:flex justify-center hidden">
-            <button
-              onClick={() => setAddressModal(true)}
-              className="px-6 py-2 rounded shadow-xl hover:bg-PrimaryOrange/80 bg-PrimaryOrange text-white font-bold text-xs"
-            >
-              {t("ADD NEW ADDRESS")} &nbsp; <i className="fa-solid fa-plus"></i>
-            </button>
-          </div>
+          {!addresses[0] && (
+            <div className="py-3 w-full border-b max-[800px]:flex justify-center hidden">
+              <button
+                onClick={() => setAddressModal(true)}
+                className="px-6 py-2 rounded shadow-xl hover:bg-PrimaryOrange/80 bg-PrimaryOrange text-white font-bold text-xs"
+              >
+                {t("ADD NEW ADDRESS")} &nbsp;{" "}
+                <i className="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          )}
           <div className="p-4 w-full overflow-y-auto h-[calc(100%-90px)] flex flex-wrap gap-4 gap-y-4">
-            {addresses.length > 0 &&
+            {addresses[0] &&
               addresses.map((address, index) => {
                 return (
                   <div
@@ -264,21 +269,22 @@ export default function AddressBookPage() {
                       </button>
                     </div>
                     <p className="font-semibold text-sm text-PrimaryBlack py-2.5">
-                      {address.firstName}&nbsp;
-                      {address.lastName}
+                      {address && address.firstName}&nbsp;
+                      {address && address.lastName}
                     </p>
                     <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                      {address.deliveryAddress}
+                      {address && address.deliveryAddress}
                     </p>
                     <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                      {address.additionalInfo}
+                      {address && address.additionalInfo}
                     </p>
                     <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                      {address.city}, &nbsp; {address.region}
+                      {address && address.city}, &nbsp;{" "}
+                      {address && address.region}
                     </p>
                     <p className="text-xs font-bold text-PrimaryBlack/80 pb-1">
-                      {address.phoneNumber} / &nbsp;
-                      {address.additionalPhoneNumber}
+                      {address && address.phoneNumber} / &nbsp;
+                      {address && address.additionalPhoneNumber}
                     </p>
                   </div>
                 );

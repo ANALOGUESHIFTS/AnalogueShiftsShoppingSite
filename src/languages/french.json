@@ -78,7 +78,7 @@
 "DELIVERY DETAILS": "DÉTAILS DE LIVRAISON",
 "PAYMENT METHOD": "MODE DE PAIEMENT",
 "SAVE UP TO": "ÉCONOMISER JUSQU'À",
-"By switching to a pickup station starting from": "En passant à une station de retrait à partir de",
+"Get A free delivery for shopping via the website": "Bénéficiez d'une livraison gratuite pour vos achats via le site Internet",
 "You will be redirected to our secure checkout page": "Vous serez redirigé vers notre page de paiement sécurisé",
 "Order Summary": "Récapitulatif de la commande",
 "Item's total": "Total de l'article",
@@ -110,5 +110,7 @@
 "All Sizes": "Toutes les tailles",
 "Add Size": "Ajouter une taille",
 "All Products": "Tous les produits",
-"Add Product": "Ajouter un produit"
+"Add Product": "Ajouter un produit",
+"Currencies": "Devises",
+"Dollar Rate": "Taux du dollar"
 }

@@ -11,7 +11,7 @@ import { storage } from "../config/firebase";
 import {
   getDocs,
   collection,
-  addDoc,
+  getDoc,
   deleteDoc,
   updateDoc,
   doc,
@@ -62,13 +62,26 @@ export default function ShoppingCart() {
     }
   };
 
+  const itemAvailable = async (id, quantity, dataId) => {
+    const productsCollectionRef = doc(db, "products", id);
+    try {
+      const data = await getDoc(productsCollectionRef);
+      if (Number(data.data().availableQuantity) <= quantity) {
+        await deleteDoc(doc(db, "cartDatas", dataId));
+        location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getData = async () => {
     setLoading(true);
     try {
       const data = await getDocs(cartCollectionRef);
-      let userData = data.docs.filter(
-        (data) => data.data().email === user.email
-      );
+      let userData = data.docs.filter((data) => {
+        return data.data().email === user.email;
+      });
       for (let folder of userData) {
         await getImage(folder.data().imagesFolder);
       }
@@ -123,6 +136,7 @@ export default function ShoppingCart() {
     if (cartProducts) {
       cartProducts.forEach((data) => {
         setTotal((prev) => (prev += data.price * data.quantity));
+        itemAvailable(data.productId, data.quantity, data.id);
       });
     }
   }, [cartProducts]);

@@ -108,7 +108,6 @@ export default function Products() {
       await deleteDoc(productDoc);
       await deleteFiles(folder);
       await getProducts();
-      location.reload();
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -188,6 +187,7 @@ export default function Products() {
         priceBefore: Number(data.productPriceBefore),
         sizes: data.productSizes,
         productImagesFolder: data.productImagesFolder,
+        availableQuantity: data.productQuantity,
       });
       await uploadFiles(data.productImages, data.productImagesFolder);
       await getProducts();

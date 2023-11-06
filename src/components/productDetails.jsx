@@ -149,6 +149,9 @@ export default function ProductDetails() {
                 </p>
               )}
             </p>
+            <p className="text-PrimaryBlack/80 pt-4 font-semibold text-sm pb-3">
+              {t("Available Quantity")}: {item && item.availableQuantity}
+            </p>
             <div className="pt-3">
               <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
                 {t("Color")}: {selectedColor}
@@ -199,7 +202,7 @@ export default function ProductDetails() {
             </p>
             <div className="flex w-auto pb-4">
               <button
-                onClick={() => setQuantity((prev) => Math.max((prev -= 1), 0))}
+                onClick={() => setQuantity((prev) => Math.max((prev -= 1), 1))}
                 className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
               >
                 -
@@ -216,15 +219,22 @@ export default function ProductDetails() {
             </div>
             <button
               onClick={() => {
-                addToCart({
-                  email: user.email,
-                  quantity: quantity,
-                  size: selectedSize,
-                  color: selectedColor,
-                  productName: item.name,
-                  imagesFolder: item.productImagesFolder,
-                  price: item.priceAfter,
-                });
+                if (item.availableQuantity >= quantity) {
+                  addToCart({
+                    email: user.email,
+                    quantity: quantity,
+                    size: selectedSize,
+                    color: selectedColor,
+                    productName: item.name,
+                    imagesFolder: item.productImagesFolder,
+                    price: item.priceAfter,
+                    productId: id,
+                  });
+                } else {
+                  alert(
+                    "Product Quantity is not enough, please reduce the quantity"
+                  );
+                }
               }}
               disabled={quantity < 1}
               className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"

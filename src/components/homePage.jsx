@@ -12,6 +12,7 @@ import { db } from "../config/firebase";
 import { getDocs, collection } from "firebase/firestore";
 import { listAll, ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../config/firebase";
+import BespokeSection from "./bespokeSection";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -55,9 +56,8 @@ export default function HomePage() {
           id: x.id,
         };
       });
-
-      setInitialProducts(filteredData);
       setLoading(false);
+      setInitialProducts(filteredData);
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -96,6 +96,7 @@ export default function HomePage() {
       <MensCollection products={products} />
       <InstaFashion />
       <BlogSection />
+      <BespokeSection />
     </main>
   );
 }

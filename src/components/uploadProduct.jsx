@@ -22,6 +22,7 @@ export default function UploadProduct({
   const [sizes, setSizes] = useState([]);
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
   //Tracker
   const [colorValue, setColorValue] = useState("");
@@ -41,6 +42,7 @@ export default function UploadProduct({
       productCategory: category,
       productBrand: brand,
       productImagesFolder: v4(),
+      productQuantity: quantity,
     });
   };
 
@@ -82,7 +84,7 @@ export default function UploadProduct({
             name="Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full py-2 px-2 border text-PrimaryBlack/90 text-sm outline-1 outline-PrimaryOrange"
+            className="w-full py-2 px-2 border text-PrimaryBlack/70 text-sm outline-1 outline-PrimaryOrange"
           >
             <option value="">Select Category</option>
             {availableCategories.map((data) => {
@@ -97,7 +99,7 @@ export default function UploadProduct({
             name="Brand"
             value={brand}
             onChange={(e) => setBrand(e.target.value)}
-            className="w-full py-2 px-2 border text-PrimaryBlack/90 text-sm outline-1 outline-PrimaryOrange"
+            className="w-full py-2 px-2 border text-PrimaryBlack/70 text-sm outline-1 outline-PrimaryOrange"
           >
             <option value="">Select Brand</option>
             {availableBrands.map((data) => {
@@ -108,7 +110,16 @@ export default function UploadProduct({
               );
             })}
           </select>
-
+          <p className="pt-2 px-1 font-semibold text-[13px] text-PrimaryBlack/70">
+            Available Quantity
+          </p>
+          <input
+            type="number"
+            className="w-full outline-1 border outline-PrimaryOrange px-2 py-2 text-PrimaryBlack/90 text-sm"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            placeholder="Product Quantity"
+          />
           <input
             type="number"
             className="w-full outline-1 border outline-PrimaryOrange px-2 py-2 text-PrimaryBlack/90 text-sm"

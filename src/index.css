@@ -53,6 +53,9 @@ body{
     background: #fff;
     margin: -4px 0 0 -4px;
   }
+ .spin-black div:after{
+  background: rgba(0,0,0,0.4);
+ }
   .lds-roller div:nth-child(1) {
     animation-delay: -0.036s;
   }
@@ -109,6 +112,9 @@ body{
     top: 56px;
     left: 12px;
   }
+
+
+  
   @keyframes lds-roller {
     0% {
       transform: rotate(0deg);

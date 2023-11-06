@@ -5,13 +5,13 @@ import {getFirestore} from "firebase/firestore"
 import {getStorage} from "firebase/storage"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDplj2QjdvwGTvg3vKZ-w_FjztFKK69DBM",
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "cinnamon19fashion-101a1.firebaseapp.com",
   projectId: "cinnamon19fashion-101a1",
   storageBucket: "cinnamon19fashion-101a1.appspot.com",
-  messagingSenderId: "716433825298",
-  appId: "1:716433825298:web:c1fcd2ce95db48d3e1c2cb",
-  measurementId: "G-MTXM3ZFJS2"
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 
 // Initialize Firebase

@@ -44,7 +44,7 @@ export default function ContactPage() {
     >
       <div className="w-full h-[560px]">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.35430854732!2d-74.13901858248282!3d41.02750616470831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sng!4v1696677207394!5m2!1sen!2sng"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3922.8434271206647!2d7.426291370733204!3d10.512995666679817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104d35b7ed6aeb6b%3A0xf169d6f5de82493d!2sStudio%2024!5e0!3m2!1sen!2sng!4v1699003332544!5m2!1sen!2sng"
           width="100%"
           height="560"
           style={{ border: "none" }}
