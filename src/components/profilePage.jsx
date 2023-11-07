@@ -19,10 +19,12 @@ export default function ProfilePage() {
   const [user, setUser] = useState({});
   const [addresses, setAddresses] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [sessions, setSessions] = useState([]);
   const containerRef = useRef();
   const { t, i18n } = useTranslation();
   const addressCollectionRef = collection(db, "addresses");
   const ordersCollectionRef = collection(db, "orders");
+  const sessionsCollectionRef = collection(db, "sessions");
 
   const toggleMenu = () => {
     let elem = document.getElementById("menuBar");
@@ -62,6 +64,20 @@ export default function ProfilePage() {
     }
   };
 
+  const getSessions = async () => {
+    try {
+      const data = await getDocs(sessionsCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setSessions(filteredData.filter((data) => data.email === user.email));
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Fetching Sessions");
+    }
+  };
+
   useEffect(() => {
     if (!loading) {
       containerRef.current.scrollTop = 0;
@@ -83,6 +99,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (user) {
       getOrders();
+      getSessions();
       getAddresses();
     }
   }, [user]);
@@ -248,7 +265,6 @@ export default function ProfilePage() {
               <div className="w-full flex flex-col px-2 py-2 gap-3">
                 {orders[0] &&
                   orders.map((order) => {
-                    console.log(order);
                     return (
                       <div
                         key={v4()}
@@ -275,7 +291,7 @@ export default function ProfilePage() {
                             Total Amount:
                           </p>
                           <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
-                            {order.currency} {order.totalAmount}.00
+                            {order.currency} {order.totalAmount}
                           </p>
                         </div>
                         <p className="font-bold text-sm pt-2 text-PrimaryBlack/80">
@@ -313,6 +329,58 @@ export default function ProfilePage() {
                             </div>
                           );
                         })}
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+            <div className="col-span-2 border-t h-auto w-full max-[500px]:border-r-0 max-[500px]:border-b">
+              <div className="w-full px-5 h-[50px] flex justify-between items-center border-b">
+                <p className="text-PrimaryBlack/80 text-base font-semibold">
+                  {t("Sessions")}
+                </p>
+              </div>
+              <div className="w-full flex flex-col px-2 py-2 gap-3">
+                {sessions[0] &&
+                  sessions.map((session) => {
+                    console.log(session);
+                    return (
+                      <div
+                        key={v4()}
+                        className="border-b w-full h-auto p-4 rounded max-[800px]:w-full flex flex-col gap-2"
+                      >
+                        <div className="w-full flex gap-2 items-center">
+                          <p className="font-bold text-sm text-PrimaryBlack/80">
+                            Date Of Session:
+                          </p>
+                          <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                            {session.sessionDate}
+                          </p>
+                        </div>
+                        <div className="w-full flex gap-2 items-center">
+                          <p className="font-bold text-sm text-PrimaryBlack/80">
+                            Reference:
+                          </p>
+                          <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                            {session.reference}
+                          </p>
+                        </div>
+                        <div className="w-full flex gap-2 items-center">
+                          <p className="font-bold text-sm text-PrimaryBlack/80">
+                            Date Paid:
+                          </p>
+                          <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                            {session.date}
+                          </p>
+                        </div>
+                        <div className="w-full flex gap-2 items-center">
+                          <p className="font-bold text-sm text-PrimaryBlack/80">
+                            Total Amount:
+                          </p>
+                          <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                            {session.currency} {session.totalAmount}
+                          </p>
+                        </div>
                       </div>
                     );
                   })}

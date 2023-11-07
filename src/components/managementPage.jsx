@@ -7,6 +7,7 @@ import Sizes from "./size";
 import Products from "./allProducts";
 import ExchangeRate from "./exchangeRate";
 import AllOrders from "./allOrders";
+import AllSessions from "./allSessions";
 
 export default function ManagementPage() {
   const [selectedMenu, setSelectedMenu] = useState("Brand");
@@ -21,6 +22,7 @@ export default function ManagementPage() {
     "Products",
     "Exchange Rate",
     "Orders",
+    "Sessions",
   ];
 
   useEffect(() => {
@@ -46,6 +48,9 @@ export default function ManagementPage() {
       case "Orders":
         setDisplay(<AllOrders />);
         break;
+      case "Sessions":
+        setDisplay(<AllSessions />);
+        break;
       default:
         setDisplay(<Brands />);
         break;
@@ -53,7 +58,7 @@ export default function ManagementPage() {
   }, [selectedMenu]);
 
   return (
-    <main className="px-28 py-12">
+    <main className="px-28 py-12 max-[900px]:p-5">
       <div className="w-full flex justify-center flex-wrap pb-10 gap-6">
         {menus.map((menu) => {
           return (

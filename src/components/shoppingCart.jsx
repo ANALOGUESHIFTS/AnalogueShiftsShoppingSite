@@ -67,8 +67,7 @@ export default function ShoppingCart() {
     try {
       const data = await getDoc(productsCollectionRef);
       if (Number(data.data().availableQuantity) <= quantity) {
-        await deleteDoc(doc(db, "cartDatas", dataId));
-        location.reload();
+        await removeItem(dataId);
       }
     } catch (err) {
       console.log(err);
@@ -77,6 +76,7 @@ export default function ShoppingCart() {
 
   const getData = async () => {
     setLoading(true);
+    setCartProducts([]);
     try {
       const data = await getDocs(cartCollectionRef);
       let userData = data.docs.filter((data) => {
@@ -103,7 +103,6 @@ export default function ShoppingCart() {
     try {
       await deleteDoc(itemDoc);
       await getData();
-      location.reload();
     } catch (err) {
       console.error(err);
       setLoading(false);

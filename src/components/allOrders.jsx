@@ -81,7 +81,7 @@ export default function AllOrders() {
                       Total Amount:
                     </p>
                     <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
-                      {order.currency} {order.totalAmount}.00
+                      {order.currency} {order.totalAmount}
                     </p>
                   </div>
                   <p className="font-bold text-sm pt-2 text-PrimaryBlack/80">

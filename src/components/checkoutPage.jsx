@@ -16,6 +16,7 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import LoadingTwo from "./loadingTwo";
+import { toast } from "react-toastify";
 
 export default function CheckOutPage() {
   const navigate = useNavigate();
@@ -36,13 +37,14 @@ export default function CheckOutPage() {
   const ordersCollectionRef = collection(db, "orders");
   const [couponCode, setCouponCode] = useState("");
   const { t, i18n } = useTranslation();
+  const [txRef, setTxRef] = useState(`${Date.now()}${v4()}`);
   const availabeCurrencies = ["USD", "NGN"];
 
   const containerRef = useRef();
 
   const config = {
     public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLICKEY,
-    tx_ref: `${Date.now()}${v4()}`,
+    tx_ref: txRef,
     amount: total,
     currency: currency,
     payment_options: "card,mobilemoney,ussd",
@@ -186,7 +188,7 @@ export default function CheckOutPage() {
         }
       },
       onClose: () => {
-        location.reload();
+        setTxRef(`${Date.now()}${v4()}`);
       },
     });
   };

@@ -20,6 +20,8 @@ export default function HomePage() {
   const [initialProducts, setInitialProducts] = useState([]);
   const productsCollectionRef = collection(db, "products");
   const [loading, setLoading] = useState(false);
+  const [sessionLocked, setSessionLocked] = useState([{ isLocked: false }]);
+  const bespokeCollectionRef = collection(db, "bespokeSession");
 
   const getImage = async (folder) => {
     let images = [];
@@ -65,6 +67,21 @@ export default function HomePage() {
     }
   };
 
+  const getlocked = async () => {
+    try {
+      const data = await getDocs(bespokeCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setSessionLocked(filteredData);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error");
+    }
+  };
+
   useEffect(() => {
     let dummyProducts = initialProducts;
     dummyProducts.forEach((data) => {
@@ -77,10 +94,8 @@ export default function HomePage() {
     }, 1000);
     setTimeout(() => {
       setLoading(true);
+      getlocked();
     }, 4000);
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
   }, [pictures, initialProducts]);
 
   useEffect(() => {
@@ -96,7 +111,7 @@ export default function HomePage() {
       <MensCollection products={products} />
       <InstaFashion />
       <BlogSection />
-      <BespokeSection />
+      <BespokeSection isLocked={sessionLocked[0].isLocked} />
     </main>
   );
 }
