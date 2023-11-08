@@ -6,6 +6,11 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { useTranslation } from "react-i18next";
 
+//Database
+import { getDocs } from "firebase/firestore";
+import { db } from "../config/firebase";
+import { collection } from "firebase/firestore";
+
 export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -13,9 +18,22 @@ export default function HeaderComponent() {
   const [category, setCategory] = useState("All Categories");
   const [searchValue, setSearchValue] = useState("");
   const [categories, setCategories] = useState(["All Categories"]);
+  const cartCollectionRef = collection(db, "cartDatas");
 
   const [numberOfFavourites, setNumberOfFavourites] = useState(0);
   const [numberOfCart, setNumberOfCart] = useState(0);
+
+  const getData = async () => {
+    try {
+      const data = await getDocs(cartCollectionRef);
+      let userData = data.docs.filter((data) => {
+        return data.data().email === user.email;
+      });
+      setNumberOfCart(userData.length);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -26,6 +44,12 @@ export default function HeaderComponent() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getData();
+    }
+  }, [user]);
 
   const handleNavigation = (path) => {
     if (user) {

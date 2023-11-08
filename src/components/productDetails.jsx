@@ -186,7 +186,7 @@ export default function ProductDetails() {
       {loading && <LoadingTwo />}
       <main
         ref={containerRef}
-        className="p-20 max-[1000px]:px-12 max-[800px]:p-5"
+        className="p-20 max-[1000px]:px-12 max-[800px]:p-3"
       >
         <div className="w-full flex gap-10 flex-wrap">
           {item && <CustomSlide arr={item.productPictures} />}
