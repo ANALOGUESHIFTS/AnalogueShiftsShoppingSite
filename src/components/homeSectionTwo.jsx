@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { SplideSlide, Splide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 import { useTranslation } from "react-i18next";
 import { v4 } from "uuid";
 

@@ -5,7 +5,7 @@ import EmblaCarousel from "./EmblaCarousel";
 
 export default function CustomSlide({ arr }) {
   return (
-    <section className="sandbox__carousel w-[550px] max-[500px]:w-[90%] ">
+    <section className="sandbox__carousel w-[550px] max-[500px]:w-full ">
       <EmblaCarousel slides={arr} options={{}} />
     </section>
   );
