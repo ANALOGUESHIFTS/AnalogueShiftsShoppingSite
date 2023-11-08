@@ -188,6 +188,9 @@ export default function Products() {
         sizes: data.productSizes,
         productImagesFolder: data.productImagesFolder,
         availableQuantity: data.productQuantity,
+        features: data.features,
+        benefits: data.benefits,
+        whyUserShouldPurchase: data.whyUserShouldPurchase,
       });
       await uploadFiles(data.productImages, data.productImagesFolder);
       await getProducts();

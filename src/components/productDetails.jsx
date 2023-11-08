@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { listAll, ref, getDownloadURL } from "firebase/storage";
@@ -7,11 +7,10 @@ import LoadingTwo from "./loadingTwo";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { db } from "../config/firebase";
-import { getDoc, collection, doc, addDoc } from "firebase/firestore";
+import { getDoc, collection, doc, addDoc, getDocs } from "firebase/firestore";
 import { v4 } from "uuid";
 
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/react-splide/css";
+import CustomSlide from "./slide";
 
 export default function ProductDetails() {
   const navigate = useNavigate();
@@ -28,6 +27,11 @@ export default function ProductDetails() {
   const { t, i18n } = useTranslation();
   const cartCollectionRef = collection(db, "cartDatas");
   const [user, setUser] = useState(null);
+
+  //Related Products
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [relatedPictures, setRelatedPictures] = useState([]);
+  const [relatedInitialProducts, setRelatedInitialProducts] = useState([]);
 
   const getImage = async (folder) => {
     try {
@@ -74,6 +78,52 @@ export default function ProductDetails() {
     }
   };
 
+  const getRelatedImage = async (folder) => {
+    let images = [];
+    try {
+      listAll(ref(storage, `${folder}/`)).then((res) =>
+        res.items.forEach((item) => {
+          getDownloadURL(item).then((url) => images.push(url));
+        })
+      );
+
+      setRelatedPictures((prev) => [
+        ...prev,
+        {
+          folder: folder,
+          images: images,
+        },
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getRelatedProducts = async () => {
+    try {
+      const data = await getDocs(collection(db, "products"));
+
+      let filteredData = data.docs.map((x) => {
+        return {
+          ...x.data(),
+          id: x.id,
+        };
+      });
+
+      setRelatedInitialProducts(
+        filteredData.filter((fd) => fd.brand === item.brand)
+      );
+      for (let folder of data.docs) {
+        await getRelatedImage(folder.data().productImagesFolder);
+      }
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Error Fetching Related Products");
+    }
+  };
+
   useEffect(() => {
     if (pictures.length > 0) {
       setLoading(true);
@@ -82,9 +132,6 @@ export default function ProductDetails() {
       setTimeout(() => {
         setItem(dummyProducts);
       }, 1000);
-      setTimeout(() => {
-        setLoading(false);
-      }, 5000);
     }
   }, [pictures]);
 
@@ -108,35 +155,44 @@ export default function ProductDetails() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (item) {
+      getRelatedProducts();
+    }
+  }, [item]);
+
+  useEffect(() => {
+    if (relatedInitialProducts.length) {
+      let dummyProducts = relatedInitialProducts;
+      dummyProducts.forEach((data) => {
+        data.productPictures = relatedPictures.filter(
+          (x) => x.folder === data.productImagesFolder
+        )[0].images;
+      });
+      setTimeout(() => {
+        setRelatedProducts(dummyProducts);
+      }, 2000);
+      setTimeout(() => {
+        setLoading(true);
+      }, 4000);
+      setTimeout(() => {
+        setLoading(false);
+      }, 5000);
+    }
+  }, [relatedPictures]);
+
   return (
     <>
       {loading && <LoadingTwo />}
       <main
         ref={containerRef}
-        className="p-28 max-[1000px]:px-12 max-[800px]:p-5"
+        className="p-20 max-[1000px]:px-12 max-[800px]:p-5"
       >
-        <div className="w-full flex gap-20 flex-wrap">
-          <Splide
-            aria-label="Product Images"
-            className="w-[250px] max-[500px]:w-[90%]"
-          >
-            {item &&
-              item.productPictures.map((picture) => (
-                <SplideSlide key={v4()}>
-                  <img
-                    src={picture}
-                    alt="Image 2"
-                    className=" h-80 object-cover"
-                  />
-                </SplideSlide>
-              ))}
-          </Splide>
-          <div className="w-[400px] flex flex-col max-[500px]:w-[90%]">
+        <div className="w-full flex gap-10 flex-wrap">
+          {item && <CustomSlide arr={item.productPictures} />}
+          <div className="w-[500px] pt-3 flex flex-col max-[500px]:w-[90%]">
             <p className="text-PrimaryBlack text-2xl font-bold">
               {item && item.name}
-            </p>
-            <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
-              {item && item.description}
             </p>
             <p className="text-xl text-PrimaryOrange font-bold flex items-center pt-3">
               ${item && item.priceAfter}&nbsp;
@@ -149,6 +205,48 @@ export default function ProductDetails() {
                 </p>
               )}
             </p>
+            <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
+              {item && item.description}
+            </p>
+            <div className="pt-4">
+              <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                Why buy {item && item.name}?
+              </p>
+              <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
+                {item && item.whyUserShouldPurchase}
+              </p>
+            </div>
+            <div className="pt-4">
+              <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                Benifits
+              </p>
+              <ul className="w-full pl-2.5 flex flex-col gap-2">
+                {item &&
+                  item.benefits.map((b) => {
+                    return (
+                      <li className="text-PrimaryBlack/80 font-semibold text-sm pt-3 list-disc ml-3">
+                        {b}
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+            <div className="pt-4">
+              <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                Features
+              </p>
+              <ul className="w-full pl-2.5 flex flex-col gap-2">
+                {item &&
+                  item.features.map((b) => {
+                    return (
+                      <li className="text-PrimaryBlack/80 font-semibold text-sm pt-3 list-disc ml-3">
+                        {b}
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+
             <p className="text-PrimaryBlack/80 pt-4 font-semibold text-sm pb-3">
               {t("Available Quantity")}: {item && item.availableQuantity}
             </p>
@@ -243,6 +341,68 @@ export default function ProductDetails() {
             </button>
           </div>
         </div>
+        <div className="pt-6 pb-4 w-full flex justify-center">
+          <p className="font-bold text-2xl text-PrimaryBlack">
+            You might also like
+          </p>
+        </div>
+        {relatedProducts[0] && (
+          <div className="w-full flex flex-wrap gap-x-[2%] gap-y-4">
+            {relatedProducts.map((data) => {
+              return (
+                <Link
+                  to={`/product-details/${data.id}`}
+                  className="w-[31.3%] flex flex-col max-[900px]:w-full "
+                  key={v4()}
+                >
+                  <div
+                    style={{
+                      backgroundImage: `url(${data.productPictures[0]})`,
+                    }}
+                    className="productImageBox w-full bg-center h-80 max-[900px]:h-96 bg-cover bg-no-repeat overflow-hidden relative"
+                  >
+                    <button className="favouriteButton border-none duration-300 -translate-y-14 absolute top-5 right-5 bg-transparent text-PrimaryBlack">
+                      <i className="fa-regular fa-heart text-lg"></i>
+                    </button>
+                    <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
+                      <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
+                        <i className="fa-solid fa-bag-shopping"></i>
+                      </button>
+                      <button className="h-full w-[56%] bg-white flex justify-center items-center text-PrimaryBlack">
+                        <i className="fa-solid fa-plus text-xs"></i>&nbsp;
+                        <p className="font-bold text-PrimaryBlack text-sm">
+                          {t("Quick View")}
+                        </p>
+                      </button>
+                      <button className="h-full w-[20%] bg-white flex justify-center items-center text-PrimaryBlack">
+                        <i className="fa-solid fa-shuffle"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="w-full py-6 flex flex-col items-center gap-2">
+                    <p className="text-xs text-PrimaryBlack/50 font-bold">
+                      {data.category}
+                    </p>
+                    <p className="text-lg text-PrimaryBlack/90 font-bold">
+                      {data.name}
+                    </p>
+                    <p className="text-xl text-PrimaryOrange font-bold flex items-center">
+                      ${data.priceAfter}&nbsp;
+                      {data.priceBefore && (
+                        <p
+                          className="text-base text-PrimaryBlack/50 font-normal relative"
+                          id="priceBefore"
+                        >
+                          ${data.priceBefore}
+                        </p>
+                      )}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </main>
     </>
   );

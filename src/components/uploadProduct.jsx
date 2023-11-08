@@ -20,13 +20,18 @@ export default function UploadProduct({
   const [priceAfter, setPriceAfter] = useState();
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [benefits, setBenefits] = useState([]);
+  const [features, setFeatures] = useState([]);
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const [whyBuyThisProduct, setWhyBuyThisProduct] = useState("");
 
   //Tracker
   const [colorValue, setColorValue] = useState("");
   const [sizeValue, setSizeValue] = useState("");
+  const [benefit, setBenifit] = useState("");
+  const [feature, setFeature] = useState("");
 
   const { t, i18n } = useTranslation();
 
@@ -43,6 +48,9 @@ export default function UploadProduct({
       productBrand: brand,
       productImagesFolder: v4(),
       productQuantity: quantity,
+      whyUserShouldPurchase: whyBuyThisProduct,
+      features: features,
+      benefits: benefits,
     });
   };
 
@@ -53,17 +61,17 @@ export default function UploadProduct({
   return (
     <div
       style={{ zIndex: 5, opacity: opacity }}
-      className="w-screen duration-500 h-screen fixed flex top-0 left-0 justify-center pt-16 bg-black/20"
+      className="w-screen duration-500 h-screen fixed flex top-0 left-0 items-center justify-center bg-black/20"
     >
-      <div className="bg-white duration-500 rounded-lg max-w-[90%] w-[500px] h-[500px] overflow-y-auto pb-4">
-        <div className="w-full h-10 border-b flex justify-between items-center px-4">
+      <div className="bg-white duration-500 rounded-lg max-w-[90%] w-[600px] h-[500px] overflow-y-auto">
+        <div className="w-full h-[50px] border-b flex justify-between items-center px-4">
           <p className="text-PrimaryBlack/90 text-sm font-bold">Add Product</p>
           <i
             onClick={cancel}
             className="fa-solid fa-xmark cursor-pointer text-PrimaryBlack/80"
           ></i>
         </div>
-        <div className="px-4 pt-4 flex flex-col gap-3">
+        <div className="px-4 pt-4 flex flex-col gap-3 h-[380px] overflow-y-scroll">
           <input
             type="text"
             value={name}
@@ -71,15 +79,28 @@ export default function UploadProduct({
             onChange={(e) => setName(e.target.value)}
             className="w-full py-2 px-2 border text-sm outline-1 outline-PrimaryOrange text-PrimaryBlack/90"
           />
-          <textarea
-            name="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Product Description..."
-            className="px-2 py-2 text-PrimaryBlack/90 outline-1 outline-PrimaryOrange text-sm border w-full h-24"
-            cols="30"
-            rows="10"
-          ></textarea>
+          <div className="w-full h-28">
+            <textarea
+              name="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Product Description..."
+              className="px-2 py-2 text-PrimaryBlack/90 outline-1 outline-PrimaryOrange text-sm border w-full h-full"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
+          <div className="w-full h-28">
+            <textarea
+              name="Explain why users should buy this product"
+              value={whyBuyThisProduct}
+              onChange={(e) => setWhyBuyThisProduct(e.target.value)}
+              placeholder="Explain why users should buy this product"
+              className="px-2 py-2 text-PrimaryBlack/90 outline-1 outline-PrimaryOrange text-sm border w-full h-full"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
           <select
             name="Category"
             value={category}
@@ -135,8 +156,10 @@ export default function UploadProduct({
             placeholder="Cinnamon's Price"
           />
           <div className="mt-3 w-full border-t py-2">
-            <div className="px-2 pt-2 w-full flex justify-between items-center">
-              <p className="font-bold text-sm text-PrimaryBlack/90">IMAGES</p>
+            <div className=" pt-2 w-full flex justify-between">
+              <p className="font-bold text-sm text-PrimaryBlack/90">
+                Product Images
+              </p>
               <div className="relative">
                 <input
                   type="file"
@@ -182,10 +205,104 @@ export default function UploadProduct({
               </div>
             )}
           </div>
+          <div className="mt-3 w-full border-t py-2">
+            <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
+              Product Benefits
+            </p>
+            <div className="px-2 w-full flex justify-between items-center">
+              <input
+                type="text"
+                placeholder="Enter Benefit"
+                value={benefit}
+                onChange={(e) => setBenifit(e.target.value)}
+                className="w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
+              />
+              <button
+                onClick={() => {
+                  setBenefits([...benefits, benefit]);
+                  setBenifit("");
+                }}
+                className="text-sm text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
+              >
+                Add Benefit&nbsp; <i className="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            {benefits.length > 0 && (
+              <div className="py-2.5 px-3 flex flex-col gap-2">
+                {benefits.map((data) => {
+                  return (
+                    <div
+                      key={Math.random() * Math.random()}
+                      className="w-full flex justify-between items-center"
+                    >
+                      <p className="w-[85%] text-sm font-semibold text-PrimaryBlack/80">
+                        {data}
+                      </p>
+                      <i
+                        onClick={() =>
+                          setBenefits((prev) =>
+                            prev.filter((img) => img !== data)
+                          )
+                        }
+                        className="fa-solid fa-xmark text-PrimaryBlack/80 cursor-pointer"
+                      ></i>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <div className="mt-3 w-full border-t py-2">
+            <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
+              Product Features
+            </p>
+            <div className="px-2 w-full flex justify-between items-center">
+              <input
+                type="text"
+                placeholder="Enter Feature"
+                value={feature}
+                onChange={(e) => setFeature(e.target.value)}
+                className="w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
+              />
+              <button
+                onClick={() => {
+                  setFeatures([...features, feature]);
+                  setFeature("");
+                }}
+                className="text-sm text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
+              >
+                Add Feature&nbsp; <i className="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            {features.length > 0 && (
+              <div className="py-2.5 px-3 flex flex-col gap-2">
+                {features.map((data) => {
+                  return (
+                    <div
+                      key={Math.random() * Math.random()}
+                      className="w-full flex justify-between items-center"
+                    >
+                      <p className="w-[85%] text-sm font-semibold text-PrimaryBlack/80">
+                        {data}
+                      </p>
+                      <i
+                        onClick={() =>
+                          setFeatures((prev) =>
+                            prev.filter((img) => img !== data)
+                          )
+                        }
+                        className="fa-solid fa-xmark text-PrimaryBlack/80 cursor-pointer"
+                      ></i>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           <div className="mt-3 w-full border-t py-2">
-            <p className="font-bold text-sm text-PrimaryBlack/90 pb-2 text-center">
-              COLORS
+            <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
+              Product Colors
             </p>
             <div className="px-2 w-full flex justify-between items-center">
               <input
@@ -232,8 +349,8 @@ export default function UploadProduct({
           </div>
 
           <div className="mt-3 w-full border-t py-2">
-            <p className="font-bold text-sm text-PrimaryBlack/90 pb-2 text-center">
-              SIZES
+            <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
+              Product Sizes
             </p>
             <div className="px-2 w-full flex justify-between items-center">
               <select
@@ -281,12 +398,13 @@ export default function UploadProduct({
               </div>
             )}
           </div>
-
+        </div>
+        <div className="w-full px-3 h-[70px] flex items-center">
           <button
             onClick={handleSubmit}
             className="w-full font-bold text-white text-sm py-2 flex justify-center bg-PrimaryOrange hover:bg-PrimaryOrange/80"
           >
-            SUBMIT
+            Add Product
           </button>
         </div>
       </div>
