@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { closePaymentModal, useFlutterwave } from "flutterwave-react-v3";
 import LoadingTwo from "./loadingTwo";
 import { db } from "../config/firebase";
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, addDoc, doc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export default function BespokePayment({
@@ -11,12 +11,16 @@ export default function BespokePayment({
   exchangeRate,
   userInfo,
   date,
+  availableDates,
 }) {
   const [price, setPrice] = useState(20);
   const navigate = useNavigate();
   const [currency, setCurrency] = useState("USD");
   const [loading, setLoading] = useState(false);
   const [txRef, setTxRef] = useState(`${Date.now()}${v4()}`);
+  const [dateId, setDateId] = useState(
+    availableDates.filter((d) => d.date === date)[0].id
+  );
   const sessionsCollectionRef = collection(db, "sessions");
 
   const config = {
@@ -32,7 +36,7 @@ export default function BespokePayment({
     },
     customizations: {
       title: `Payment from ${userInfo.name}`,
-      description: "Payment for an In-store session",
+      description: "Payment for a bespoke session",
       logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
     },
   };
@@ -78,9 +82,11 @@ export default function BespokePayment({
       otherRelavantInformation: userInfo.otherRelavantInformation,
       purposeOfOutfit: userInfo.purposeOfOutfit,
       sizes: userInfo.sizes,
+      meetingType: userInfo.meetingType,
     };
     try {
       await addDoc(sessionsCollectionRef, dataToAdd);
+      await deleteDoc(doc(db, "availableDates", dateId));
       navigate("/profile");
     } catch (err) {
       console.log(err);

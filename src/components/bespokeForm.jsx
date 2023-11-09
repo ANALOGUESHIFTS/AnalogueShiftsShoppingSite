@@ -2,6 +2,7 @@ import { v4 } from "uuid";
 import { useState, useEffect } from "react";
 
 const ages = ["0-16", "17-21", "22-27", "28-34", "35-40", "40-49", "50+"];
+const meetingTypes = ["Virtually", "Physically"];
 const designs = ["Existing Outfit", "New Design"];
 const expressService = ["Yes", "No"];
 const ableToFit = ["Yes, I will", "No, I won't"];
@@ -33,6 +34,7 @@ export default function BespokeForm({ formRef, submit }) {
     { purpose: "Other", value: false },
   ]);
   const [ageRange, setAgeRange] = useState("");
+  const [meetingType, setMeetingType] = useState("");
   const [designType, setDesignType] = useState("");
   const [indicationOfBudget, setIndicationOfBudget] = useState("");
   const [otherPurpose, setOtherPurpose] = useState("");
@@ -94,6 +96,7 @@ export default function BespokeForm({ formRef, submit }) {
       submit({
         name: name,
         email: email,
+        meetingType: meetingType,
         phoneNumber: phoneNumber,
         address: address,
         designType: designType,
@@ -126,6 +129,25 @@ export default function BespokeForm({ formRef, submit }) {
       method="post"
       className="w-full flex flex-col gap-3 mt-3"
     >
+      <div>
+        <p className="text-PrimaryBlack/90 font-bold text-xs">
+          Do you want to discuss Virtually (Online) or Physically?
+        </p>
+        <div className="pt-2 flex flex-col gap-1">
+          {meetingTypes.map((ag) => {
+            return (
+              <div
+                key={v4()}
+                className="pt-2 flex items-center gap-2 cursor-pointer"
+                onClick={() => setMeetingType(ag)}
+              >
+                <input type="radio" value={ag} checked={meetingType === ag} />
+                <p className="text-PrimaryBlack/90 font-bold text-xs">{ag}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
       <input
         value={name}
         type="text"
@@ -338,7 +360,7 @@ export default function BespokeForm({ formRef, submit }) {
       </div>
       <div>
         <p className="text-PrimaryBlack/90 font-bold text-xs">
-          Will you be available to fit the outfit in the Kaduna Studio?
+          Will you be available to fit the outfit in the kadunaa Studio?
         </p>
         <div className="pt-2 flex flex-col gap-1">
           {ableToFit.map((ag) => {

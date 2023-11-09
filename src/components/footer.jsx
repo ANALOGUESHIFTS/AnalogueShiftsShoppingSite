@@ -48,8 +48,8 @@ export default function Footer() {
           </Link>
           <div className="flex flex-col w-full pt-7 gap-3">
             <p className="text-white/70 text-base pr-2 ">
-              {t("Address")}: SF1 kadun city plaza, before kastina round about,
-              opposite studio 24, kaduna Nigeria
+              {t("Address")}: SF1 kaduna city plaza, before kastina round about,
+              opposite studio 24, kadunaa Nigeria
             </p>
             <p className="text-white/70 text-base ">
               {t("Phone")}: +2348031376569

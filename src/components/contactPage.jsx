@@ -10,7 +10,7 @@ export default function ContactPage() {
     {
       label: t("Address"),
       details:
-        "SF1 kadun city plaza, before kastina round about, opposite studio 24, kaduna Nigeria",
+        "SF1 kaduna city plaza, before kastina round about, opposite studio 24, kadunaa Nigeria",
       icon: (
         <i class="fa-solid fa-location-dot text-PrimaryBlack/50 text-2xl"></i>
       ),

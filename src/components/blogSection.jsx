@@ -32,12 +32,12 @@ export default function BlogSection() {
     {
       icon: "images/icon-1.png",
       title: t("FREE SHIPPING"),
-      description: t("For all order over 99$"),
+      description: t("When you buy from the website"),
     },
     {
       icon: "images/icon-2.png",
       title: t("DELIVERY ON TIME"),
-      description: t("If good have problems"),
+      description: t("We offer fast delivery"),
     },
     {
       icon: "images/icon-1.png",

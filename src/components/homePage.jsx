@@ -111,7 +111,7 @@ export default function HomePage() {
       <MensCollection products={products} />
       <InstaFashion />
       <BlogSection />
-      <BespokeSection isLocked={sessionLocked[0].isLocked} />
+      <BespokeSection isLocked={sessionLocked[0]?.isLocked} />
     </main>
   );
 }

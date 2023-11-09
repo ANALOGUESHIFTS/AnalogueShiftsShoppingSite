@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { db } from "../config/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, addDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import BespokeForm from "./bespokeForm";
 import BespokePayment from "./bespokePaymentSection";
@@ -81,7 +81,7 @@ export default function BespokeModal({ close }) {
         alt=""
       />
       <p className="text-PrimaryBlack/80 text-base pt-5 font-semibold">
-        In Store Consultation
+        Bespoke Dresses Consultation
       </p>
       <div className="pt-5 w-full px-8">
         <select
@@ -136,8 +136,8 @@ export default function BespokeModal({ close }) {
         <div className="w-full px-5 py-2 flex items-center gap-2 rounded-lg border mt-4">
           <i className="fa-solid fa-location text-PrimaryBlack/80 text-sm"></i>
           <p className="text-PrimaryBlack/90 font-bold text-xs">
-            SF1 kadun city plaza, before kastina round about, opposite studio
-            24, kaduna Nigeria
+            SF1 kaduna city plaza, before kastina round about, opposite studio
+            24, kadunaa Nigeria
           </p>
         </div>
         <BespokeForm
@@ -183,6 +183,7 @@ export default function BespokeModal({ close }) {
             exchangeRate={exchangeRate}
             userInfo={info}
             date={selectedDate}
+            availableDates={availableDates}
           />
         );
         break;

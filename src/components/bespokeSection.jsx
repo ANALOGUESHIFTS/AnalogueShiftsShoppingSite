@@ -25,7 +25,7 @@ export default function BespokeSection({ isLocked }) {
             </p>
           )}
           <i className="text-PrimaryBlack/70 font-thin text-2xl tracking-wide">
-            In-store Consultation 40 min
+            Bespoke Dresses Consultations - 40 min
           </i>
           <p className="py-6 border-b text-2xl font-semibold text-PrimaryBlack/70">
             $20.00
@@ -36,7 +36,7 @@ export default function BespokeSection({ isLocked }) {
             just for you.
           </p>
           <p className="pt-5 pb-10 text-PrimaryBlack/70 font-semibold text-sm tracking-wide leading-6">
-            Please note the timezone in the calendar for the in-store
+            Please note the timezone in the calendar for the bespoke
             consultation is Lagos, Nigeria.
           </p>
           <button

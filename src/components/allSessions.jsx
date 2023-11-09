@@ -96,21 +96,32 @@ export default function AllSessions() {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-col px-2 mt-3 py-2 gap-3">
+        <div className="w-full flex flex-col px-3 mt-3 py-3 gap-3">
           {sessions[0] &&
             sessions.map((session, index) => {
               console.log(session);
               return (
                 <div
                   key={v4()}
-                  className="border w-full h-auto p-4 rounded max-[800px]:w-full flex flex-col gap-2"
+                  className="border w-full h-auto p-5 rounded max-[800px]:w-full flex flex-col gap-2"
                 >
+                  <p className="text-center font-bold text-lg text-PrimaryBlack/90">
+                    Section {index + 1}
+                  </p>
                   <div className="w-full flex gap-2 items-center">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       User's Name:
                     </p>
                     <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
                       {session.name}
+                    </p>
+                  </div>
+                  <div className="w-full flex gap-2 items-center">
+                    <p className="font-bold text-sm text-PrimaryBlack/80">
+                      Meeting Type:
+                    </p>
+                    <p className="text-PrimaryBlack/70 text-[13px] font-semibold">
+                      {session.meetingType}
                     </p>
                   </div>
                   <div className="w-full flex gap-2 items-center">
