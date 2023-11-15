@@ -20,7 +20,6 @@ export default function HeaderComponent() {
   const [categories, setCategories] = useState(["All Categories"]);
   const cartCollectionRef = collection(db, "cartDatas");
 
-  const [numberOfFavourites, setNumberOfFavourites] = useState(0);
   const [numberOfCart, setNumberOfCart] = useState(0);
 
   const getData = async () => {
@@ -39,8 +38,10 @@ export default function HeaderComponent() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        getData();
       } else {
         setUser(null);
+        setNumberOfCart(0);
       }
     });
   }, []);
@@ -94,16 +95,6 @@ export default function HeaderComponent() {
         </div>
       </div>
       <div className="flex items-center max-[900px]:w-[80%]">
-        {user?.email !== "cinnamon19fashion@gmail.com" && (
-          <Link to="">
-            <div className="relative pt-1 pr-2">
-              <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
-                <p className="text-white text-xs">{numberOfFavourites}</p>
-              </div>
-              <i class="fa-regular fa-heart text-PrimaryBlack/80 text-xl"></i>
-            </div>
-          </Link>
-        )}
         {user?.email !== "cinnamon19fashion@gmail.com" && (
           <div
             onClick={() => handleNavigation("/shopping-cart")}

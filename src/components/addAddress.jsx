@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function AddAddress({ cancel, save }) {
   const [opacity, setOpacity] = useState(0);
@@ -7,19 +7,23 @@ export default function AddAddress({ cancel, save }) {
       label: "First Name",
       value: "",
       type: "text",
+      required: true,
     },
     {
       label: "Last Name",
       value: "",
       type: "text",
+      required: true,
     },
     {
       label: "Phone Number",
       value: "",
       type: "text",
+      required: true,
     },
     {
       label: "Additional Phone Number",
+      required: false,
       value: "",
       type: "text",
     },
@@ -28,24 +32,29 @@ export default function AddAddress({ cancel, save }) {
       value: "",
       type: "text",
       fullWidth: true,
+      required: true,
     },
     {
       label: "Additional Info",
       value: "",
       type: "text",
       fullWidth: true,
+      required: false,
     },
     {
       label: "Region",
       value: "",
       type: "text",
+      required: true,
     },
     {
       label: "City",
       value: "",
       type: "text",
+      required: true,
     },
   ]);
+  const submitRef = useRef();
 
   const updateField = (label, newValue) => {
     setAddress(
@@ -59,7 +68,8 @@ export default function AddAddress({ cancel, save }) {
     );
   };
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
     const result = {};
     address.forEach((data) => {
       result[data.label] = data.value;
@@ -87,7 +97,12 @@ export default function AddAddress({ cancel, save }) {
             <i className="fa-solid fa-xmark text-xl text-PrimaryBlack/90"></i>
           </button>
         </div>
-        <div className="px-4 py-4 w-full flex flex-wrap gap-x-4 gap-y-4">
+        <form
+          onSubmit={handleSave}
+          action="/"
+          method="post"
+          className="px-4 py-4 w-full flex flex-wrap gap-x-4 gap-y-4"
+        >
           {address.map((data) => {
             return (
               <input
@@ -99,14 +114,20 @@ export default function AddAddress({ cancel, save }) {
                 placeholder={data.label}
                 value={data.value}
                 className="py-2.5 px-2.5 border outline-PrimaryOrange outline-1 text-sm text-PrimaryBlack/80"
+                required={data.required}
               />
             );
           })}
-        </div>
+          <button
+            ref={submitRef}
+            type="submit"
+            className="-z-10 opacity-0"
+          ></button>
+        </form>
         <div className="px-4 pt-4 w-full flex justify-end">
           <button
-            onClick={handleSave}
-            className="text-white font-bold flex items-center bg-green-600 px-5 py-2 rounded-lg shadow-xl hover:bg-green-600/80 text-xs"
+            onClick={() => submitRef.current.click()}
+            className="text-white font-bold flex items-center bg-green-600 px-5 py-2  shadow-xl hover:bg-green-600/80 text-xs"
           >
             SAVE ADDRESS &nbsp; <i className="fa-solid fa-check"></i>
           </button>

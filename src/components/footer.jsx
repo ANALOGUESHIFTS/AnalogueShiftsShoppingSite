@@ -76,7 +76,7 @@ export default function Footer() {
             <Link to="/about" className="text-white/70 text-base ">
               {t("About Us")}
             </Link>
-            <Link to="/checkout" className="text-white/70 text-base ">
+            <Link to="/shopping-cart" className="text-white/70 text-base ">
               {t("Checkout")}
             </Link>
             <Link to="/contact" className="text-white/70 text-base ">

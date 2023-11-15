@@ -14,9 +14,7 @@ export default function NavBarComponent() {
     "Underwear",
     "Kid's Clothing",
     "Brand Fashion",
-    "Accessories/Shoes",
-    "Luxury Brands",
-    "Brand Outdoor Apparel",
+    "Shoes",
   ]);
 
   const pathname = useLocation().pathname;

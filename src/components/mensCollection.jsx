@@ -6,11 +6,8 @@ import { useTranslation } from "react-i18next";
 import { v4 } from "uuid";
 
 export default function MensCollection({ products }) {
-  const [selectedCategory, setSelectedCategory] = useState("Clothings");
   const { t, i18n } = useTranslation();
   const [perView, setPerView] = useState(3);
-
-  const categories = ["Clothings", "HandBag", "Shoes"];
 
   const handleResize = () => {
     if (window.innerWidth <= 500) {
@@ -36,30 +33,6 @@ export default function MensCollection({ products }) {
     <div className="w-full px-28 py-14 max-[1000px]:px-12 max-[800px]:px-5">
       <div className="h-[620px] flex gap-[3%] max-[900px]:h-auto max-[900px]:flex-col">
         <div className="w-[71%] h-full flex flex-col justify-center max-[900px]:w-full max-[900px]:py-3">
-          <div className="flex justify-center gap-5">
-            {categories.map((category) => {
-              return (
-                <p
-                  style={{
-                    color: `${
-                      selectedCategory === category
-                        ? "#252525"
-                        : "rgba(0,0,0,0.5)"
-                    }`,
-                    borderBottom: `${
-                      selectedCategory === category
-                        ? "2px solid #252525"
-                        : "none"
-                    }`,
-                  }}
-                  className="text-lg font-semibold pb-1 cursor-pointer"
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category}
-                </p>
-              );
-            })}
-          </div>
           <div className="w-full h-full relative flex justify-center">
             <div className="w-full pt-8 overflow-hidden">
               <Splide

@@ -76,7 +76,6 @@ export default function ShoppingCart() {
 
   const getData = async () => {
     setLoading(true);
-    setCartProducts([]);
     try {
       const data = await getDocs(cartCollectionRef);
       let userData = data.docs.filter((data) => {
@@ -89,6 +88,7 @@ export default function ShoppingCart() {
         return { ...doc.data(), id: doc.id };
       });
       setData(filteredData);
+      !filteredData.length && setCartProducts([]);
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -215,7 +215,7 @@ export default function ShoppingCart() {
                             onClick={() =>
                               updateCart(data.id, {
                                 ...data,
-                                quantity: data.quantity - 1,
+                                quantity: Math.max(1, data.quantity - 1),
                               })
                             }
                             className="border-none max-[900px]:col-span-1 bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl max-[900px]:px-0 max-[900px]:justify-center"
@@ -300,12 +300,15 @@ export default function ShoppingCart() {
                 </p>
               </div>
             </div>
-            <Link
-              to="/checkout"
-              className="row-span-1 w-full flex justify-center items-center bg-PrimaryBlack text-base font-bold text-white"
+            <button
+              onClick={() => navigate("/checkout")}
+              disabled={total <= 0 ? true : false}
+              className={`row-span-1 w-full flex justify-center items-center ${
+                total <= 0 ? "bg-PrimaryBlack/50" : "bg-PrimaryBlack"
+              } text-base font-bold text-white`}
             >
               {t("PROCEED TO CHECK OUT")}
-            </Link>
+            </button>
           </div>
         </div>
       </main>

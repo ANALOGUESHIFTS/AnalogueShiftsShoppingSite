@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function EditAddress({ recentData, cancel, save }) {
   const [opacity, setOpacity] = useState(0);
@@ -7,45 +7,54 @@ export default function EditAddress({ recentData, cancel, save }) {
       label: "First Name",
       value: recentData.firstName,
       type: "text",
+      required: true,
     },
     {
       label: "Last Name",
       value: recentData.lastName,
       type: "text",
+      required: true,
     },
     {
       label: "Phone Number",
       value: recentData.phoneNumber,
       type: "text",
+      required: true,
     },
     {
       label: "Additional Phone Number",
       value: recentData.additionalPhoneNumber,
       type: "text",
+      required: false,
     },
     {
       label: "Delivery Address",
       value: recentData.deliveryAddress,
       type: "text",
       fullWidth: true,
+      required: true,
     },
     {
       label: "Additional Info",
       value: recentData.additionalInfo,
       type: "text",
       fullWidth: true,
+      required: false,
     },
     {
       label: "Region",
       value: recentData.region,
       type: "text",
+      required: true,
     },
     {
       label: "City",
       value: recentData.city,
       type: "text",
+      required: true,
     },
   ]);
+  const submitRef = useRef();
 
   const updateField = (label, newValue) => {
     setAddress(
@@ -59,7 +68,8 @@ export default function EditAddress({ recentData, cancel, save }) {
     );
   };
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
     const result = {};
     address.forEach((data) => {
       result[data.label] = data.value;
@@ -87,7 +97,12 @@ export default function EditAddress({ recentData, cancel, save }) {
             <i className="fa-solid fa-xmark text-xl text-PrimaryBlack/90"></i>
           </button>
         </div>
-        <div className="px-4 py-4 w-full flex flex-wrap gap-x-4 gap-y-4">
+        <form
+          onSubmit={handleSave}
+          action="/"
+          method="post"
+          className="px-4 py-4 w-full flex flex-wrap gap-x-4 gap-y-4"
+        >
           {address.map((data) => {
             return (
               <input
@@ -99,14 +114,20 @@ export default function EditAddress({ recentData, cancel, save }) {
                 placeholder={data.label}
                 value={data.value}
                 className="py-2.5 px-2.5 border outline-PrimaryOrange outline-1 text-sm text-PrimaryBlack/80"
+                required={data.required}
               />
             );
           })}
-        </div>
+          <button
+            type="submit"
+            ref={submitRef}
+            className="-z-10 opacity-0"
+          ></button>
+        </form>
         <div className="px-4 pt-4 w-full flex justify-end">
           <button
-            onClick={handleSave}
-            className="text-white font-bold flex items-center bg-green-600 px-5 py-2 rounded-lg shadow-xl hover:bg-green-600/80 text-xs"
+            onClick={() => submitRef.current.click()}
+            className="text-white font-bold flex items-center bg-green-600 px-5 py-2 shadow-xl hover:bg-green-600/80 text-xs"
           >
             EDIT
           </button>
