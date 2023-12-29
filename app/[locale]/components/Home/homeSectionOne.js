@@ -2,6 +2,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  deleteDoc,
+  doc,
+  addDoc,
+  collection,
+  getDocs,
+} from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 import { useTranslations } from "next-intl";
 
@@ -11,6 +19,7 @@ export default function HomeSectionOne() {
   );
   const pathname = usePathname();
   const t = useTranslations("Index");
+  const availableDatesCollectionRef = collection(db, "availableDates");
 
   const handleResize = () => {
     if (window.innerWidth <= 900) {
@@ -19,6 +28,48 @@ export default function HomeSectionOne() {
       setBackgroundImage("/images/hero-1.jpg.webp");
     }
   };
+
+  const deleteDate = async () => {
+    try {
+      const data = await getDocs(availableDatesCollectionRef);
+      data.docs.forEach((item) => {
+        deleteDoc(doc(db, "availableDates", item.id));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addDate = async (date) => {
+    try {
+      await addDoc(availableDatesCollectionRef, { date: date });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  function uploadMonth(year, month) {
+    var firstDayOfMonth = new Date(year, month - 1, 1);
+    var firstDayOfWeek = firstDayOfMonth.getDay();
+    var offsetToThirdWeek = (2 - firstDayOfWeek + 7) % 7;
+    var firstDayOfThirdWeek = new Date(firstDayOfMonth);
+    firstDayOfThirdWeek.setDate(
+      firstDayOfThirdWeek.getDate() + offsetToThirdWeek + 7 * 2
+    );
+    var firstFiveDays = [];
+    for (var i = -1; i < 4; i++) {
+      var currentDay = new Date(firstDayOfThirdWeek);
+      currentDay.setDate(firstDayOfThirdWeek.getDate() + i);
+      firstFiveDays.push(
+        currentDay + " (10:00 AM - 11:00 AM)",
+        currentDay + " (11:00 AM - 11:00 PM)"
+      );
+    }
+
+    for (let date of firstFiveDays) {
+      addDate(date);
+    }
+  }
 
   useEffect(() => {
     handleResize();

@@ -431,7 +431,15 @@ export default function CheckOutPageDetails() {
             <div className="w-full flex justify-between pt-6 items-center">
               <button
                 className="border-none w-full flex justify-center items-center h-11 rounded text-white bg-PrimaryOrange hover:bg-PrimaryOrange/70"
-                onClick={makePayment}
+                onClick={() => {
+                  if (addresses[0]) {
+                    makePayment();
+                  } else {
+                    router.push(
+                      pathname.slice(0, 3).concat("/profile/address-book")
+                    );
+                  }
+                }}
               >
                 {t("CONFIRM ORDER")}
               </button>

@@ -15,7 +15,27 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Cinnamon19Fashion",
-  description: "Home For Fashion",
+  description:
+    "Welcome to Cinnamon19Fashion, where style meets convenience. Discover the latest trends in apparel, from chic streetwear to elegant evening dresses. Browse a curated collection of high-quality fashion wear, ensuring you're always on point with your style game. Elevate your wardrobe with our diverse range of clothing.",
+  openGraph: {
+    title: "Cinnamon19Fashion",
+    description:
+      "Welcome to Cinnamon19Fashion, where style meets convenience. Discover the latest trends in apparel, from chic streetwear to elegant evening dresses. Browse a curated collection of high-quality fashion wear, ensuring you're always on point with your style game. Elevate your wardrobe with our diverse range of clothing.",
+    url: "https://cinnamon19fashion.com",
+    siteName: "Cinnamon19Fashion",
+    images: [
+      {
+        url: "/images/ceo.jpg",
+        width: 600,
+        height: 800,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+    alternates: {
+      canonical: "https://cinnamon19fashion.com",
+    },
+  },
 };
 
 export default function RootLayout({ children, params: { locale } }) {

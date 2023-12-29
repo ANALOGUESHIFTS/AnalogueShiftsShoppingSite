@@ -216,6 +216,12 @@ export default function NavBarComponent() {
             Blog
           </Link>
           <Link
+            href={pathname.slice(0, 3).concat("/profile")}
+            className="h-8 flex items-center rounded px-3 text-white text-[15px] hover:bg-white/50 hover:text-PrimaryBlack mb-3"
+          >
+            My Account
+          </Link>
+          <Link
             href={pathname.slice(0, 3).concat("/contact")}
             className="h-8 flex items-center rounded px-3 text-white text-[15px] hover:bg-white/50 hover:text-PrimaryBlack"
           >

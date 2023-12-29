@@ -16,6 +16,9 @@ export default function AboutPageDetails() {
       ref={containerRef}
       className="px-28 py-20 max-[1000px]:px-12 max-[800px]:px-5 max-[800px]:py-5"
     >
+      <div className="py-6 w-full flex justify-center">
+        <Image src="/images/ceo.jpg" alt="CEO " width={500} height={700} />
+      </div>
       <p className="text-PrimaryBlack font-bold text-4xl text-center pb-6">
         {t("The Brand")}
       </p>
@@ -25,7 +28,7 @@ export default function AboutPageDetails() {
         )}
         .
       </p>
-      <div className="pt-6 w-full flex justify-center pb-6">
+      <div className="py-6 w-full flex justify-center">
         <Image
           src="/images/cinnamon-logo.png"
           alt="Logo"
