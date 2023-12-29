@@ -40,7 +40,7 @@ export default function SearchDropdown({ value }) {
   return (
     <div
       style={{ opacity: opacity, transform: `translateY(${position}px)` }}
-      className="absolute duration-300 w-full h-[160px] bg-white top-[110%] rounded-xl shadow-xl left-0 z-70"
+      className="absolute duration-300 w-full h-[350px] bg-white top-[110%] shadow-xl left-0 z-70"
     >
       {loading ? (
         <div className="w-full h-full flex justify-center items-center bg-black/10">
@@ -57,16 +57,11 @@ export default function SearchDropdown({ value }) {
         </div>
       ) : (
         <div className="p-5 flex justify-center items-center w-full h-full">
-          {value === "" && (
-            <p className="text-PrimaryBlack font-semibold text-base">
-              Search Product...
-            </p>
-          )}
           {value.trim().length > 0 &&
             initialData.filter((data) =>
               data.name.toLowerCase().includes(value.toLowerCase())
             ).length === 0 && (
-              <p className="text-PrimaryBlack font-semibold text-base">
+              <p className="text-black/50 font-medium text-lg">
                 No Product Found
               </p>
             )}
@@ -83,7 +78,7 @@ export default function SearchDropdown({ value }) {
                     return (
                       <Link
                         key={crypto.randomUUID()}
-                        className="w-full py-2.5 border-b text-[15px] text-PrimaryBlack/90 font-medium"
+                        className="w-full py-2.5 border-b text-[15px] text-PrimaryBlack/80 tracking-wide font-medium"
                         href={pathname.slice(0, 3).concat(`/shop/${data.id}`)}
                       >
                         {data.name}

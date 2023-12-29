@@ -62,7 +62,7 @@ export default function HomeSectionOne() {
       currentDay.setDate(firstDayOfThirdWeek.getDate() + i);
       firstFiveDays.push(
         currentDay + " (10:00 AM - 11:00 AM)",
-        currentDay + " (11:00 AM - 11:00 PM)"
+        currentDay + " (11:00 AM - 12:00 PM)"
       );
     }
 
