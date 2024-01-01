@@ -18,6 +18,7 @@ import {
   doc,
 } from "firebase/firestore";
 import EditAddress from "./editAddress";
+import { toast } from "react-toastify";
 
 export default function AddressBookPageDetails() {
   const [addressModal, setAddressModal] = useState(false);
@@ -44,7 +45,10 @@ export default function AddressBookPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Addresses");
+      toast.error("Error Fetching Addresses", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -57,7 +61,10 @@ export default function AddressBookPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Deleting Address");
+      toast.error("Error Deleting Address", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -69,7 +76,10 @@ export default function AddressBookPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Adding Address");
+      toast.error("Error Adding Address", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -82,7 +92,10 @@ export default function AddressBookPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Editing Address");
+      toast.error("Error Editing Address", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -102,7 +115,10 @@ export default function AddressBookPageDetails() {
         router.push(pathname.slice(0, 3).concat("/"));
       });
     } catch (err) {
-      alert("Error Signing Out, Please Try Again");
+      toast.error("Error Signing Out, Please Try Again", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setLoading(false);
     }
   };

@@ -22,6 +22,7 @@ import IdiomProof from "../Profile/idiomProof";
 import Link from "next/link";
 import UploadProduct from "./uploadProduct";
 import { usePathname } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function Products() {
   const t = useTranslations("Index");
@@ -87,7 +88,10 @@ export default function Products() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Products");
+      toast.error("Error Fetching Products", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -113,7 +117,10 @@ export default function Products() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Deleting Product");
+      toast.error("Error Deleting Product", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -162,7 +169,10 @@ export default function Products() {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      alert("Error Fetching data, please try again");
+      toast.error("Error Fetching data, please try again", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -199,7 +209,10 @@ export default function Products() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Adding Product");
+      toast.error("Error Adding Product", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

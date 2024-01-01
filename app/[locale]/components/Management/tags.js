@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import LoadingTwo from "../loadingTwo";
 import IdiomProof from "../Profile/idiomProof";
+import { toast } from "react-toastify";
 
 export default function Tags() {
   const t = useTranslations("Index");
@@ -50,7 +51,10 @@ export default function Tags() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Tags");
+      toast.error("Error Fetching Tags", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -62,7 +66,10 @@ export default function Tags() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Adding tag");
+      toast.error("Error Adding tag", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -75,7 +82,10 @@ export default function Tags() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Deleting Tag");
+      toast.error("Error Deleting Tag", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -88,7 +98,10 @@ export default function Tags() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Editing Tag");
+      toast.error("Error Editing Tag", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

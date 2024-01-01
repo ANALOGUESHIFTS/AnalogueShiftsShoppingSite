@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { v4 } from "uuid";
 
 const ages = ["0-16", "17-21", "22-27", "28-34", "35-40", "40-49", "50+"];
@@ -92,7 +93,10 @@ export default function BespokeForm({ formRef, submit }) {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (cinnamonTerms === false) {
-      alert("Must Accept Terms and condition");
+      toast.error("Must Accept Terms and condition", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } else {
       submit({
         name: name,

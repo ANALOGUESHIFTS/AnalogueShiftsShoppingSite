@@ -8,6 +8,10 @@ import HeaderComponent from "./components/Layout/Header";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 
+//Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Can be imported from a shared config
 const locales = ["en", "de", "es", "fr"];
 
@@ -47,6 +51,7 @@ export default function RootLayout({ children, params: { locale } }) {
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <main className="w-full">
+            <ToastContainer position="top-center" />
             <TopbarComponent />
             <HeaderComponent />
             <NavBarComponent />

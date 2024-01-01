@@ -9,13 +9,11 @@ import { db } from "../../config/firebase";
 import { getDocs, collection } from "firebase/firestore";
 import { v4 } from "uuid";
 import { usePathname } from "next/navigation";
+import { toast } from "react-toastify";
 export default function ShopPageDetails() {
-  const [startingPrice, setStartingPrice] = useState("$33");
-  const [endingPrice, setEndingPrice] = useState("$98");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedTag, setSelectedTag] = useState("");
-  const [sortingType, setSortingType] = useState("");
+  const [helperProducts, setHelperProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [pictures, setPictures] = useState([]);
   const [initialProducts, setInitialProducts] = useState([]);
@@ -24,8 +22,6 @@ export default function ShopPageDetails() {
   const [loading, setLoading] = useState();
   const pathname = usePathname();
   const t = useTranslations("Index");
-
-  const [tags, setTags] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -33,7 +29,6 @@ export default function ShopPageDetails() {
   const brandsCollectionRef = collection(db, "brands");
   const categoriesCollectionRef = collection(db, "categories");
   const sizesCollectionRef = collection(db, "sizes");
-  const tagsCollectionRef = collection(db, "tags");
 
   const getImage = async (folder) => {
     let images = [];
@@ -73,7 +68,10 @@ export default function ShopPageDetails() {
       setInitialProducts(filteredData);
     } catch (err) {
       console.error(err);
-      alert("Error Fetching Products");
+      toast.error("Error Fetching Products", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -115,18 +113,6 @@ export default function ShopPageDetails() {
     }
   };
 
-  const getTags = async () => {
-    try {
-      const data = await getDocs(tagsCollectionRef);
-      const filteredData = data.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id };
-      });
-      setTags(filteredData);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const getDatas = async () => {
     setLoading(true);
     try {
@@ -134,14 +120,27 @@ export default function ShopPageDetails() {
       await getBrands();
       await getCategories();
       await getSizes();
-      await getTags();
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      alert("Error Fetching data, please try again");
+      toast.error("Error Fetching data, please try again", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
+  const handleFilter = () => {
+    setProducts(
+      helperProducts.filter((data) => {
+        return (
+          data.category === selectedCategory ||
+          data.brand === selectedBrand ||
+          data.sizes.includes(selectedSize)
+        );
+      })
+    );
+  };
   useEffect(() => {
     let dummyProducts = initialProducts;
     dummyProducts.forEach((data) => {
@@ -151,6 +150,7 @@ export default function ShopPageDetails() {
     });
     setTimeout(() => {
       setProducts(dummyProducts);
+      setHelperProducts(dummyProducts);
     }, 1000);
   }, [pictures]);
 
@@ -225,122 +225,59 @@ export default function ShopPageDetails() {
               );
             })}
           </div>
-          <div className="flex flex-col pb-8">
-            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-              {t("Price")}
-            </p>
-            <div className="flex items-center gap-1 pb-5">
-              <input
-                type="text"
-                className="outline-none border px-2 py-1.5 text-base text-PrimaryBlack w-14"
-                value={startingPrice}
-                onChange={(e) => setStartingPrice(e.target.value)}
-              />
-              <p className="w-4 border-b"></p>
-              <input
-                type="text"
-                className="outline-none border px-2 py-1.5 text-base text-PrimaryBlack w-14"
-                value={endingPrice}
-                onChange={(e) => setEndingPrice(e.target.value)}
-              />
+          <div className="flex flex-col">
+            <div className="flex flex-col pb-8">
+              <p className="text-PrimaryBlack text-2xl font-bold pb-5">
+                {t("Size")}
+              </p>
+              <div className="w-full flex gap-3 items-center">
+                {sizes.map((size) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        if (selectedSize === size.sizeName) {
+                          setSelectedSize("");
+                        } else {
+                          setSelectedSize(size.sizeName);
+                        }
+                      }}
+                      style={{
+                        backgroundColor: `${
+                          selectedSize === size.sizeName
+                            ? "black"
+                            : "transparent"
+                        }`,
+                      }}
+                      key={v4}
+                      className="w-11 h-9 border cursor-pointer flex justify-center items-center"
+                    >
+                      <p
+                        style={{
+                          color: `${
+                            selectedSize === size.sizeName ? "white" : "black"
+                          }`,
+                        }}
+                        className="text-[15px] font-semibold"
+                      >
+                        {size.sizeName}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <button className="text-white bg-PrimaryOrange py-2 px-5 w-fit font-semibold">
+
+            <button
+              onClick={handleFilter}
+              className="text-white bg-PrimaryOrange py-2 px-5 w-fit font-semibold"
+            >
               {t("FILTER")}
             </button>
           </div>
-
-          <div className="flex flex-col pb-8">
-            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-              {t("Size")}
-            </p>
-            <div className="w-full flex gap-3 items-center">
-              {sizes.map((size) => {
-                return (
-                  <div
-                    onClick={() => {
-                      if (selectedSize === size.sizeName) {
-                        setSelectedSize("");
-                      } else {
-                        setSelectedSize(size.sizeName);
-                      }
-                    }}
-                    style={{
-                      backgroundColor: `${
-                        selectedSize === size.sizeName ? "black" : "transparent"
-                      }`,
-                    }}
-                    key={v4}
-                    className="w-11 h-9 border cursor-pointer flex justify-center items-center"
-                  >
-                    <p
-                      style={{
-                        color: `${
-                          selectedSize === size.sizeName ? "white" : "black"
-                        }`,
-                      }}
-                      className="text-[15px] font-semibold"
-                    >
-                      {size.sizeName}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="flex flex-col pb-8">
-            <p className="text-PrimaryBlack text-2xl font-bold pb-5">
-              {t("Tags")}
-            </p>
-            <div className="w-full flex gap-3 items-center flex-wrap">
-              {tags.map((tag) => {
-                return (
-                  <div
-                    onClick={() => {
-                      if (selectedTag === tag.tagName) {
-                        setSelectedTag("");
-                      } else {
-                        setSelectedTag(tag.tagName);
-                      }
-                    }}
-                    style={{
-                      backgroundColor: `${
-                        selectedTag === tag.tagName ? "black" : "transparent"
-                      }`,
-                    }}
-                    key={v4()}
-                    className="w-auto px-5 h-9 border cursor-pointer flex justify-center items-center"
-                  >
-                    <p
-                      style={{
-                        color: `${
-                          selectedTag === tag.tagName ? "white" : "black"
-                        }`,
-                      }}
-                      className="text-base font-semibold"
-                    >
-                      {tag.tagName}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
         </div>
         <div className="w-[75%] max-[900px]:w-full">
-          <div className="w-full flex justify-between items-center pb-5 max-[900px]:flex-col max-[900px]:gap-3">
-            <div className="flex max-[900px]:w-full gap-3 max-[900px]:gap-[5%]">
-              <select
-                value={sortingType}
-                onChange={(e) => setSortingType(e.target.value)}
-                name="Sorting"
-                className="outline-none border py-2.5 px-4 w-52 max-[900px]:w-[45%] text-[15px] text-PrimaryBlack/70 font-semibold cursor-pointer"
-              >
-                <option value="Default Sorting">Default Sorting</option>
-              </select>
-            </div>
-          </div>
           <div className="w-full flex flex-wrap gap-x-[2%] gap-y-4">
-            {products.length > 0 &&
+            {products.length > 0 ? (
               products.map((data) => {
                 return (
                   <Link
@@ -393,7 +330,14 @@ export default function ShopPageDetails() {
                     </div>
                   </Link>
                 );
-              })}
+              })
+            ) : (
+              <div className="w-full pt-32 flex justify-center items-center">
+                <p className="text-xl font-bold text-PrimaryBlack">
+                  No Product Found
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </main>

@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import LoadingTwo from "../loadingTwo";
 import IdiomProof from "../Profile/idiomProof";
+import { toast } from "react-toastify";
 
 export default function Categories() {
   const t = useTranslations("Index");
@@ -49,7 +50,10 @@ export default function Categories() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Categories");
+      toast.error("Error Fetching Categories", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -61,7 +65,10 @@ export default function Categories() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Adding Category");
+      toast.error("Error Adding Category", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -74,7 +81,10 @@ export default function Categories() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Deleting Category");
+      toast.error("Error Deleting Category", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -87,7 +97,10 @@ export default function Categories() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Editing Category");
+      toast.error("Error Editing Category", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

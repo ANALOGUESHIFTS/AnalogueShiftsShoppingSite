@@ -16,6 +16,7 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function ShoppingCartPageDetails() {
   const router = useRouter();
@@ -59,7 +60,10 @@ export default function ShoppingCartPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Updating Cart");
+      toast.error("Error Updating Cart", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -108,7 +112,10 @@ export default function ShoppingCartPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Removing Item");
+      toast.error("Error Removing Item",{
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

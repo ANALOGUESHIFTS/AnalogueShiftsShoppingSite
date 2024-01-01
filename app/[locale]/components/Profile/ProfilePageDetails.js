@@ -9,6 +9,7 @@ import LoadingTwo from "../loadingTwo";
 import EditUserDetails from "./editUserDetails";
 import IdiomProof from "./idiomProof";
 import { getDocs, collection, addDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function ProfilePageDetails() {
   const router = useRouter();
@@ -46,7 +47,10 @@ export default function ProfilePageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Addresses");
+      toast.error("Error Fetching Addresses", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -60,7 +64,10 @@ export default function ProfilePageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Orders");
+      toast.error("Error Fetching Orders", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -74,7 +81,10 @@ export default function ProfilePageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Sessions");
+      toast.error("Error Fetching Sessions", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -115,7 +125,7 @@ export default function ProfilePageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Updating Details, Please Try again Later");
+      toast.error("Error Updating Details, Please Try again Later");
     }
   };
 
@@ -126,7 +136,10 @@ export default function ProfilePageDetails() {
         router.push(pathname.slice(0, 3).concat("/"));
       });
     } catch (err) {
-      alert("Error Signing Out, Please Try Again");
+      toast.error("Error Signing Out, Please Try Again", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setLoading(false);
     }
   };

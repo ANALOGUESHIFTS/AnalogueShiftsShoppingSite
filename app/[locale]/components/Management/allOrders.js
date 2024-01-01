@@ -9,6 +9,7 @@ import { v4 } from "uuid";
 import { db } from "../../config/firebase";
 import { getDocs, collection } from "firebase/firestore";
 import { useTranslations } from "next-intl";
+import { toast } from "react-toastify";
 
 export default function AllOrders() {
   const pathname = usePathname();
@@ -29,7 +30,10 @@ export default function AllOrders() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Orders");
+      toast.error("Error Fetching Orders", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

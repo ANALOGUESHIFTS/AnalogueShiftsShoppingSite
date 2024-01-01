@@ -10,6 +10,7 @@ import { db, auth, storage } from "../../config/firebase";
 import { getDoc, collection, doc, addDoc, getDocs } from "firebase/firestore";
 import { v4 } from "uuid";
 import CustomSlide from "./slide";
+import { toast } from "react-toastify";
 
 export default function ProductPageDetails({ id }) {
   const router = useRouter();
@@ -57,7 +58,10 @@ export default function ProductPageDetails({ id }) {
       setItem(null);
     } catch (err) {
       console.error(err);
-      alert("Error Fetching Products");
+      toast.error("Error Fetching Products", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -65,12 +69,18 @@ export default function ProductPageDetails({ id }) {
     setLoading(true);
     try {
       await addDoc(cartCollectionRef, data);
-      alert("Item Added To Cart");
+      toast.success("Item Added To Cart", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setLoading(false);
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Adding Item to Cart");
+      toast.error("Error Adding Item to Cart", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -144,10 +154,9 @@ export default function ProductPageDetails({ id }) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-      } else {
-        router.push(pathname.slice(0, 3).concat("/login"));
       }
     });
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -155,12 +164,6 @@ export default function ProductPageDetails({ id }) {
       getRelatedProducts();
     }
   }, [item]);
-
-  useEffect(() => {
-    if (user) {
-      fetchProducts();
-    }
-  }, [user]);
 
   useEffect(() => {
     if (relatedInitialProducts.length) {
@@ -184,41 +187,41 @@ export default function ProductPageDetails({ id }) {
         ref={containerRef}
         className="p-20 max-[1000px]:px-12 max-[800px]:p-3"
       >
-        <div className="w-full flex gap-10 flex-wrap">
-          {item && <CustomSlide arr={item.productPictures} />}
-          <div className="w-[500px] pt-3 flex flex-col max-[500px]:w-[90%]">
-            <p className="text-PrimaryBlack text-2xl font-bold">
-              {item && item.name}
-            </p>
-            <p className="text-xl text-PrimaryOrange font-bold flex items-center pt-3">
-              ${item && item.priceAfter}&nbsp;
-              {item && item.priceBefore && (
-                <p
-                  className="text-xl text-PrimaryBlack/80 font-normal relative"
-                  id="priceBefore"
-                >
-                  ${item && item.priceBefore}
-                </p>
-              )}
-            </p>
-            <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
-              {item && item.description}
-            </p>
-            <div className="pt-4">
-              <p className="text-PrimaryBlack text-xl font-bold pb-2">
-                Why buy {item && item.name}?
+        {item && (
+          <div className="w-full flex gap-10 flex-wrap">
+            <CustomSlide arr={item.productPictures} />
+            <div className="w-[500px] pt-3 flex flex-col max-[500px]:w-[90%]">
+              <p className="text-PrimaryBlack text-2xl font-bold">
+                {item.name}
+              </p>
+              <p className="text-xl text-PrimaryOrange font-bold flex items-center pt-3">
+                ${item.priceAfter}&nbsp;
+                {item.priceBefore && (
+                  <p
+                    className="text-xl text-PrimaryBlack/80 font-normal relative"
+                    id="priceBefore"
+                  >
+                    ${item.priceBefore}
+                  </p>
+                )}
               </p>
               <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
-                {item && item.whyUserShouldPurchase}
+                {item.description}
               </p>
-            </div>
-            <div className="pt-4">
-              <p className="text-PrimaryBlack text-xl font-bold pb-2">
-                Benifits
-              </p>
-              <ul className="w-full pl-2.5 flex flex-col gap-2">
-                {item &&
-                  item.benefits.map((b) => {
+              <div className="pt-4">
+                <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                  Why buy {item.name}?
+                </p>
+                <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
+                  {item.whyUserShouldPurchase}
+                </p>
+              </div>
+              <div className="pt-4">
+                <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                  Benifits
+                </p>
+                <ul className="w-full pl-2.5 flex flex-col gap-2">
+                  {item.benefits.map((b) => {
                     return (
                       <li
                         key={b}
@@ -228,15 +231,14 @@ export default function ProductPageDetails({ id }) {
                       </li>
                     );
                   })}
-              </ul>
-            </div>
-            <div className="pt-4">
-              <p className="text-PrimaryBlack text-xl font-bold pb-2">
-                Features
-              </p>
-              <ul className="w-full pl-2.5 flex flex-col gap-2">
-                {item &&
-                  item.features.map((b) => {
+                </ul>
+              </div>
+              <div className="pt-4">
+                <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                  Features
+                </p>
+                <ul className="w-full pl-2.5 flex flex-col gap-2">
+                  {item.features.map((b) => {
                     return (
                       <li
                         key={b}
@@ -246,103 +248,110 @@ export default function ProductPageDetails({ id }) {
                       </li>
                     );
                   })}
-              </ul>
-            </div>
+                </ul>
+              </div>
 
-            <p className="text-PrimaryBlack/80 pt-4 font-semibold text-sm pb-3">
-              {"Available Quantity"}: {item && item.availableQuantity}
-            </p>
-            <div className="pt-3">
-              <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
-                {t("Color")}: {selectedColor}
+              <p className="text-PrimaryBlack/80 pt-4 font-semibold text-sm pb-3">
+                {"Available Quantity"}: {item.availableQuantity}
               </p>
-              <div className="flex w-full flex-wrap gap-1.5">
-                {item &&
-                  item.colors.map((color) => {
-                    return (
-                      <div
-                        key={v4()}
-                        onClick={() => setSelectedColor(color)}
-                        className="w-6 h-6 flex justify-center items-center rounded-[50%] hover:border hover:border-solid hover:border-black/70 cursor-pointer"
-                      >
+              <div className="pt-3">
+                <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
+                  {t("Color")}: {selectedColor}
+                </p>
+                <div className="flex w-full flex-wrap gap-1.5">
+                  {item.colors &&
+                    item.colors.map((color) => {
+                      return (
                         <div
-                          style={{ backgroundColor: `${color}` }}
-                          className="w-5 h-5 rounded-[50%]"
-                        ></div>
-                      </div>
-                    );
-                  })}
+                          key={v4()}
+                          onClick={() => setSelectedColor(color)}
+                          className="w-6 h-6 flex justify-center items-center rounded-[50%] hover:border hover:border-solid hover:border-black/70 cursor-pointer"
+                        >
+                          <div
+                            style={{ backgroundColor: `${color}` }}
+                            className="w-5 h-5 rounded-[50%]"
+                          ></div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+              <div className="pt-3">
+                <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
+                  {t("Size")}: {selectedSize}
+                </p>
+                <div className="flex w-full flex-wrap gap-1.5">
+                  {item.sizes &&
+                    item.sizes.map((size) => {
+                      return (
+                        <div
+                          key={v4()}
+                          onClick={() => setSelectedSize(size)}
+                          className="w-14 h-9 rounded flex justify-center items-center border border-solid border-black/20 cursor-pointer"
+                        >
+                          <p className="text-lg font-bold text-PrimaryBlack">
+                            {size}
+                          </p>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             </div>
-            <div className="pt-3">
-              <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
-                {t("Size")}: {selectedSize}
+            <div className=" flex flex-col w-auto items-center">
+              <p className="pb-3 text-PrimaryBlack text-base font-semibold">
+                {t("Quantity")}
               </p>
-              <div className="flex w-full flex-wrap gap-1.5">
-                {item?.sizes &&
-                  item.sizes.map((size) => {
-                    return (
-                      <div
-                        key={v4()}
-                        onClick={() => setSelectedSize(size)}
-                        className="w-14 h-9 rounded flex justify-center items-center border border-solid border-black/20 cursor-pointer"
-                      >
-                        <p className="text-lg font-bold text-PrimaryBlack">
-                          {size}
-                        </p>
-                      </div>
-                    );
-                  })}
+              <div className="flex w-auto pb-4">
+                <button
+                  onClick={() =>
+                    setQuantity((prev) => Math.max((prev -= 1), 1))
+                  }
+                  className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
+                >
+                  -
+                </button>
+                <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm r">
+                  {quantity}
+                </p>
+                <button
+                  onClick={() => setQuantity((prev) => (prev += 1))}
+                  className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl"
+                >
+                  +
+                </button>
               </div>
+              <button
+                onClick={() => {
+                  if (user) {
+                    if (item.availableQuantity >= quantity) {
+                      addToCart({
+                        email: user.email,
+                        quantity: quantity,
+                        size: selectedSize,
+                        color: selectedColor,
+                        productName: item.name,
+                        imagesFolder: item.productImagesFolder,
+                        price: item.priceAfter,
+                        productId: id,
+                      });
+                    } else {
+                      alert(
+                        "Product Quantity is not enough, please reduce the quantity"
+                      );
+                    }
+                  } else {
+                    router.push(pathname.slice(0, 3).concat("/login"));
+                  }
+                }}
+                disabled={quantity < 1}
+                className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"
+              >
+                {t("ADD TO CART")}
+              </button>
             </div>
           </div>
-          <div className=" flex flex-col w-auto items-center">
-            <p className="pb-3 text-PrimaryBlack text-base font-semibold">
-              {t("Quantity")}
-            </p>
-            <div className="flex w-auto pb-4">
-              <button
-                onClick={() => setQuantity((prev) => Math.max((prev -= 1), 1))}
-                className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
-              >
-                -
-              </button>
-              <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm r">
-                {quantity}
-              </p>
-              <button
-                onClick={() => setQuantity((prev) => (prev += 1))}
-                className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl"
-              >
-                +
-              </button>
-            </div>
-            <button
-              onClick={() => {
-                if (item.availableQuantity >= quantity) {
-                  addToCart({
-                    email: user.email,
-                    quantity: quantity,
-                    size: selectedSize,
-                    color: selectedColor,
-                    productName: item.name,
-                    imagesFolder: item.productImagesFolder,
-                    price: item.priceAfter,
-                    productId: id,
-                  });
-                } else {
-                  alert(
-                    "Product Quantity is not enough, please reduce the quantity"
-                  );
-                }
-              }}
-              disabled={quantity < 1}
-              className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"
-            >
-              {t("ADD TO CART")}
-            </button>
-          </div>
-        </div>
+        )}
         <div className="pt-6 pb-4 w-full flex justify-center">
           <p className="font-bold text-2xl text-PrimaryBlack">
             You might also like

@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import LoadingTwo from "../loadingTwo";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { toast } from "react-toastify";
 export default function RegisterComponent() {
   const t = useTranslations("Index");
   const router = useRouter();
@@ -34,11 +35,19 @@ export default function RegisterComponent() {
       await createUserWithEmailAndPassword(auth, Email, Password).then(() => {
         setTimeout(() => {
           setLoading(false);
+          toast.success("Account Created Successfully", {
+            position: "top-right",
+            autoClose: 3000,
+          });
           router.push(pathname.slice(0, 3).concat("/login"));
         }, 1000);
       });
     } catch (err) {
       setTimeout(() => {
+        toast.error(err.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
         setErrorMessage(err.message);
         setLoading(false);
       }, 1000);
@@ -51,6 +60,10 @@ export default function RegisterComponent() {
         router.push(pathname.slice(0, 3).concat("/profile"));
       });
     } catch (err) {
+      toast.error(err.message, {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setErrorMessage(err.message);
     }
   }

@@ -6,6 +6,7 @@ import BespokeForm from "./bespokeForm";
 import BespokePayment from "./bespokePaymentSection";
 import CalenderImage from "@/public/images/default-calendar.png";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export default function BespokeModal({ close }) {
   const [screens, setScreens] = useState([
@@ -52,7 +53,10 @@ export default function BespokeModal({ close }) {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Rate");
+      toast.error("Error Fetching Rate", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

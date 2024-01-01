@@ -11,6 +11,7 @@ import UsaFlag from "@/public/images/usa-flag.webp";
 import GermanFlag from "@/public/images/germany-flag.webp";
 import FrenchFlag from "@/public/images/french-flag.png";
 import SpanishFlag from "@/public/images/spanish-flag.png";
+import { toast } from "react-toastify";
 
 export default function TopbarComponent() {
   const [loading, setLoading] = useState(false);
@@ -33,7 +34,10 @@ export default function TopbarComponent() {
         setLoading(false);
       });
     } catch (err) {
-      alert("Error Signing Out, Please Try Again");
+      toast.error("Error Signing Out, Please Try Again", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setLoading(false);
     }
   };

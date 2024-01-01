@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import LoadingTwo from "../loadingTwo";
 import IdiomProof from "../Profile/idiomProof";
+import { toast } from "react-toastify";
 
 export default function Brands() {
   const t = useTranslations("Index");
@@ -49,7 +50,10 @@ export default function Brands() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Brands");
+      toast.error("Error Fetching Brands", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -61,7 +65,10 @@ export default function Brands() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Adding Brand");
+      toast.error("Error Adding Brand", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -74,7 +81,10 @@ export default function Brands() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Deleting Brand");
+      toast.error("Error Deleting Brand", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -87,7 +97,10 @@ export default function Brands() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Editing Brand");
+      toast.error("Error Editing Brand", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

@@ -7,6 +7,7 @@ import { v4 } from "uuid";
 //DB
 import { db } from "../../config/firebase";
 import { getDocs, collection, updateDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function AllSessions() {
   const [sessions, setSessions] = useState([]);
@@ -29,7 +30,10 @@ export default function AllSessions() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Sessions");
+      toast.error("Error Fetching Sessions", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -43,7 +47,10 @@ export default function AllSessions() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error");
+      toast.error("Error", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -57,7 +64,10 @@ export default function AllSessions() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Updating");
+      toast.error("Error Updating", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

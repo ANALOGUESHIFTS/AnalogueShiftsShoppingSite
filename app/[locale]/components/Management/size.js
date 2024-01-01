@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import LoadingTwo from "../loadingTwo";
 import IdiomProof from "../Profile/idiomProof";
+import { toast } from "react-toastify";
 
 export default function Sizes() {
   const t = useTranslations("Index");
@@ -50,7 +51,10 @@ export default function Sizes() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Sizes");
+      toast.error("Error Fetching Sizes", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -62,7 +66,10 @@ export default function Sizes() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Adding Size");
+      toast.error("Error Adding Size", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -75,7 +82,10 @@ export default function Sizes() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Deleting Size");
+      toast.error("Error Deleting Size", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -88,7 +98,10 @@ export default function Sizes() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Editing Size");
+      toast.error("Error Editing Size", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

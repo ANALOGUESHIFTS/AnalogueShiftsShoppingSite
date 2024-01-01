@@ -17,6 +17,7 @@ import {
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { onAuthStateChanged } from "firebase/auth";
 import LoadingTwo from "../loadingTwo";
+import { toast } from "react-toastify";
 
 export default function CheckOutPageDetails() {
   const router = useRouter();
@@ -76,7 +77,10 @@ export default function CheckOutPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Addresses");
+      toast.error("Error Fetching Addresses", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -90,7 +94,10 @@ export default function CheckOutPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Rate");
+      toast.error("Error Fetching Rate", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -107,7 +114,10 @@ export default function CheckOutPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Data");
+      toast.error("Error Fetching Data", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

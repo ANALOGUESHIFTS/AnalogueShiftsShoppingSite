@@ -6,6 +6,7 @@ import { db } from "../../config/firebase";
 import { getDocs, collection, updateDoc, doc } from "firebase/firestore";
 import LoadingTwo from "../loadingTwo";
 import { v4 } from "uuid";
+import { toast } from "react-toastify";
 
 export default function ExchangeRate() {
   const t = useTranslations("Index");
@@ -35,7 +36,10 @@ export default function ExchangeRate() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Fetching Rate");
+      toast.error("Error Fetching Rate", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -48,7 +52,10 @@ export default function ExchangeRate() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("Error Editing Rate");
+      toast.error("Error Editing Rate", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 

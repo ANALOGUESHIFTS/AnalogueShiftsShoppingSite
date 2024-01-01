@@ -9,6 +9,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState, useEffect, useRef } from "react";
 import LoadingTwo from "../loadingTwo";
 import Image from "next/image";
+import { toast } from "react-toastify";
 export default function LoginComponent() {
   const t = useTranslations("Index");
   const pathname = usePathname();
@@ -33,11 +34,19 @@ export default function LoginComponent() {
       await signInWithEmailAndPassword(auth, Email, Password).then((res) => {
         setTimeout(() => {
           setLoading(false);
+          toast.success("Login Successfull", {
+            position: "top-right",
+            autoClose: 3000,
+          });
           router.push(pathname.slice(0, 3).concat("/profile"));
         }, 1000);
       });
     } catch (err) {
       setTimeout(() => {
+        toast.error(err.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
         setErrorMessage(err.message);
         setLoading(false);
       }, 1000);
@@ -49,6 +58,10 @@ export default function LoginComponent() {
         router.push(pathname.slice(0, 3).concat("/profile"));
       });
     } catch (err) {
+      toast.error(err.message, {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setErrorMessage(err.message);
     }
   }
