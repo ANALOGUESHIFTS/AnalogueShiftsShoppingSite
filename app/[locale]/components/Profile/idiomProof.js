@@ -19,7 +19,7 @@ export default function IdiomProof({ cancel, submit, question }) {
     >
       <div
         style={{ transform: `translateY(${position}px)` }}
-        className="bg-white duration-500 rounded-lg max-w-[90%] w-[400px] h-36"
+        className="bg-white duration-500 rounded-lg max-w-[90%] w-[400px] h-44"
       >
         <div className="w-full h-10 border-b flex justify-between items-center px-4">
           <p className="text-PrimaryBlack/90 text-sm font-bold">
