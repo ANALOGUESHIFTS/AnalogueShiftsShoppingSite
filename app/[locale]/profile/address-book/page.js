@@ -10,11 +10,13 @@ export const metadata = {
       "Welcome to the Address Book page at Cinnamon19Fashion, your personalized address management center. Here, you can effortlessly organize and update your shipping information for a seamless shopping experience. Add, edit, or delete addresses with ease, ensuring your orders reach you wherever you are. Your Address Book is the key to convenience, making checkout faster and hassle-free. Keep your shipping details up-to-date and let Cinnamon19Fashion handle the rest. Thank you for choosing us for your fashion needs, where the Address Book is your tool for efficient and tailored deliveries. Happy shopping!",
     url: "https://cinnamon19fashion.com/en/profile/address-book",
     siteName: "Cinnamon19Fashion",
-    image: {
-      url: "images/ceo.jpg",
-      width: 600,
-      height: 800,
-    },
+    images: [
+      {
+        url: "images/ceo.jpg",
+        width: 800,
+        height: 600,
+      },
+    ],
     locale: "en_US",
     type: "website",
     alternates: {

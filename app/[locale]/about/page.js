@@ -10,11 +10,13 @@ export const metadata = {
       "Welcome to Cinnamon19Fashion—your go-to destination for cutting-edge fashion. At our virtual fashion hub, we curate a diverse collection to inspire your style journey. We believe in more than just transactions; we're a community celebrating individuality and self-expression. Our commitment to quality, authenticity, and customer satisfaction sets us apart. Join us in redefining fashion—because every outfit tells a unique story. Welcome to the Cinnamon19Fashion family!",
     url: "https://cinnamon19fashion.com/en/about",
     siteName: "Cinnamon19Fashion",
-    image: {
-      url: "images/ceo.jpg",
-      width: 600,
-      height: 800,
-    },
+    images: [
+      {
+        url: "images/ceo.jpg",
+        width: 800,
+        height: 600,
+      },
+    ],
     locale: "en_US",
     type: "website",
     alternates: {
