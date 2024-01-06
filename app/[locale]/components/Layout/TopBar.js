@@ -90,17 +90,11 @@ export default function TopbarComponent() {
               <p className="text-PrimaryBlack">+2348031376569</p>
             </div>
             <div className="flex gap-4 items-center">
-              <a href="">
+              <a target="_blank" href="https://www.facebook.com/cinnamon19">
                 <i class="fa-brands fa-facebook-f text-PrimaryBlack text-sm"></i>
               </a>
-              <a href="">
-                <i class="fa-brands fa-twitter text-PrimaryBlack text-sm"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-linkedin-in text-PrimaryBlack text-sm"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-pinterest-p text-PrimaryBlack text-sm"></i>
+              <a href="https://instagram.com/thecinnamon19">
+                <i class="fa-brands fa-instagram text-PrimaryBlack text-sm"></i>
               </a>
             </div>
           </div>

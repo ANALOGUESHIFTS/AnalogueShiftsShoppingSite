@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import Logo1 from "@/public/images/logo-1.png";
 import Logo2 from "@/public/images/logo-2.png";
 import Logo3 from "@/public/images/logo-3.png";
@@ -20,13 +20,17 @@ export default function Footer() {
 
   //Social Icons
   const socialIcons = [
-    "fa-brands fa-facebook-f text-white",
-    "fa-brands fa-instagram text-white",
-    "fa-brands fa-twitter text-white",
-    "fa-brands fa-pinterest text-white",
+    {
+      icon: "fa-brands fa-facebook-f text-white",
+      path: "https://www.facebook.com/cinnamon19",
+    },
+    {
+      icon: "fa-brands fa-instagram text-white",
+      path: "https://instagram.com/thecinnamon19",
+    },
   ];
 
-  const { t, i18n } = useTranslation();
+  const t = useTranslations("Index");
 
   return (
     <footer className="w-full">
@@ -69,9 +73,9 @@ export default function Footer() {
           <div className="pt-6 flex gap-2">
             {socialIcons.map((icon) => {
               return (
-                <Link key={icon} href={""}>
+                <Link key={icon.icon} href={icon.path}>
                   <div className="w-11 h-11 bg-[#303030] rounded-[50%] duration-300 hover:bg-PrimaryOrange flex justify-center items-center">
-                    <i className={icon}></i>
+                    <i className={icon.icon}></i>
                   </div>
                 </Link>
               );
@@ -142,9 +146,7 @@ export default function Footer() {
           </p>
           <div className="flex flex-col w-full pt-7 gap-2">
             <p className="text-white/70 text-base ">
-              {t(
-                "Get E-mail updates about our latest shop and special offers."
-              )}
+              {t("Get E-mail updates about our latest shop and special offers")}
             </p>
             <div className="flex h-11 w-full">
               <input

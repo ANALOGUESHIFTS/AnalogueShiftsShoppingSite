@@ -7,12 +7,20 @@ import { listAll, ref, getDownloadURL } from "firebase/storage";
 import LoadingTwo from "../loadingTwo";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth, storage } from "../../config/firebase";
-import { getDoc, collection, doc, addDoc, getDocs } from "firebase/firestore";
+import {
+  getDoc,
+  collection,
+  doc,
+  addDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { v4 } from "uuid";
 import CustomSlide from "./slide";
 import { toast } from "react-toastify";
 
 export default function ProductPageDetails({ id }) {
+  const [isExistingInCart, setIsExistingInCart] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const [selectedColor, setSelectedColor] = useState("");
@@ -23,6 +31,7 @@ export default function ProductPageDetails({ id }) {
   const productsCollectionRef = doc(db, "products", id);
   const [loading, setLoading] = useState();
   const [item, setItem] = useState(null);
+  const [cartData, setCartData] = useState(null);
   const containerRef = useRef();
   const t = useTranslations("Index");
   const cartCollectionRef = collection(db, "cartDatas");
@@ -32,6 +41,25 @@ export default function ProductPageDetails({ id }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [relatedPictures, setRelatedPictures] = useState([]);
   const [relatedInitialProducts, setRelatedInitialProducts] = useState([]);
+
+  const getCartData = async (email) => {
+    try {
+      const data = await getDocs(cartCollectionRef);
+      let userData = data.docs.filter((data) => {
+        return data.data().email === email;
+      });
+      const filteredData = userData
+        .map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        })
+        .filter((doc) => doc.productId === id);
+
+      if (filteredData[0]) {
+        setIsExistingInCart(true);
+        setCartData(filteredData[0]);
+      }
+    } catch (err) {}
+  };
 
   const getImage = async (folder) => {
     try {
@@ -137,6 +165,26 @@ export default function ProductPageDetails({ id }) {
     }
   };
 
+  const updateCart = async (id, data) => {
+    setLoading(true);
+    const addressDoc = doc(db, "cartDatas", id);
+    try {
+      await updateDoc(addressDoc, data);
+      await getCartData(user.email);
+      setLoading(false);
+      toast.success("Cart Updated Successfuly", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (err) {
+      setLoading(false);
+      toast.error("Error Updating Cart", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
+
   useEffect(() => {
     if (pictures.length > 0) {
       let dummyProducts = initialProducts;
@@ -154,6 +202,7 @@ export default function ProductPageDetails({ id }) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        getCartData(user.email);
       }
     });
     fetchProducts();
@@ -302,53 +351,100 @@ export default function ProductPageDetails({ id }) {
               <p className="pb-3 text-PrimaryBlack text-base font-semibold">
                 {t("Quantity")}
               </p>
-              <div className="flex w-auto pb-4">
-                <button
-                  onClick={() =>
-                    setQuantity((prev) => Math.max((prev -= 1), 1))
-                  }
-                  className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
-                >
-                  -
-                </button>
-                <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm r">
-                  {quantity}
-                </p>
-                <button
-                  onClick={() => setQuantity((prev) => (prev += 1))}
-                  className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl"
-                >
-                  +
-                </button>
-              </div>
-              <button
-                onClick={() => {
-                  if (user) {
-                    if (item.availableQuantity >= quantity) {
-                      addToCart({
-                        email: user.email,
-                        quantity: quantity,
-                        size: selectedSize,
-                        color: selectedColor,
-                        productName: item.name,
-                        imagesFolder: item.productImagesFolder,
-                        price: item.priceAfter,
-                        productId: id,
-                      });
-                    } else {
-                      alert(
-                        "Product Quantity is not enough, please reduce the quantity"
-                      );
+              {!isExistingInCart && (
+                <div className="flex w-auto pb-4">
+                  <button
+                    onClick={() =>
+                      setQuantity((prev) => Math.max((prev -= 1), 1))
                     }
-                  } else {
-                    router.push(pathname.slice(0, 3).concat("/login"));
-                  }
-                }}
-                disabled={quantity < 1}
-                className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"
-              >
-                {t("ADD TO CART")}
-              </button>
+                    className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
+                  >
+                    -
+                  </button>
+                  <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm r">
+                    {quantity}
+                  </p>
+                  <button
+                    onClick={() => setQuantity((prev) => (prev += 1))}
+                    className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl"
+                  >
+                    +
+                  </button>
+                </div>
+              )}
+              {isExistingInCart && (
+                <div className="flex w-auto pb-4">
+                  <button
+                    onClick={() =>
+                      updateCart(cartData.id, {
+                        ...cartData,
+                        quantity: Math.max(1, cartData.quantity - 1),
+                      })
+                    }
+                    className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
+                  >
+                    -
+                  </button>
+                  <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm r">
+                    {cartData.quantity}
+                  </p>
+                  <button
+                    onClick={() => {
+                      if (item.availableQuantity >= cartData.quantity + 1) {
+                        updateCart(cartData.id, {
+                          ...cartData,
+                          quantity: cartData.quantity + 1,
+                        });
+                      } else {
+                        toast.error(
+                          "Product Quantity is not enough, please reduce the quantity",
+                          {
+                            position: "top-right",
+                            autoClose: 3000,
+                          }
+                        );
+                      }
+                    }}
+                    className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl"
+                  >
+                    +
+                  </button>
+                </div>
+              )}
+              {!isExistingInCart && (
+                <button
+                  onClick={() => {
+                    if (user) {
+                      if (item.availableQuantity >= quantity) {
+                        addToCart({
+                          email: user.email,
+                          quantity: quantity,
+                          size: selectedSize,
+                          color: selectedColor,
+                          productName: item.name,
+                          imagesFolder: item.productImagesFolder,
+                          price: item.priceAfter,
+                          productId: id,
+                        });
+                      } else {
+                        toast.error(
+                          "Product Quantity is not enough, please reduce the quantity",
+                          {
+                            position: "top-right",
+                            autoClose: 3000,
+                          }
+                        );
+                      }
+                    } else {
+                      router.push(pathname.slice(0, 3).concat("/login"));
+                    }
+                  }}
+                  disabled={quantity < 1}
+                  className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"
+                >
+                  {t("ADD TO CART")}
+                </button>
+              )}
             </div>
           </div>
         )}

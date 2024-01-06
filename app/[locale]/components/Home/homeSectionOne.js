@@ -86,17 +86,15 @@ export default function HomeSectionOne() {
           <p className="text-3xl font-bold text-white">50%</p>
         </div>
       </div>
-      <div className="px-28 flex flex-col max-[900px]:px-0 max-w-[700px] max-[900px]:max-w-[80%] max-[900px]:w-full">
+      <div className="px-28  flex flex-col max-[900px]:px-0 max-w-[700px] max-[900px]:max-w-[80%] max-[900px]:w-full">
         <p className="text-PrimaryOrange text-sm font-semibold ">
           {t("BAG, KIDS")}
         </p>
-        <p className=" text-PrimaryBlack font-extrabold max-[900px]:font-bold text-[60px] max-[900px]:text-4xl max-[900px]:py-2">
-          {t("Black friday")}
+        <p className=" text-PrimaryBlack lg:leading-[65px] lg:py-4 font-extrabold max-[900px]:font-bold text-[60px] max-[900px]:text-4xl max-[900px]:py-2">
+          {t("Home for fashion")}
         </p>
         <p className="text-[15px] pb-8 font-medium text-PrimaryBlack/70 leading-6">
-          {t(
-            "Get the Best Deals & Offers on Fashion from Cinnamon Black Friday ✨ Black Friday 2023"
-          )}
+          {t("Get the Best Deals & Offers on Fashion from Cinnamon19Fashion")}
         </p>
         <Link
           href={pathname.slice(0, 3).concat("/shop")}

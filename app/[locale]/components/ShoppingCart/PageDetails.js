@@ -112,7 +112,7 @@ export default function ShoppingCartPageDetails() {
     } catch (err) {
       console.error(err);
       setLoading(false);
-      toast.error("Error Removing Item",{
+      toast.error("Error Removing Item", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -205,15 +205,23 @@ export default function ShoppingCartPageDetails() {
                       key={v4()}
                       className="w-full grid grid-cols-6 items-center px-6 gap-8 h-40 max-[900px]:h-20"
                     >
-                      <div
+                      <Link
+                        href={pathname
+                          .slice(0, 3)
+                          .concat(`/shop/${data.productId}`)}
                         style={{
                           backgroundImage: `url(${data.productPictures[0]})`,
                         }}
                         className="h-full col-span-1 bg-cover bg-center"
-                      ></div>
-                      <p className="col-span-2 text-PrimaryBlack text-[17px]">
+                      ></Link>
+                      <Link
+                        href={pathname
+                          .slice(0, 3)
+                          .concat(`/shop/${data.productId}`)}
+                        className="col-span-2 text-PrimaryBlack text-[17px]"
+                      >
                         {data.productName}
-                      </p>
+                      </Link>
                       <p className="col-span-1 text-PrimaryOrange font-bold text-base">
                         ${data.price}
                       </p>
