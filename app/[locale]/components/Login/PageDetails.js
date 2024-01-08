@@ -28,7 +28,8 @@ export default function LoginComponent() {
     }
   }, [loading]);
 
-  async function signIn() {
+  async function signIn(e) {
+    e.preventDefault();
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, Email, Password).then((res) => {
@@ -73,7 +74,10 @@ export default function LoginComponent() {
         style={{ backgroundImage: `url(/images/hero-2.jpg.webp)` }}
         className="w-full h-[700px] bg-cover bg-center max-[500px]:bg-left flex items-center px-28 max-[800px]:px-5"
       >
-        <div className="flex flex-col w-[450px] max-[500px]:w-full">
+        <form
+          onSubmit={signIn}
+          className="flex flex-col w-[450px] max-[500px]:w-full"
+        >
           <p className="pb-4 text-PrimaryBlack font-extrabold text-4xl ">
             {t("Sign in to your account")}
           </p>
@@ -88,6 +92,7 @@ export default function LoginComponent() {
             value={Email}
             onChange={(e) => SetEmail(e.target.value)}
             className="w-full mb-4 outline-1 outline-PrimaryOrange py-3 text-PrimaryBlack/80 text-xs font-semibold border px-3"
+            required
           />
           <p className="text-PrimaryBlack text-xs font-bold pb-2">Password</p>
           <input
@@ -95,6 +100,7 @@ export default function LoginComponent() {
             value={Password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full mb-4 outline-1 outline-PrimaryOrange py-3 text-PrimaryBlack/80 text-xs font-semibold border px-3"
+            required
           />
           {errorMessage.length > 0 && (
             <p className="text-[11px] tracking-wide text-red-600 pb-4 font-semibold">
@@ -103,7 +109,7 @@ export default function LoginComponent() {
           )}
           <div className="pb-4 flex w-full justify-center gap-4 items-center max-[500px]:flex-col">
             <button
-              onClick={() => signIn()}
+              type="submit"
               className="w-52 max-[500px]:w-full hover:bg-PrimaryOrange/70 h-10 rounded-full bg-PrimaryOrange flex justify-center items-center"
             >
               <p className="text-xs tracking-wide text-white font-bold">
@@ -127,6 +133,14 @@ export default function LoginComponent() {
               </p>
             </button>
           </div>
+          <div className="flex pt-2 gap-1 justify-end pr-3">
+            <Link
+              href={pathname.slice(0, 3).concat("/forgotten-password")}
+              className="text-[11px] underline tracking-wide text-PrimaryBlack/80 font-semibold"
+            >
+              Forgotten Password?
+            </Link>
+          </div>
           <div className="flex pt-2 gap-1">
             <p className="text-[11px] tracking-wide text-PrimaryBlack/80 font-semibold">
               Don't have an account?
@@ -138,7 +152,7 @@ export default function LoginComponent() {
               Sign-Up
             </Link>
           </div>
-        </div>
+        </form>
       </main>
     </>
   );

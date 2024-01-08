@@ -84,7 +84,7 @@ export default function ExchangeRate() {
         <div className="w-full flex justify-center">
           <p className="text-sm font-bold text-PrimaryBlack/90">
             <i className="fa-solid fa-list text-PrimaryBlack/80"></i>&nbsp;
-            {t("Dollar Rate")}
+            Dollar Rate
           </p>
         </div>
         <div className="pt-4 w-full flex flex-col gap-5">

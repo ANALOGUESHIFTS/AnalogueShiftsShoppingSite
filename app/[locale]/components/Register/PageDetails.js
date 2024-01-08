@@ -28,20 +28,23 @@ export default function RegisterComponent() {
     }
   }, [loading]);
 
-  async function signUp() {
+  async function signUp(e) {
+    e.preventDefault();
     setErrorMessage("");
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, Email, Password).then(() => {
-        setTimeout(() => {
-          setLoading(false);
-          toast.success("Account Created Successfully", {
-            position: "top-right",
-            autoClose: 3000,
-          });
-          router.push(pathname.slice(0, 3).concat("/login"));
-        }, 1000);
-      });
+      await createUserWithEmailAndPassword(auth, Email, Password).then(
+        (res) => {
+          setTimeout(() => {
+            setLoading(false);
+            toast.success("Account Created Successfully", {
+              position: "top-right",
+              autoClose: 3000,
+            });
+            router.push(pathname.slice(0, 3).concat("/login"));
+          }, 1000);
+        }
+      );
     } catch (err) {
       setTimeout(() => {
         toast.error(err.message, {
@@ -75,7 +78,10 @@ export default function RegisterComponent() {
         style={{ backgroundImage: `url(/images/hero-1.jpg.webp)` }}
         className="w-full h-[700px] bg-cover bg-center max-[500px]:bg-left flex items-center px-28 max-[800px]:px-5"
       >
-        <div className="flex flex-col w-[450px] max-[500px]:w-full">
+        <form
+          onSubmit={signUp}
+          className="flex flex-col w-[450px] max-[500px]:w-full"
+        >
           <p className="pb-4 text-PrimaryBlack font-extrabold text-4xl ">
             {t("Dive head first into success")}
           </p>
@@ -93,6 +99,7 @@ export default function RegisterComponent() {
             value={Email}
             onChange={(e) => SetEmail(e.target.value)}
             className="w-full mb-4 outline-1 outline-PrimaryOrange py-3 text-PrimaryBlack/80 text-xs font-semibold border px-3"
+            required
           />
           <p className="text-PrimaryBlack text-xs font-bold pb-2">
             {t("Password")}
@@ -102,6 +109,7 @@ export default function RegisterComponent() {
             value={Password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full mb-4 outline-1 outline-PrimaryOrange py-3 text-PrimaryBlack/80 text-xs font-semibold border px-3"
+            required
           />
           {errorMessage.length > 0 && (
             <p className="text-[11px] tracking-wide text-red-600 pb-4 font-semibold">
@@ -110,7 +118,7 @@ export default function RegisterComponent() {
           )}
           <div className="pb-4 flex w-full justify-center gap-4 items-center max-[500px]:flex-col">
             <button
-              onClick={signUp}
+              type="submit"
               className="w-52 max-[500px]:w-full hover:bg-PrimaryOrange/70 h-10 rounded-full bg-PrimaryOrange flex justify-center items-center"
             >
               <p className="text-xs tracking-wide text-white font-bold">
@@ -145,7 +153,7 @@ export default function RegisterComponent() {
               Sign-In
             </Link>
           </div>
-        </div>
+        </form>
       </main>
     </>
   );

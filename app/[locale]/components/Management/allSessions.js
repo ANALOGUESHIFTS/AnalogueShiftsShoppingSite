@@ -81,13 +81,13 @@ export default function AllSessions() {
       <main className="w-full">
         <div className="w-full flex justify-center flex-wrap gap-12">
           <p className="text-sm font-bold text-PrimaryBlack/90">
-            <i className="fa-solid fa-list text-PrimaryBlack/80"></i>&nbsp;
-            {t("All Sessions")}
+            <i className="fa-solid fa-list text-PrimaryBlack/80"></i>&nbsp; All
+            Sessions
           </p>
           <div className="flex items-center gap-2">
             <p className="text-sm font-bold text-PrimaryBlack/90">
               <i className="fa-solid fa-lock text-PrimaryBlack/80"></i>&nbsp;
-              {t("Lock Bespoke Session")}
+              Lock Bespoke Session
             </p>
             <div
               onClick={() =>
@@ -113,12 +113,12 @@ export default function AllSessions() {
               return (
                 <div
                   key={v4()}
-                  className="border w-full h-auto p-5 rounded max-[800px]:w-full flex flex-col gap-2"
+                  className="border w-full h-auto  rounded max-[800px]:w-full flex flex-col gap-2"
                 >
-                  <p className="text-center font-bold text-lg text-PrimaryBlack/90">
+                  <p className="text-center px-5 py-4 border-b font-bold text-lg text-PrimaryBlack/90">
                     Section {index + 1}
                   </p>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       User's Name:
                     </p>
@@ -126,7 +126,7 @@ export default function AllSessions() {
                       {session.name}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Meeting Type:
                     </p>
@@ -134,7 +134,7 @@ export default function AllSessions() {
                       {session.meetingType}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Phone Number:
                     </p>
@@ -142,7 +142,7 @@ export default function AllSessions() {
                       {session.phoneNumber}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Email:
                     </p>
@@ -150,7 +150,7 @@ export default function AllSessions() {
                       {session.email}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Date Of Session:
                     </p>
@@ -158,7 +158,7 @@ export default function AllSessions() {
                       {session.sessionDate}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Reference:
                     </p>
@@ -166,7 +166,7 @@ export default function AllSessions() {
                       {session.reference}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Date Paid:
                     </p>
@@ -174,7 +174,7 @@ export default function AllSessions() {
                       {session.date}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Total Amount:
                     </p>
@@ -182,7 +182,7 @@ export default function AllSessions() {
                       {session.currency} {session.totalAmount}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       User's Address:
                     </p>
@@ -190,7 +190,7 @@ export default function AllSessions() {
                       {session.address}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Described style in three words:
                     </p>
@@ -198,7 +198,7 @@ export default function AllSessions() {
                       {session.describeStyleInThreeWords}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Design Type:
                     </p>
@@ -206,7 +206,7 @@ export default function AllSessions() {
                       {session.designType}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       How user wants to feel in cinnamonPiece:
                     </p>
@@ -214,7 +214,7 @@ export default function AllSessions() {
                       {session.howYouWantToFeelInCinnamonPiece}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Indication Of Budget:
                     </p>
@@ -222,7 +222,7 @@ export default function AllSessions() {
                       {session.indicationOfBudget}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Date of user's event:
                     </p>
@@ -230,7 +230,7 @@ export default function AllSessions() {
                       {session.dateOfTheEvent}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Event Location:
                     </p>
@@ -238,7 +238,7 @@ export default function AllSessions() {
                       {session.eventLocation}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Event Location Details:
                     </p>
@@ -246,7 +246,7 @@ export default function AllSessions() {
                       {session.eventLocationDetails}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Does User want express service?
                     </p>
@@ -254,7 +254,7 @@ export default function AllSessions() {
                       {session.selectedExpressService}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Shipping Information:
                     </p>
@@ -262,7 +262,7 @@ export default function AllSessions() {
                       {session.shippingInformation}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Sizes selected:
                     </p>
@@ -279,7 +279,7 @@ export default function AllSessions() {
                       })}
                     </div>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Purpose of outfit:
                     </p>
@@ -296,7 +296,7 @@ export default function AllSessions() {
                       })}
                     </div>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Other Purpose:
                     </p>
@@ -304,7 +304,7 @@ export default function AllSessions() {
                       {session.otherPurpose}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Proposed Outfit Pickup date:
                     </p>
@@ -312,7 +312,7 @@ export default function AllSessions() {
                       {session.proposedOutfitPickupDate}
                     </p>
                   </div>
-                  <div className="w-full flex gap-2 items-center">
+                  <div className="w-full flex gap-2 items-center px-5 border-b py-2">
                     <p className="font-bold text-sm text-PrimaryBlack/80">
                       Other Relevant Information:
                     </p>

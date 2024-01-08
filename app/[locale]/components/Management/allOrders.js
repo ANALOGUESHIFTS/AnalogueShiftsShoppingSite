@@ -47,8 +47,8 @@ export default function AllOrders() {
       <main className="w-full">
         <div className="w-full flex justify-center flex-wrap gap-12">
           <p className="text-sm font-bold text-PrimaryBlack/90">
-            <i className="fa-solid fa-list text-PrimaryBlack/80"></i>&nbsp;
-            {t("All Orders")}
+            <i className="fa-solid fa-list text-PrimaryBlack/80"></i>&nbsp; All
+            Orders
           </p>
         </div>
         <div className="w-full flex flex-col px-2 mt-3 py-2 gap-3">

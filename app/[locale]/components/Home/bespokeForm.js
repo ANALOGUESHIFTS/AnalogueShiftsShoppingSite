@@ -15,7 +15,7 @@ export default function BespokeForm({ formRef, submit }) {
   //Details
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [purposeOfOutfit, setPurposeOfOutfit] = useState([
     { purpose: "Birthday", value: false },
@@ -192,7 +192,7 @@ export default function BespokeForm({ formRef, submit }) {
       <p className="text-PrimaryBlack/90 font-bold text-xs">Phone Number</p>
       <input
         value={phoneNumber}
-        type="number"
+        type="text"
         onChange={(e) => setPhoneNumber(e.target.value)}
         placeholder="Phone"
         className="w-full py-2 rounded border px-3 outline-1 outline-PrimaryBlack/80 text-sm text-PrimaryBlack/90 font-semibold"
