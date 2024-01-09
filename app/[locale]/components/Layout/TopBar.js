@@ -12,9 +12,11 @@ import GermanFlag from "@/public/images/germany-flag.webp";
 import FrenchFlag from "@/public/images/french-flag.png";
 import SpanishFlag from "@/public/images/spanish-flag.png";
 import { toast } from "react-toastify";
+import IdiomProof from "../Profile/idiomProof";
 
 export default function TopbarComponent() {
   const [loading, setLoading] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const [dropdown, setDropdown] = useState(false);
@@ -46,7 +48,7 @@ export default function TopbarComponent() {
     if (!user) {
       router.push(pathname.slice(0, 3).concat("/login"));
     } else {
-      logOut();
+      setLogoutModal(true);
     }
   };
 
@@ -77,6 +79,16 @@ export default function TopbarComponent() {
 
   return (
     <>
+      {logoutModal && (
+        <IdiomProof
+          cancel={() => setLogoutModal(false)}
+          submit={() => {
+            setLogoutModal(false);
+            logOut();
+          }}
+          question={"Are you sure you want to sign out of your account?"}
+        />
+      )}
       {loading && <LoadingTwo />}
       <div className="px-28 flex w-full items-center border-b max-[1000px]:px-12 max-[800px]:px-0">
         <div className="w-11/12 h-14  grid grid-cols-7 max-[900px]:w-[80%]">

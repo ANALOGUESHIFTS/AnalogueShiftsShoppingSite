@@ -209,20 +209,20 @@ export default function UploadProduct({
             <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
               Product Benefits
             </p>
-            <div className="px-2 w-full flex justify-between items-center">
+            <div className="px-2 w-full flex justify-between flex-wrap gap-x-3 gap-y-3 items-center">
               <input
                 type="text"
                 placeholder="Enter Benefit"
                 value={benefit}
                 onChange={(e) => setBenifit(e.target.value)}
-                className="w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
+                className="lg:w-[200px] w-full outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
               />
               <button
                 onClick={() => {
                   setBenefits([...benefits, benefit]);
                   setBenifit("");
                 }}
-                className="text-sm text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
+                className="text-sm w-full lg:w-max text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
               >
                 Add Benefit&nbsp; <i className="fa-solid fa-plus"></i>
               </button>
@@ -256,20 +256,20 @@ export default function UploadProduct({
             <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
               Product Features
             </p>
-            <div className="px-2 w-full flex justify-between items-center">
+            <div className="px-2 w-full flex justify-between flex-wrap gap-x-3 gap-y-3 items-center">
               <input
                 type="text"
                 placeholder="Enter Feature"
                 value={feature}
                 onChange={(e) => setFeature(e.target.value)}
-                className="w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
+                className="w-full lg:w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
               />
               <button
                 onClick={() => {
                   setFeatures([...features, feature]);
                   setFeature("");
                 }}
-                className="text-sm text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
+                className="text-sm w-full lg:w-max text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
               >
                 Add Feature&nbsp; <i className="fa-solid fa-plus"></i>
               </button>
@@ -304,26 +304,26 @@ export default function UploadProduct({
             <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
               Product Colors
             </p>
-            <div className="px-2 w-full flex justify-between items-center">
+            <div className="px-2 w-full flex flex-wrap gap-x-3 gap-y-3 justify-between items-center">
               <input
                 type="text"
                 placeholder="Enter Color"
                 value={colorValue}
                 onChange={(e) => setColorValue(e.target.value)}
-                className="w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
+                className="w-full lg:w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
               />
               <button
                 onClick={() => {
                   setColorValue("");
                   setColors([...colors, colorValue]);
                 }}
-                className="text-sm text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
+                className="text-sm w-full lg:w-max text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
               >
                 Add Color&nbsp; <i className="fa-solid fa-plus"></i>
               </button>
             </div>
             {colors.length > 0 && (
-              <div className="py-2.5 px-3 flex flex-col gap-2">
+              <div className="py-2.5 px-3 flex flex-wrap gap-x-3 gap-y-3 flex-col gap-2">
                 {colors.map((data) => {
                   return (
                     <div
@@ -352,12 +352,12 @@ export default function UploadProduct({
             <p className="font-bold text-sm text-PrimaryBlack/90 pb-2">
               Product Sizes
             </p>
-            <div className="px-2 w-full flex justify-between items-center">
+            <div className="px-2 w-full flex flex-wrap gap-x-3 gap-y-3 justify-between items-center">
               <select
                 type="text"
                 value={sizeValue}
                 onChange={(e) => setSizeValue(e.target.value)}
-                className="w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
+                className="w-full lg:w-[200px] outline-1 border outline-PrimaryOrange py-2 px-2 text-sm text-PrimaryBlack/90"
               >
                 <option value="">Select size</option>
                 {availableSizes.map((data) => {
@@ -370,7 +370,7 @@ export default function UploadProduct({
               </select>
               <button
                 onClick={() => setSizes([...sizes, sizeValue])}
-                className="text-sm text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
+                className="text-sm w-full lg:w-max text-white px-5 py-2 bg-green-600 hover:bg-green-600/80"
               >
                 Add Size&nbsp; <i className="fa-solid fa-plus"></i>
               </button>
