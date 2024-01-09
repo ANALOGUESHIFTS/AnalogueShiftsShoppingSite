@@ -205,9 +205,12 @@ export default function ProfilePageDetails() {
         <section className="w-[calc(100%-300px)] h-auto bg-white rounded-lg max-[800px]:w-full max-[500px]:h-auto">
           <p className="text-PrimaryBlack/80 text-lg font-bold px-5 py-3 border-b text-center h-[50px] max-[800px]:text-left max-[800px]:flex max-[800px]:justify-between">
             {t("Account Overview")}
-            <p className="hidden max-[800px]:flex text-PrimaryBlack/80 cursor-pointer">
-              <i onClick={toggleMenu} className="fa-solid fa-bars "></i>
-            </p>
+            <span
+              onClick={toggleMenu}
+              className="hidden max-[800px]:flex text-PrimaryBlack/80 cursor-pointer"
+            >
+              <i className="fa-solid fa-bars "></i>
+            </span>
           </p>
           <div className="w-full grid grid-cols-2 max-[500px]:flex max-[500px]:flex-col">
             <div className="col-span-1 border-r h-[300px] max-[500px]:w-full max-[500px]:h-[250px] max-[500px]:border-r-0 max-[500px]:border-b">
