@@ -5,7 +5,7 @@ import BespokeForm from "./bespokeForm";
 export default function DetailScreen({ close, submit, selectedDate, back }) {
   const customRef = useRef();
   return (
-    <div className="w-full relative h-full bg-white p-5">
+    <div className="w-full relative h-full bg-white p-5 z-80">
       <i
         onClick={close}
         className="fa-solid fa-xmark text-lg absolute right-3 top-3 cursor-pointer text-PrimaryBlack/50 hover:text-PrimaryBlack/80"

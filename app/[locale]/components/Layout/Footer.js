@@ -50,11 +50,11 @@ export default function Footer() {
         })}
       </div>
       <div className="bg-PrimaryBlack border-b border-solid border-white/50 p-28 w-full grid grid-cols-10 max-[1000px]:px-12 max-[800px]:px-5 max-[800px]:py-20 max-[900px]:flex max-[900px]:flex-col max-[900px]:gap-5">
-        <div className="col-span-3 flex flex-col -translate-y-10">
+        <div className="col-span-3 flex flex-col ">
           <Link href={pathname.slice(0, 3).concat("/")}>
             <Image
               src={CinnamonLogo}
-              className="h-20 w-max scale-150"
+              className="h-24 w-max"
               alt="Cinnamon Logo"
             />
           </Link>

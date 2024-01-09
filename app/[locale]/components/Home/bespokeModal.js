@@ -64,7 +64,7 @@ export default function BespokeModal({ close }) {
 
   return (
     <div className="fixed top-0  left-0 w-screen h-screen bg-black/25 flex justify-center items-center">
-      <div className="w-[600px] max-[500px]:w-[90%] h-[500px] overflow-hidden rounded-xl">
+      <div className="w-[600px] max-[500px]:w-[90%] h-[500px] overflow-hidden rounded-xl z-70">
         {selectedScreen === "Pick Date" && (
           <PickDateScreen
             dates={availableDates}

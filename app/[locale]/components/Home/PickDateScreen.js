@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function PickDateScreen({ close, submit, dates }) {
   const [selectedDate, setSelectedDate] = useState("");
   return (
-    <div className="w-full relative h-full bg-[#eed6d0] flex flex-col items-center pt-12">
+    <div className="w-full z-80 relative h-full bg-[#eed6d0] flex flex-col items-center pt-12">
       <i
         onClick={close}
         className="fa-solid fa-xmark text-lg absolute right-3 top-3 cursor-pointer text-PrimaryBlack/50 hover:text-PrimaryBlack/80"
