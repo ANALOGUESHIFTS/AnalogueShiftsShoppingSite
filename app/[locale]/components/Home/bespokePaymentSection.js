@@ -29,6 +29,11 @@ export default function BespokePayment({
     tx_ref: txRef,
     amount: price,
     currency: currency,
+    subaccounts: [
+      {
+        id: process.env.NEXT_PUBLIC_SUBACCOUNTID,
+      },
+    ],
     payment_options: "card,mobilemoney,ussd",
     customer: {
       email: userInfo.email,

@@ -49,6 +49,11 @@ export default function CheckOutPageDetails() {
     tx_ref: txRef,
     amount: total,
     currency: currency,
+    subaccounts: [
+      {
+        id: process.env.NEXT_PUBLIC_SUBACCOUNTID
+      }
+    ],
     payment_options: "card,mobilemoney,ussd",
     customer: {
       email: user ? user.email : "",

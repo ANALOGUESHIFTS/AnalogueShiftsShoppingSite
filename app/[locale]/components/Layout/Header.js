@@ -109,9 +109,9 @@ export default function HeaderComponent() {
             className="relative cursor-pointer pl-4 h-[80px] flex items-center"
           >
             <div className="relative pt-1 pr-2">
-              <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
+              {/*  <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
                 <p className="text-white text-xs">{numberOfCart}</p>
-              </div>
+              </div> */}
               <i class="fa-solid fa-bag-shopping text-PrimaryBlack/80 text-xl"></i>
             </div>
           </div>
