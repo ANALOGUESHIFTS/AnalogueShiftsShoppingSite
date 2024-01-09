@@ -1,10 +1,10 @@
 "use client";
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import BespokeModal from "./bespokeModal";
+import { useTranslations } from "next-intl";
 
 export default function BespokeSection({ isLocked }) {
-  const { t, i18n } = useTranslation();
+  const t = useTranslations("Index");
   const [popUp, setPopUp] = useState(false);
 
   return (

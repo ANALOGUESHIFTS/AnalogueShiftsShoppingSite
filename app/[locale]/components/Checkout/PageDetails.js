@@ -51,8 +51,8 @@ export default function CheckOutPageDetails() {
     currency: currency,
     subaccounts: [
       {
-        id: process.env.NEXT_PUBLIC_SUBACCOUNTID
-      }
+        id: process.env.NEXT_PUBLIC_SUBACCOUNTID,
+      },
     ],
     payment_options: "card,mobilemoney,ussd",
     customer: {
@@ -185,7 +185,9 @@ export default function CheckOutPageDetails() {
       await decreaseQuantities();
       await deleteItemsFromCart();
       setLoading(false);
-      router.push(pathname.slice(0, 3).concat("/profile"));
+      router.push(
+        pathname.slice(0, 3).concat(pathname.slice(0, 3).concat("/profile"))
+      );
     } catch (err) {
       setLoading(false);
       console.log(err);

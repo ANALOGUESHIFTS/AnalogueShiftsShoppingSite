@@ -12,8 +12,6 @@ import { getDocs, collection, addDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 export default function ProfilePageDetails() {
-  const router = useRouter();
-  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
@@ -22,6 +20,8 @@ export default function ProfilePageDetails() {
   const [orders, setOrders] = useState([]);
   const [sessions, setSessions] = useState([]);
   const containerRef = useRef();
+  const router = useRouter();
+  const pathname = usePathname();
   const t = useTranslations("Index");
   const addressCollectionRef = collection(db, "addresses");
   const ordersCollectionRef = collection(db, "orders");

@@ -5,7 +5,7 @@ import { closePaymentModal, useFlutterwave } from "flutterwave-react-v3";
 import LoadingTwo from "../loadingTwo";
 import { db } from "../../config/firebase";
 import { collection, addDoc, doc, deleteDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function BespokePayment({
   close,
@@ -16,6 +16,7 @@ export default function BespokePayment({
 }) {
   const [price, setPrice] = useState(20);
   const router = useRouter();
+  const pathname = usePathname();
   const [currency, setCurrency] = useState("USD");
   const [loading, setLoading] = useState(false);
   const [txRef, setTxRef] = useState(`${Date.now()}${v4()}`);
@@ -93,7 +94,7 @@ export default function BespokePayment({
     try {
       await addDoc(sessionsCollectionRef, dataToAdd);
       await deleteDoc(doc(db, "availableDates", dateId));
-      router.push("/profile");
+      router.push(pathname.slice(0, 3).concat("/profile"));
     } catch (err) {
       console.log(err);
       setLoading(false);
