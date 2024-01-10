@@ -8,6 +8,7 @@ import {
   addDoc,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { v4 } from "uuid";
 import {
@@ -23,10 +24,13 @@ import Link from "next/link";
 import UploadProduct from "./uploadProduct";
 import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
+import EditProduct from "./EditProduct";
 
 export default function Products() {
   const t = useTranslations("Index");
   const [modal, setModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [valueToEdit, setValueToEdit] = useState(null);
   const [loading, setLoading] = useState(false);
   const [idiomModal, setIdiomModal] = useState(false);
   const [valueToDelete, setValueToDelete] = useState([]);
@@ -114,6 +118,10 @@ export default function Products() {
       await deleteDoc(productDoc);
       await deleteFiles(folder);
       await getProducts();
+      toast.success("Success!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -195,8 +203,8 @@ export default function Products() {
         colors: data.productColors,
         description: data.productDescription,
         name: data.productName,
-        priceAfter: Number(data.productPriceAfter),
-        priceBefore: Number(data.productPriceBefore),
+        priceAfter: data.productPriceAfter,
+        priceBefore: data.productPriceBefore,
         sizes: data.productSizes,
         productImagesFolder: data.productImagesFolder,
         availableQuantity: data.productQuantity,
@@ -206,10 +214,50 @@ export default function Products() {
       });
       await uploadFiles(data.productImages, data.productImagesFolder);
       await getProducts();
+      toast.success("Success!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } catch (err) {
       console.error(err);
       setLoading(false);
       toast.error("Error Adding Product", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const editProduct = async (data) => {
+    setLoading(true);
+    const productDoc = doc(db, "products", data.mainId);
+    try {
+      await updateDoc(productDoc, {
+        brand: data.productBrand,
+        category: data.productCategory,
+        colors: data.productColors,
+        description: data.productDescription,
+        name: data.productName,
+        priceAfter: data.productPriceAfter,
+        priceBefore: data.productPriceBefore,
+        sizes: data.productSizes,
+        productImagesFolder: data.productImagesFolder,
+        availableQuantity: data.productQuantity,
+        features: data.features,
+        benefits: data.benefits,
+        whyUserShouldPurchase: data.whyUserShouldPurchase,
+      });
+      await uploadFiles(data.productImages, data.productImagesFolder);
+      await deleteFiles(data.initialProductImagesFolder);
+      await getProducts();
+      toast.success("Success!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      toast.error("Error Editing Product", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -239,6 +287,14 @@ export default function Products() {
     }, 5000);
   }, [pictures, initialProducts]);
 
+  useEffect(() => {
+    if (valueToEdit) {
+      setEditModal(true);
+    } else {
+      setEditModal(false);
+    }
+  }, [valueToEdit]);
+
   return (
     <>
       {idiomModal && (
@@ -261,6 +317,23 @@ export default function Products() {
             setModal(false);
             addProduct(data);
           }}
+        />
+      )}
+      {editModal && (
+        <EditProduct
+          cancel={() => {
+            setEditModal(false);
+            setValueToEdit(null);
+          }}
+          availableBrands={brands}
+          availableCategories={categories}
+          availableSizes={sizes}
+          submit={(data) => {
+            setEditModal(false);
+            setValueToEdit(null);
+            editProduct(data);
+          }}
+          data={valueToEdit}
         />
       )}
       {loading && <LoadingTwo />}
@@ -290,7 +363,14 @@ export default function Products() {
                     src={data.productPictures[0]}
                     className="absolute top-0 object-cover left-0 w-full h-80"
                   />
+
                   <div className="productImageBox w-full h-80 max-[900px]:h-96 bg-cover bg-no-repeat overflow-hidden relative">
+                    <button
+                      onClick={() => setValueToEdit(data)}
+                      className="favouriteButton cursor-pointer opacity-0 border-none duration-300 -translate-y-8 absolute top-5 right-5 bg-transparent text-PrimaryBlack"
+                    >
+                      <i className="fa-regular fa-edit text-lg"></i>
+                    </button>
                     <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
                       <button
                         onClick={() => {

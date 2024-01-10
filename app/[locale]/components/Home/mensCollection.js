@@ -59,9 +59,6 @@ export default function MensCollection({ products }) {
                             }}
                             className="productImageBox bg-center w-full h-80 bg-cover bg-no-repeat overflow-hidden relative"
                           >
-                            <button className="favouriteButton border-none duration-300 -translate-y-14 absolute top-5 right-5 bg-transparent text-PrimaryBlack">
-                              <i className="fa-regular fa-heart text-lg"></i>
-                            </button>
                             <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
                               <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
                                 <i className="fa-solid fa-bag-shopping"></i>

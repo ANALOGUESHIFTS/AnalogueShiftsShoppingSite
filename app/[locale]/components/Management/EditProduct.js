@@ -1,31 +1,34 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { v4 } from "uuid";
 
-export default function UploadProduct({
+export default function EditProduct({
   submit,
   cancel,
   availableSizes,
   availableCategories,
   availableBrands,
+  data,
 }) {
   const [opacity, setOpacity] = useState(0);
 
   //Product to add
-  const [name, setName] = useState("");
+  const [name, setName] = useState(data.name);
   const [images, setImages] = useState([]);
-  const [description, setDescription] = useState("");
-  const [priceBefore, setPriceBefore] = useState(0);
-  const [priceAfter, setPriceAfter] = useState(0);
-  const [colors, setColors] = useState([]);
-  const [sizes, setSizes] = useState([]);
-  const [benefits, setBenefits] = useState([]);
-  const [features, setFeatures] = useState([]);
-  const [category, setCategory] = useState("");
-  const [brand, setBrand] = useState("");
-  const [quantity, setQuantity] = useState(0);
-  const [whyBuyThisProduct, setWhyBuyThisProduct] = useState("");
+  const [description, setDescription] = useState(data.description);
+  const [priceBefore, setPriceBefore] = useState(data.priceBefore);
+  const [priceAfter, setPriceAfter] = useState(data.priceAfter);
+  const [colors, setColors] = useState(data.colors);
+  const [sizes, setSizes] = useState(data.sizes);
+  const [benefits, setBenefits] = useState(data.benefits);
+  const [features, setFeatures] = useState(data.features);
+  const [category, setCategory] = useState(data.category);
+  const [brand, setBrand] = useState(data.brand);
+  const [quantity, setQuantity] = useState(data.availableQuantity);
+  const [whyBuyThisProduct, setWhyBuyThisProduct] = useState(
+    data.whyUserShouldPurchase
+  );
 
   //Tracker
   const [colorValue, setColorValue] = useState("");
@@ -52,6 +55,8 @@ export default function UploadProduct({
       whyUserShouldPurchase: whyBuyThisProduct,
       features: features,
       benefits: benefits,
+      mainId: data.id,
+      initialProductImagesFolder: data.productImagesFolder,
     });
   };
 

@@ -159,6 +159,9 @@ body{
   .productImageBox:hover .favouriteButton, .productImageBox:hover .menu-row{
     transform: translateY(0px);
   }
+  .productImageBox:hover .favouriteButton{
+    opacity: 1;
+  }
   #priceBefore::before{
   content: "";
   width: 100%;
