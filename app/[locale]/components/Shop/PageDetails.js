@@ -291,7 +291,6 @@ export default function ShopPageDetails() {
                       }}
                       className="productImageBox w-full bg-center h-80 max-[900px]:h-96 bg-cover bg-no-repeat overflow-hidden relative"
                     >
-                     
                       <div className="flex w-[80%] absolute bottom-0 left-[10%] gap-[2%] duration-300 translate-y-20 h-12 menu-row">
                         <button className="h-full w-[20%] bg-PrimaryOrange flex justify-center items-center text-white">
                           <i className="fa-solid fa-bag-shopping"></i>

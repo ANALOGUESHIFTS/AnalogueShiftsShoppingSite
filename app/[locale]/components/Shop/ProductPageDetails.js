@@ -257,95 +257,106 @@ export default function ProductPageDetails({ id }) {
               <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
                 {item.description}
               </p>
-              <div className="pt-4">
-                <p className="text-PrimaryBlack text-xl font-bold pb-2">
-                  Why buy {item.name}?
-                </p>
-                <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
-                  {item.whyUserShouldPurchase}
-                </p>
-              </div>
-              <div className="pt-4">
-                <p className="text-PrimaryBlack text-xl font-bold pb-2">
-                  Benifits
-                </p>
-                <ul className="w-full pl-2.5 flex flex-col gap-2">
-                  {item.benefits.map((b) => {
-                    return (
-                      <li
-                        key={b}
-                        className="text-PrimaryBlack/80 font-semibold text-sm pt-3 list-disc ml-3"
-                      >
-                        {b}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className="pt-4">
-                <p className="text-PrimaryBlack text-xl font-bold pb-2">
-                  Features
-                </p>
-                <ul className="w-full pl-2.5 flex flex-col gap-2">
-                  {item.features.map((b) => {
-                    return (
-                      <li
-                        key={b}
-                        className="text-PrimaryBlack/80 font-semibold text-sm pt-3 list-disc ml-3"
-                      >
-                        {b}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+              {item.whyUserShouldPurchase && (
+                <div className="pt-4">
+                  <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                    Why buy {item.name}?
+                  </p>
+                  <p className="text-PrimaryBlack/80 font-semibold text-sm pt-3">
+                    {item.whyUserShouldPurchase}
+                  </p>
+                </div>
+              )}
+              {item.benefits[0] && (
+                <div className="pt-4">
+                  <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                    Benifits
+                  </p>
+                  <ul className="w-full pl-2.5 flex flex-col gap-2">
+                    {item.benefits.map((b) => {
+                      return (
+                        <li
+                          key={b}
+                          className="text-PrimaryBlack/80 font-semibold text-sm pt-3 list-disc ml-3"
+                        >
+                          {b}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+              {item.features[0] && (
+                <div className="pt-4">
+                  <p className="text-PrimaryBlack text-xl font-bold pb-2">
+                    Features
+                  </p>
+                  <ul className="w-full pl-2.5 flex flex-col gap-2">
+                    {item.features.map((b) => {
+                      return (
+                        <li
+                          key={b}
+                          className="text-PrimaryBlack/80 font-semibold text-sm pt-3 list-disc ml-3"
+                        >
+                          {b}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
 
               <p className="text-PrimaryBlack/80 pt-4 font-semibold text-sm pb-3">
                 {"Available Quantity"}: {item.availableQuantity}
               </p>
-              <div className="pt-3">
-                <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
-                  {t("Color")}: {selectedColor}
-                </p>
-                <div className="flex w-full flex-wrap gap-1.5">
-                  {item.colors &&
-                    item.colors.map((color) => {
-                      return (
-                        <div
-                          key={v4()}
-                          onClick={() => setSelectedColor(color)}
-                          className="w-6 h-6 flex justify-center items-center rounded-[50%] hover:border hover:border-solid hover:border-black/70 cursor-pointer"
-                        >
+
+              {item.colors[0] && (
+                <div className="pt-3">
+                  <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
+                    {t("Color")}: {selectedColor}
+                  </p>
+                  <div className="flex w-full flex-wrap gap-1.5">
+                    {item.colors &&
+                      item.colors.map((color) => {
+                        return (
                           <div
-                            style={{ backgroundColor: `${color}` }}
-                            className="w-5 h-5 rounded-[50%]"
-                          ></div>
-                        </div>
-                      );
-                    })}
+                            key={v4()}
+                            onClick={() => setSelectedColor(color)}
+                            className="w-6 h-6 flex justify-center items-center rounded-[50%] hover:border hover:border-solid hover:border-black/70 cursor-pointer"
+                          >
+                            <div
+                              style={{ backgroundColor: `${color}` }}
+                              className="w-5 h-5 rounded-[50%]"
+                            ></div>
+                          </div>
+                        );
+                      })}
+                  </div>
                 </div>
-              </div>
-              <div className="pt-3">
-                <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
-                  {t("Size")}: {selectedSize}
-                </p>
-                <div className="flex w-full flex-wrap gap-1.5">
-                  {item.sizes &&
-                    item.sizes.map((size) => {
-                      return (
-                        <div
-                          key={v4()}
-                          onClick={() => setSelectedSize(size)}
-                          className="w-14 h-9 rounded flex justify-center items-center border border-solid border-black/20 cursor-pointer"
-                        >
-                          <p className="text-lg font-bold text-PrimaryBlack">
-                            {size}
-                          </p>
-                        </div>
-                      );
-                    })}
+              )}
+              {item.sizes[0] && (
+                <div className="pt-3">
+                  <p className="text-PrimaryBlack/80 font-semibold text-sm pt-1 pb-3">
+                    {t("Size")}: {selectedSize}
+                  </p>
+                  <div className="flex w-full flex-wrap gap-1.5">
+                    {item.sizes &&
+                      item.sizes.map((size) => {
+                        return (
+                          <div
+                            key={v4()}
+                            onClick={() => setSelectedSize(size)}
+                            className="w-14 h-9 rounded flex justify-center items-center border border-solid border-black/20 cursor-pointer"
+                          >
+                            <p className="text-lg font-bold text-PrimaryBlack">
+                              {size}
+                            </p>
+                          </div>
+                        );
+                      })}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div className=" flex flex-col w-auto items-center">
               <p className="pb-3 text-PrimaryBlack text-base font-semibold">

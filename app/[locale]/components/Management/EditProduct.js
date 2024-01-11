@@ -71,7 +71,7 @@ export default function EditProduct({
     >
       <div className="bg-white duration-500 rounded-lg max-w-[90%] w-[600px] h-[500px] overflow-y-auto">
         <div className="w-full h-[50px] border-b flex justify-between items-center px-4">
-          <p className="text-PrimaryBlack/90 text-sm font-bold">Add Product</p>
+          <p className="text-PrimaryBlack/90 text-sm font-bold">Edit Product</p>
           <i
             onClick={cancel}
             className="fa-solid fa-xmark cursor-pointer text-PrimaryBlack/80"
@@ -422,7 +422,7 @@ export default function EditProduct({
             onClick={handleSubmit}
             className="w-full font-bold text-white text-sm py-2 flex justify-center bg-PrimaryOrange hover:bg-PrimaryOrange/80"
           >
-            Add Product
+            Edit Product
           </button>
         </div>
       </div>
