@@ -230,7 +230,7 @@ export default function ShopPageDetails() {
               <p className="text-PrimaryBlack text-2xl font-bold pb-5">
                 {t("Size")}
               </p>
-              <div className="w-full flex gap-3 items-center">
+              <div className="w-full flex gap-x-3 gap-y-3 items-center flex-wrap">
                 {sizes.map((size) => {
                   return (
                     <div
