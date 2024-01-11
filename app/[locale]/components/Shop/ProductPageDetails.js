@@ -202,7 +202,7 @@ export default function ProductPageDetails({ id }) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        getCartData(user.email);
+        //getCartData(user.email);
       }
     });
     fetchProducts();
@@ -362,7 +362,7 @@ export default function ProductPageDetails({ id }) {
               <p className="pb-3 text-PrimaryBlack text-base font-semibold">
                 {t("Quantity")}
               </p>
-              {!isExistingInCart && (
+            
                 <div className="flex w-auto pb-4">
                   <button
                     onClick={() =>
@@ -382,8 +382,8 @@ export default function ProductPageDetails({ id }) {
                     +
                   </button>
                 </div>
-              )}
-              {isExistingInCart && (
+            
+              {/*isExistingInCart && (
                 <div className="flex w-auto pb-4">
                   <button
                     onClick={() =>
@@ -421,8 +421,8 @@ export default function ProductPageDetails({ id }) {
                     +
                   </button>
                 </div>
-              )}
-              {!isExistingInCart && (
+              )*/}
+            
                 <button
                   onClick={() => {
                     if (user) {
@@ -455,7 +455,7 @@ export default function ProductPageDetails({ id }) {
                 >
                   {t("ADD TO CART")}
                 </button>
-              )}
+              
             </div>
           </div>
         )}
@@ -471,7 +471,7 @@ export default function ProductPageDetails({ id }) {
                 <Link
                   href={pathname
                     .slice(0, 3)
-                    .concat(`/product-details/${data.id}`)}
+                    .concat(`/shop/${data.id}`)}
                   className="w-[31.3%] flex flex-col max-[900px]:w-full "
                   key={v4()}
                 >
