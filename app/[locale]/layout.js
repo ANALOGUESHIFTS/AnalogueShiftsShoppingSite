@@ -1,16 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Footer from "./components/Layout/Footer";
-import NavBarComponent from "./components/Layout/NavBar";
 import Script from "next/script";
-import TopbarComponent from "./components/Layout/TopBar";
-import HeaderComponent from "./components/Layout/Header";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 
-//Toastify
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Structure from "./components/Layout/Structure";
 
 // Can be imported from a shared config
 const locales = ["en", "de", "es", "fr"];
@@ -51,14 +45,7 @@ export default function RootLayout({ children, params: { locale } }) {
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <main className="w-full">
-            <ToastContainer position="top-center" />
-            <TopbarComponent />
-            <HeaderComponent />
-            <NavBarComponent />
-            {children}
-            <Footer />
-          </main>
+          <Structure children={children} />
         </NextIntlClientProvider>
       </body>
       <Script

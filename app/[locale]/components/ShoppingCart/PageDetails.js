@@ -17,6 +17,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { useCart } from "../../contexts/CartContext";
 
 export default function ShoppingCartPageDetails() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function ShoppingCartPageDetails() {
   const t = useTranslations("Index");
   const cartCollectionRef = collection(db, "cartDatas");
   const [pictures, setPictures] = useState([]);
+  const { cartNumber, updateCartNumber } = useCart();
 
   const getImage = async (folder) => {
     let images = [];
@@ -85,6 +87,7 @@ export default function ShoppingCartPageDetails() {
       let userData = data.docs.filter((data) => {
         return data.data().email === user.email;
       });
+      updateCartNumber(userData.length);
       for (let folder of userData) {
         await getImage(folder.data().imagesFolder);
       }

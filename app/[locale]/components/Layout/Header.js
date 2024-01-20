@@ -12,6 +12,7 @@ import { db } from "../../config/firebase";
 import { collection } from "firebase/firestore";
 
 import SearchDropdown from "./SearchDropdown";
+import { useCart } from "../../contexts/CartContext";
 
 export default function HeaderComponent() {
   const [searchValue, setSearchValue] = useState("");
@@ -22,8 +23,7 @@ export default function HeaderComponent() {
   const [categories, setCategories] = useState(["All Categories"]);
   const cartCollectionRef = collection(db, "cartDatas");
   const [dropdownModal, setDropDownModal] = useState(false);
-
-  const [numberOfCart, setNumberOfCart] = useState(0);
+  const { cartNumber, updateCartNumber } = useCart();
 
   const getData = async () => {
     try {
@@ -31,7 +31,7 @@ export default function HeaderComponent() {
       let userData = data.docs.filter((data) => {
         return data.data().email === user.email;
       });
-      setNumberOfCart(userData.length);
+      updateCartNumber(userData.length);
     } catch (err) {
       console.error(err);
     }
@@ -44,7 +44,7 @@ export default function HeaderComponent() {
         getData();
       } else {
         setUser(null);
-        setNumberOfCart(0);
+        updateCartNumber(0);
       }
     });
   }, []);
@@ -109,9 +109,9 @@ export default function HeaderComponent() {
             className="relative cursor-pointer pl-4 h-[80px] flex items-center"
           >
             <div className="relative pt-1 pr-2">
-              {/*  <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
-                <p className="text-white text-xs">{numberOfCart}</p>
-              </div> */}
+              <div className="absolute top-0 right-0 w-4 h-4 flex justify-center items-center rounded-[50%] bg-PrimaryOrange">
+                <p className="text-white text-xs">{cartNumber}</p>
+              </div>
               <i class="fa-solid fa-bag-shopping text-PrimaryBlack/80 text-xl"></i>
             </div>
           </div>

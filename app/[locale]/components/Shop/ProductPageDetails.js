@@ -18,6 +18,7 @@ import {
 import { v4 } from "uuid";
 import CustomSlide from "./slide";
 import { toast } from "react-toastify";
+import { useCart } from "../../contexts/CartContext";
 
 export default function ProductPageDetails({ id }) {
   const [isExistingInCart, setIsExistingInCart] = useState(false);
@@ -36,6 +37,7 @@ export default function ProductPageDetails({ id }) {
   const t = useTranslations("Index");
   const cartCollectionRef = collection(db, "cartDatas");
   const [user, setUser] = useState(null);
+  const { cartNumber, updateCartNumber } = useCart();
 
   //Related Products
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -93,10 +95,23 @@ export default function ProductPageDetails({ id }) {
     }
   };
 
+  const updateCartItems = async () => {
+    try {
+      const data = await getDocs(cartCollectionRef);
+      let userData = data.docs.filter((data) => {
+        return data.data().email === user.email;
+      });
+      updateCartNumber(userData.length);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const addToCart = async (data) => {
     setLoading(true);
     try {
       await addDoc(cartCollectionRef, data);
+      await updateCartItems();
       toast.success("Item Added To Cart", {
         position: "top-right",
         autoClose: 3000,
@@ -362,27 +377,27 @@ export default function ProductPageDetails({ id }) {
               <p className="pb-3 text-PrimaryBlack text-base font-semibold">
                 {t("Quantity")}
               </p>
-            
-                <div className="flex w-auto pb-4">
-                  <button
-                    onClick={() =>
-                      setQuantity((prev) => Math.max((prev -= 1), 1))
-                    }
-                    className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
-                  >
-                    -
-                  </button>
-                  <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm r">
-                    {quantity}
-                  </p>
-                  <button
-                    onClick={() => setQuantity((prev) => (prev += 1))}
-                    className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl"
-                  >
-                    +
-                  </button>
-                </div>
-            
+
+              <div className="flex w-auto pb-4">
+                <button
+                  onClick={() =>
+                    setQuantity((prev) => Math.max((prev -= 1), 1))
+                  }
+                  className="border-none bg-transparent text-PrimaryBlack/40 font-bold text-2xl flex px-5 h-full items-center max-[900px]:text-xl"
+                >
+                  -
+                </button>
+                <p className="px-5 h-full flex items-center text-PrimaryBlack/70 font-semibold max-[900px]:text-sm r">
+                  {quantity}
+                </p>
+                <button
+                  onClick={() => setQuantity((prev) => (prev += 1))}
+                  className="border-none bg-transparent text-PrimaryBlack/40 flex font-bold text-2xl px-5 h-full items-center max-[900px]:text-xl"
+                >
+                  +
+                </button>
+              </div>
+
               {/*isExistingInCart && (
                 <div className="flex w-auto pb-4">
                   <button
@@ -422,40 +437,39 @@ export default function ProductPageDetails({ id }) {
                   </button>
                 </div>
               )*/}
-            
-                <button
-                  onClick={() => {
-                    if (user) {
-                      if (item.availableQuantity >= quantity) {
-                        addToCart({
-                          email: user.email,
-                          quantity: quantity,
-                          size: selectedSize,
-                          color: selectedColor,
-                          productName: item.name,
-                          imagesFolder: item.productImagesFolder,
-                          price: item.priceAfter,
-                          productId: id,
-                        });
-                      } else {
-                        toast.error(
-                          "Product Quantity is not enough, please reduce the quantity",
-                          {
-                            position: "top-right",
-                            autoClose: 3000,
-                          }
-                        );
-                      }
+
+              <button
+                onClick={() => {
+                  if (user) {
+                    if (item.availableQuantity >= quantity) {
+                      addToCart({
+                        email: user.email,
+                        quantity: quantity,
+                        size: selectedSize,
+                        color: selectedColor,
+                        productName: item.name,
+                        imagesFolder: item.productImagesFolder,
+                        price: item.priceAfter,
+                        productId: id,
+                      });
                     } else {
-                      router.push(pathname.slice(0, 3).concat("/login"));
+                      toast.error(
+                        "Product Quantity is not enough, please reduce the quantity",
+                        {
+                          position: "top-right",
+                          autoClose: 3000,
+                        }
+                      );
                     }
-                  }}
-                  disabled={quantity < 1}
-                  className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"
-                >
-                  {t("ADD TO CART")}
-                </button>
-              
+                  } else {
+                    router.push(pathname.slice(0, 3).concat("/login"));
+                  }
+                }}
+                disabled={quantity < 1}
+                className="border-none bg-PrimaryOrange flex items-center justify-center text-base font-bold text-white px-8 py-2 duration-300 hover:bg-PrimaryOrange/80"
+              >
+                {t("ADD TO CART")}
+              </button>
             </div>
           </div>
         )}
@@ -469,9 +483,7 @@ export default function ProductPageDetails({ id }) {
             {relatedProducts.map((data) => {
               return (
                 <Link
-                  href={pathname
-                    .slice(0, 3)
-                    .concat(`/shop/${data.id}`)}
+                  href={pathname.slice(0, 3).concat(`/shop/${data.id}`)}
                   className="w-[31.3%] flex flex-col max-[900px]:w-full "
                   key={v4()}
                 >
